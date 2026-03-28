@@ -50,15 +50,21 @@ Before you start, make sure you have:
 
 #### Install CLI
 
-**From npm (recommended):**
+Choose **one** of the following methods:
+
+**Option 1 — From npm (recommended):**
 
 ```bash
 npm install -g @larksuite/cli
 ```
 
-**From source:**
+**Option 2 — From source:**
+
+Requires Go `v1.23`+ and Python 3.
 
 ```bash
+git clone https://github.com/larksuite/cli.git
+cd cli
 make install
 ```
 

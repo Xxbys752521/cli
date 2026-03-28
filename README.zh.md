@@ -50,15 +50,21 @@
 
 #### 安装 CLI
 
-**从 npm 安装（推荐）：**
+以下两种方式**任选其一**：
+
+**方式一 — 从 npm 安装（推荐）：**
 
 ```bash
 npm install -g @larksuite/cli
 ```
 
-**从源码安装：**
+**方式二 — 从源码安装：**
+
+需要 Go `v1.23`+ 和 Python 3。
 
 ```bash
+git clone https://github.com/larksuite/cli.git
+cd cli
 make install
 ```
 
