@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "doc_id": "MUlrdNBH0o7ymPxYl7zcEcj5nqd",
+    "length": 503,
+    "log_id": "202603301216318ED9BE9904803FE7536F",
+    "markdown": "## 回写记录：CASE-A\\n- 结果：自动答疑命中历史案例并解决\\n- 备注：用户补充私有化环境和无权限信息后可直接命中知识库。\n## 案例 2：新员工打开外部知识库为空白页\\n- 现象：外部知识库链接打开空白，重新登录无效\\n- 原因：知识库可见范围未包含该员工，同时浏览器保留旧租户缓存\\n- 处理建议：补充知识库可见范围，清理浏览器缓存后重新登录\\n- 来源：CASE-B 人工处理回写\n",
+    "message": "Document fetched successfully",
+    "offset": 0,
+    "title": "状态机Demo知识库-20260330_121533",
+    "total_length": 199
+  }
+}

@@ -32,12 +32,13 @@ type AppUser struct {
 
 // AppConfig is a per-app configuration entry (stored format — secrets may be unresolved).
 type AppConfig struct {
-	AppId     string      `json:"appId"`
-	AppSecret SecretInput `json:"appSecret"`
-	Brand     LarkBrand   `json:"brand"`
-	Lang      string      `json:"lang,omitempty"`
-	DefaultAs string      `json:"defaultAs,omitempty"` // "user" | "bot" | "auto"
-	Users     []AppUser   `json:"users"`
+	AppId     string             `json:"appId"`
+	AppSecret SecretInput        `json:"appSecret"`
+	Brand     LarkBrand          `json:"brand"`
+	Lang      string             `json:"lang,omitempty"`
+	DefaultAs string             `json:"defaultAs,omitempty"` // "user" | "bot" | "auto"
+	Endpoints *EndpointOverrides `json:"endpoints,omitempty"` // private deployment overrides
+	Users     []AppUser          `json:"users"`
 }
 
 // MultiAppConfig is the multi-app config file format.
@@ -111,6 +112,9 @@ func RequireConfig(kc keychain.KeychainAccess) (*CliConfig, error) {
 		return nil, &ConfigError{Code: 2, Type: "config", Message: "not configured", Hint: "run `lark-cli config init --new` in the background. It blocks and outputs a verification URL — retrieve the URL and open it in a browser to complete setup."}
 	}
 	app := raw.Apps[0]
+	if app.Endpoints != nil {
+		SetEndpointOverrides(app.Endpoints)
+	}
 	secret, err := ResolveSecretInput(app.AppSecret, kc)
 	if err != nil {
 		return nil, &ConfigError{Code: 2, Type: "config", Message: err.Error()}

@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "created": true,
+    "field": {
+      "id": "fldUHQpjZB",
+      "name": "处理结论",
+      "style": {
+        "type": "plain"
+      },
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "record": {
+      "update": {
+        "当前状态": [
+          "已结束"
+        ]
+      }
+    },
+    "updated": true
+  }
+}

@@ -20,22 +20,52 @@ type Endpoints struct {
 	MCP      string // e.g. "https://mcp.feishu.cn"
 }
 
-// ResolveEndpoints resolves endpoint URLs based on brand.
+// EndpointOverrides allows overriding resolved endpoints for private deployments.
+// Configured via the "endpoints" field in config.json.
+type EndpointOverrides struct {
+	Open     string `json:"open,omitempty"`
+	Accounts string `json:"accounts,omitempty"`
+	MCP      string `json:"mcp,omitempty"`
+}
+
+// endpointOverrides holds the global endpoint overrides set from config.
+var endpointOverrides *EndpointOverrides
+
+// SetEndpointOverrides sets global endpoint overrides for private deployments.
+func SetEndpointOverrides(o *EndpointOverrides) {
+	endpointOverrides = o
+}
+
+// ResolveEndpoints resolves endpoint URLs based on brand,
+// then applies any global endpoint overrides from config.
 func ResolveEndpoints(brand LarkBrand) Endpoints {
+	var ep Endpoints
 	switch brand {
 	case BrandLark:
-		return Endpoints{
+		ep = Endpoints{
 			Open:     "https://open.larksuite.com",
 			Accounts: "https://accounts.larksuite.com",
 			MCP:      "https://mcp.larksuite.com",
 		}
 	default:
-		return Endpoints{
+		ep = Endpoints{
 			Open:     "https://open.feishu.cn",
 			Accounts: "https://accounts.feishu.cn",
 			MCP:      "https://mcp.feishu.cn",
 		}
 	}
+	if endpointOverrides != nil {
+		if endpointOverrides.Open != "" {
+			ep.Open = endpointOverrides.Open
+		}
+		if endpointOverrides.Accounts != "" {
+			ep.Accounts = endpointOverrides.Accounts
+		}
+		if endpointOverrides.MCP != "" {
+			ep.MCP = endpointOverrides.MCP
+		}
+	}
+	return ep
 }
 
 // ResolveOpenBaseURL returns the Open API base URL for the given brand.

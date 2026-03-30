@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "doc_id": "MUlrdNBH0o7ymPxYl7zcEcj5nqd",
+    "length": 165,
+    "log_id": "2026033012161702E59E47351720EA40C3",
+    "markdown": "## 回写记录：CASE-A\\n- 结果：自动答疑命中历史案例并解决\\n- 备注：用户补充私有化环境和无权限信息后可直接命中知识库。\n",
+    "message": "Document fetched successfully",
+    "offset": 0,
+    "title": "状态机Demo知识库-20260330_121533",
+    "total_length": 67
+  }
+}

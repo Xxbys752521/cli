@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "created": true,
+    "field": {
+      "id": "fldLFfKWft",
+      "name": "知识库链接",
+      "style": {
+        "type": "plain"
+      },
+      "type": "text"
+    }
+  }
+}

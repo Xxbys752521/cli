@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"sort"
 	"strings"
 	"time"
@@ -32,6 +33,7 @@ type LoginOptions struct {
 	Domains    []string
 	NoWait     bool
 	DeviceCode string
+	Web        bool
 }
 
 // NewCmdAuthLogin creates the auth login subcommand.
@@ -62,6 +64,7 @@ browser. Run it in the background and retrieve the verification URL from its out
 	cmd.Flags().BoolVar(&opts.JSON, "json", false, "structured JSON output")
 	cmd.Flags().BoolVar(&opts.NoWait, "no-wait", false, "initiate device authorization and return immediately; use --device-code to complete")
 	cmd.Flags().StringVar(&opts.DeviceCode, "device-code", "", "poll and complete authorization with a device code from a previous --no-wait call")
+	cmd.Flags().BoolVar(&opts.Web, "web", false, "use browser-based Authorization Code flow (for private deployments without Device Flow)")
 
 	_ = cmd.RegisterFlagCompletionFunc("domain", func(_ *cobra.Command, _ []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 		return completeDomain(toComplete), cobra.ShellCompDirectiveNoFileComp
@@ -213,13 +216,24 @@ func authLoginRun(opts *LoginOptions) error {
 		finalScope = strings.Join(candidateScopes, " ")
 	}
 
-	// Step 1: Request device authorization
 	httpClient, err := f.HttpClient()
 	if err != nil {
 		return err
 	}
+
+	// --web: use browser-based Authorization Code flow
+	if opts.Web {
+		return authLoginWeb(opts, config, finalScope, httpClient, msg, log)
+	}
+
+	// Step 1: Request device authorization
 	authResp, err := larkauth.RequestDeviceAuthorization(httpClient, config.AppID, config.AppSecret, config.Brand, finalScope, f.IOStreams.ErrOut)
 	if err != nil {
+		// If device flow returns 404, suggest --web flag
+		if strings.Contains(err.Error(), "404") {
+			log("Device Flow not available on this server. Trying --web (Authorization Code flow)...")
+			return authLoginWeb(opts, config, finalScope, httpClient, msg, log)
+		}
 		return output.ErrAuth("device authorization failed: %v", err)
 	}
 
@@ -267,34 +281,84 @@ func authLoginRun(opts *LoginOptions) error {
 		return output.ErrAuth("authorization failed: %s", result.Message)
 	}
 
-	// Step 6: Get user info
+	return saveLoginResult(opts, config, result.Token, msg, log)
+}
+
+// authLoginWeb performs the Authorization Code flow with a local HTTP callback server.
+func authLoginWeb(opts *LoginOptions, config *core.CliConfig, scope string, httpClient *http.Client, msg *loginMsg, log func(string, ...interface{})) error {
+	f := opts.Factory
+
+	server, err := larkauth.NewAuthCodeServer()
+	if err != nil {
+		return output.ErrAuth("failed to start callback server: %v", err)
+	}
+	defer server.Close()
+
+	authorizeURL := larkauth.BuildAuthorizeURL(config.Brand, config.AppID, server.RedirectURI(), server.State(), scope)
+
+	if opts.JSON {
+		b, _ := json.Marshal(map[string]interface{}{
+			"event":         "web_authorization",
+			"authorize_url": authorizeURL,
+			"redirect_uri":  server.RedirectURI(),
+		})
+		fmt.Fprintln(f.IOStreams.Out, string(b))
+	} else {
+		fmt.Fprintf(f.IOStreams.ErrOut, "\nOpen this URL in your browser to authorize:\n\n  %s\n\n", authorizeURL)
+	}
+
+	log("Waiting for browser authorization...")
+
+	code, err := server.WaitForCode(opts.Ctx)
+	if err != nil {
+		return output.ErrAuth("authorization failed: %v", err)
+	}
+
+	log("Authorization code received, exchanging for token...")
+
+	result, err := larkauth.ExchangeAuthCode(httpClient, config.AppID, config.AppSecret, config.Brand, code, server.RedirectURI())
+	if err != nil {
+		return output.ErrAuth("token exchange failed: %v", err)
+	}
+	if !result.OK {
+		return output.ErrAuth("token exchange failed: %s", result.Message)
+	}
+
+	return saveLoginResult(opts, config, result.Token, msg, log)
+}
+
+// saveLoginResult stores the token and updates config after successful login (shared by device flow and web flow).
+func saveLoginResult(opts *LoginOptions, config *core.CliConfig, token *larkauth.DeviceFlowTokenData, msg *loginMsg, log func(string, ...interface{})) error {
+	f := opts.Factory
+
+	// Get user info
 	log(msg.AuthSuccess)
 	sdk, err := f.LarkClient()
 	if err != nil {
 		return output.ErrAuth("failed to get SDK: %v", err)
 	}
-	openId, userName, err := getUserInfo(opts.Ctx, sdk, result.Token.AccessToken)
+	openId, userName, err := getUserInfo(opts.Ctx, sdk, token.AccessToken)
 	if err != nil {
 		return output.ErrAuth("failed to get user info: %v", err)
 	}
 
-	// Step 7: Store token
+	// Store token
 	now := time.Now().UnixMilli()
 	storedToken := &larkauth.StoredUAToken{
 		UserOpenId:       openId,
 		AppId:            config.AppID,
-		AccessToken:      result.Token.AccessToken,
-		RefreshToken:     result.Token.RefreshToken,
-		ExpiresAt:        now + int64(result.Token.ExpiresIn)*1000,
-		RefreshExpiresAt: now + int64(result.Token.RefreshExpiresIn)*1000,
-		Scope:            result.Token.Scope,
+		AccessToken:      token.AccessToken,
+		RefreshToken:     token.RefreshToken,
+		ExpiresAt:        now + int64(token.ExpiresIn)*1000,
+		RefreshExpiresAt: now + int64(token.RefreshExpiresIn)*1000,
+		Scope:            token.Scope,
 		GrantedAt:        now,
 	}
 	if err := larkauth.SetStoredToken(storedToken); err != nil {
 		return output.Errorf(output.ExitInternal, "internal", "failed to save token: %v", err)
 	}
 
-	// Step 8: Update config — overwrite Users to single user, clean old tokens
+	// Update config — overwrite Users to single user, clean old tokens
 	multi, _ := core.LoadMultiAppConfig()
 	if multi != nil && len(multi.Apps) > 0 {
 		app := &multi.Apps[0]
@@ -314,14 +378,14 @@ func authLoginRun(opts *LoginOptions) error {
 			"event":        "authorization_complete",
 			"user_open_id": openId,
 			"user_name":    userName,
-			"scope":        result.Token.Scope,
+			"scope":        token.Scope,
 		})
 		fmt.Fprintln(f.IOStreams.Out, string(b))
 	} else {
 		fmt.Fprintln(f.IOStreams.ErrOut)
 		output.PrintSuccess(f.IOStreams.ErrOut, fmt.Sprintf(msg.LoginSuccess, userName, openId))
-		if result.Token.Scope != "" {
-			fmt.Fprintf(f.IOStreams.ErrOut, msg.GrantedScopes, result.Token.Scope)
+		if token.Scope != "" {
+			fmt.Fprintf(f.IOStreams.ErrOut, msg.GrantedScopes, token.Scope)
 		}
 	}
 	return nil

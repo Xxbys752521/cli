@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "created": true,
+    "record": {
+      "data": [
+        [
+          null,
+          [
+            "待检索"
+          ],
+          "模拟提问人B",
+          [
+            "待定"
+          ],
+          "https://www.feishu.cn/docx/MUlrdNBH0o7ymPxYl7zcEcj5nqd",
+          "CASE-B",
+          "新员工入职后，外部知识库链接打开空白页，重新登录也不行"
+        ]
+      ],
+      "fields": [
+        "处理结论",
+        "当前状态",
+        "提问人",
+        "是否命中案例",
+        "知识库链接",
+        "问题ID",
+        "问题内容"
+      ],
+      "record_id_list": [
+        "recvfjXhX2AYZl"
+      ]
+    }
+  }
+}

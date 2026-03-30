@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "created": true,
+    "field": {
+      "id": "fldKWMfA9n",
+      "multiple": false,
+      "name": "是否命中案例",
+      "options": [
+        {
+          "hue": "Blue",
+          "lightness": "Lighter",
+          "name": "待定"
+        },
+        {
+          "hue": "Blue",
+          "lightness": "Lighter",
+          "name": "是"
+        },
+        {
+          "hue": "Blue",
+          "lightness": "Lighter",
+          "name": "否"
+        }
+      ],
+      "type": "select"
+    }
+  }
+}

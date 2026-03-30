@@ -1,0 +1,151 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "has_more": false,
+    "messages": [
+      {
+        "content": "飞书 CLI invited 王琦钊 to the chat.",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abdec1a8a8b29a97ee8875374",
+        "msg_type": "system",
+        "sender": {
+          "id": "",
+          "id_type": "",
+          "sender_type": "",
+          "tenant_key": ""
+        },
+        "updated": false
+      },
+      {
+        "content": "【模拟提问人A】登录飞书后打不开知识库，帮我看看",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abdeeef0a8b25980b927b63f3",
+        "msg_type": "text",
+        "sender": {
+          "id": "cli_a94229e030fa5ccc",
+          "id_type": "app_id",
+          "sender_type": "app",
+          "tenant_key": "1a3a408e878f9c82"
+        },
+        "updated": false
+      },
+      {
+        "content": "【机器人】需要补充两个信息：1）是否是私有化环境；2）具体报错是无权限、空白页还是打不开链接。",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abde8ad8a4b3134f12baa7975",
+        "msg_type": "text",
+        "sender": {
+          "id": "cli_a94229e030fa5ccc",
+          "id_type": "app_id",
+          "sender_type": "app",
+          "tenant_key": "1a3a408e878f9c82"
+        },
+        "updated": false
+      },
+      {
+        "content": "【模拟提问人A补充】是私有化环境，点击后提示无权限。",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abde9764a4b359b82816561fd",
+        "msg_type": "text",
+        "sender": {
+          "id": "cli_a94229e030fa5ccc",
+          "id_type": "app_id",
+          "sender_type": "app",
+          "tenant_key": "1a3a408e878f9c82"
+        },
+        "updated": false
+      },
+      {
+        "content": "【机器人】已命中相似案例：先确认当前账号是否已被知识库授权；若是私有化环境，再检查是否用了正确的环境域名和租户。若页面仍异常，再排查权限同步和网关配置。",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abde5bd0a0b22f379e4e76548",
+        "msg_type": "text",
+        "sender": {
+          "id": "cli_a94229e030fa5ccc",
+          "id_type": "app_id",
+          "sender_type": "app",
+          "tenant_key": "1a3a408e878f9c82"
+        },
+        "updated": false
+      },
+      {
+        "content": "【模拟提问人A反馈】已解决，满意。",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abde7680b4b398d554e43fab3",
+        "msg_type": "text",
+        "sender": {
+          "id": "cli_a94229e030fa5ccc",
+          "id_type": "app_id",
+          "sender_type": "app",
+          "tenant_key": "1a3a408e878f9c82"
+        },
+        "updated": false
+      },
+      {
+        "content": "【模拟提问人B】新员工入职后，外部知识库链接打开是空白页，重新登录也不行。",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abde38c8acb3bdd4795bde5a5",
+        "msg_type": "text",
+        "sender": {
+          "id": "cli_a94229e030fa5ccc",
+          "id_type": "app_id",
+          "sender_type": "app",
+          "tenant_key": "1a3a408e878f9c82"
+        },
+        "updated": false
+      },
+      {
+        "content": "【机器人】当前知识库未命中相似案例，已转人工排查，请等待。",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abdff4c4a8b2536d3ae24a42d",
+        "msg_type": "text",
+        "sender": {
+          "id": "cli_a94229e030fa5ccc",
+          "id_type": "app_id",
+          "sender_type": "app",
+          "tenant_key": "1a3a408e878f9c82"
+        },
+        "updated": false
+      },
+      {
+        "content": "【模拟人工】排查结果：该员工未加入外部知识库可见范围，且浏览器缓存保留了旧租户跳转地址。已补权限并清理缓存，现已恢复。",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abdf869cacb109de99171545b",
+        "msg_type": "text",
+        "sender": {
+          "id": "cli_a94229e030fa5ccc",
+          "id_type": "app_id",
+          "sender_type": "app",
+          "tenant_key": "1a3a408e878f9c82"
+        },
+        "updated": false
+      },
+      {
+        "content": "【机器人】人工处理结果已同步，并已将该问题回写到知识库。",
+        "create_time": "2026-03-30 12:16",
+        "deleted": false,
+        "message_id": "om_x100b53abdf4170a4b4a3eee15a35c21",
+        "msg_type": "text",
+        "sender": {
+          "id": "cli_a94229e030fa5ccc",
+          "id_type": "app_id",
+          "sender_type": "app",
+          "tenant_key": "1a3a408e878f9c82"
+        },
+        "updated": false
+      }
+    ],
+    "page_token": "",
+    "total": 10
+  }
+}

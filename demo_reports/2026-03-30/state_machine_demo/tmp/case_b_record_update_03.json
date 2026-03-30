@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "record": {
+      "update": {
+        "当前状态": [
+          "已回写知识库"
+        ],
+        "知识库链接": "https://www.feishu.cn/docx/MUlrdNBH0o7ymPxYl7zcEcj5nqd"
+      }
+    },
+    "updated": true
+  }
+}

@@ -21,7 +21,7 @@ Thumbs.db
 
 # Go
 docs/ref
-docs/
+# docs/
 vendor/
 
 
