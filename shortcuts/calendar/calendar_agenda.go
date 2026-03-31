@@ -203,8 +203,12 @@ var CalendarAgenda = common.Shortcut{
 			return err
 		}
 		calendarId := strings.TrimSpace(runtime.Str("calendar-id"))
-		if calendarId == "" {
-			calendarId = PrimaryCalendarIDStr
+		if calendarId == "" || calendarId == PrimaryCalendarIDStr {
+			resolved, err := resolvePrimaryCalendarID(runtime)
+			if err != nil {
+				return err
+			}
+			calendarId = resolved
 		}
 
 		items, err := fetchInstanceViewRange(ctx, runtime, calendarId, startInt, endInt, 0)

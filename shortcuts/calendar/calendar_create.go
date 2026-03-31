@@ -171,8 +171,12 @@ var CalendarCreate = common.Shortcut{
 	},
 	Execute: func(ctx context.Context, runtime *common.RuntimeContext) error {
 		calendarId := strings.TrimSpace(runtime.Str("calendar-id"))
-		if calendarId == "" {
-			calendarId = PrimaryCalendarIDStr
+		if calendarId == "" || calendarId == PrimaryCalendarIDStr {
+			resolved, err := resolvePrimaryCalendarID(runtime)
+			if err != nil {
+				return err
+			}
+			calendarId = resolved
 		}
 
 		startTs, err := common.ParseTime(runtime.Str("start"))

@@ -9,6 +9,10 @@ import "strings"
 // Key: scope name used by shortcuts, Value: alternative scope that satisfies the same requirement.
 var scopeAliases = map[string]string{
 	"contact:user.basic_profile:readonly": "contact:user.base:readonly",
+	// calendar:calendar:readonly is a coarse-grained scope in private deployments
+	// that covers all calendar read operations.
+	"calendar:calendar.event:read":    "calendar:calendar:readonly",
+	"calendar:calendar.free_busy:read": "calendar:calendar:readonly",
 }
 
 // MissingScopes returns the elements of required that are absent from storedScope.

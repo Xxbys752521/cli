@@ -52,10 +52,10 @@ var ContactGetUser = common.Shortcut{
 				Set("user_id", userId).Set("user_id_type", userIdType)
 		}
 		return common.NewDryRunAPI().
-			POST("/open-apis/contact/v3/users/basic_batch").
-			Desc("(user) Get user basic info by user ID").
+			GET("/open-apis/contact/v3/users/:user_id").
+			Desc("(user) Get user info by user ID").
 			Params(map[string]interface{}{"user_id_type": userIdType}).
-			Body(map[string]interface{}{"user_ids": []string{userId}})
+			Set("user_id", userId).Set("user_id_type", userIdType)
 	},
 	Execute: func(ctx context.Context, runtime *common.RuntimeContext) error {
 		userId := runtime.Str("user-id")
@@ -109,26 +109,27 @@ var ContactGetUser = common.Shortcut{
 			return nil
 		}
 
-		// User identity: POST /contact/v3/users/basic_batch (lightweight)
-		data, err := runtime.CallAPI("POST", "/open-apis/contact/v3/users/basic_batch",
-			map[string]interface{}{"user_id_type": userIdType},
-			map[string]interface{}{"user_ids": []string{userId}})
+		// User identity: GET /contact/v3/users/:user_id
+		// Uses the same endpoint as bot identity. The basic_batch endpoint is
+		// unavailable in some private deployments, while this endpoint works
+		// with both user_access_token and tenant_access_token.
+		data, err := runtime.CallAPI("GET", "/open-apis/contact/v3/users/"+url.PathEscape(userId),
+			map[string]interface{}{"user_id_type": userIdType}, nil)
 		if err != nil {
 			return err
 		}
-		users, _ := data["users"].([]interface{})
-		var user map[string]interface{}
-		if len(users) > 0 {
-			user, _ = users[0].(map[string]interface{})
-		}
+		user, _ := data["user"].(map[string]interface{})
 		if user == nil {
-			user = make(map[string]interface{})
+			user = data
 		}
 		userData := map[string]interface{}{"user": user}
 		runtime.OutFormat(userData, nil, func(w io.Writer) {
 			output.PrintTable(w, []map[string]interface{}{{
-				"name":    pickUserName(user),
-				"user_id": user["user_id"],
+				"name":       pickUserName(user),
+				"open_id":    firstNonEmpty(user, "open_id", "user_id"),
+				"email":      firstNonEmpty(user, "email", "enterprise_email"),
+				"mobile":     firstNonEmpty(user, "mobile", "mobile_phone"),
+				"department": firstNonEmpty(user, "department_name"),
 			}})
 		})
 		return nil
