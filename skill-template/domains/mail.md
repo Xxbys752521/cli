@@ -25,7 +25,7 @@
 
 ## 典型工作流
 
-1. **确认身份** — 首次操作邮箱前先调用 `lark-cli mail user_mailboxes profile --params '{"user_mailbox_id":"me"}'` 获取当前用户的真实邮箱地址（`primary_email_address`），不要通过系统用户名猜测。后续判断"发件人是否为用户本人"时以此地址为准。
+1. **确认身份** — 首次操作邮箱前先调用 `xfchat_cli mail user_mailboxes profile --params '{"user_mailbox_id":"me"}'` 获取当前用户的真实邮箱地址（`primary_email_address`），不要通过系统用户名猜测。后续判断"发件人是否为用户本人"时以此地址为准。
 2. **浏览** — `+triage` 查看收件箱摘要，获取 `message_id` / `thread_id`
 3. **阅读** — `+message` 读单封邮件，`+thread` 读整个会话
 4. **回复** — `+reply` / `+reply-all`（默认存草稿，加 `--confirm-send` 则立即发送）
@@ -40,11 +40,11 @@
 
 ```bash
 # Shortcut
-lark-cli mail +triage -h
-lark-cli mail +send -h
+xfchat_cli mail +triage -h
+xfchat_cli mail +send -h
 
 # 原生 API（逐级查看）
-lark-cli mail user_mailbox.messages -h
+xfchat_cli mail user_mailbox.messages -h
 ```
 
 `-h` 输出即可用 flag 的权威来源。reference 文档中的参数表可辅助理解语义，但实际 flag 名称以 `-h` 为准。
@@ -66,7 +66,7 @@ lark-cli mail user_mailbox.messages -h
 邮件发送成功后（收到 `message_id`），**必须**调用 `send_status` API 查询投递状态并向用户报告：
 
 ```bash
-lark-cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me","message_id":"<发送返回的 message_id>"}'
+xfchat_cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me","message_id":"<发送返回的 message_id>"}'
 ```
 
 返回每个收件人的投递状态（`status`）：1=正在投递, 2=投递失败重试, 3=退信, 4=投递成功, 5=待审批, 6=审批拒绝。向用户简要报告结果，如有异常状态（退信/审批拒绝）需重点提示。
@@ -81,11 +81,11 @@ lark-cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me
 
 ```bash
 # ✅ 推荐：HTML 格式
-lark-cli mail +send --to alice@example.com --subject '周报' \
+xfchat_cli mail +send --to alice@example.com --subject '周报' \
   --body '<p>本周进展：</p><ul><li>完成 A 模块</li><li>修复 3 个 bug</li></ul>'
 
 # ⚠️ 仅在内容极简时使用纯文本
-lark-cli mail +reply --message-id <id> --body '收到，谢谢'
+xfchat_cli mail +reply --message-id <id> --body '收到，谢谢'
 ```
 
 ### 读取邮件：按需控制返回内容
@@ -94,10 +94,10 @@ lark-cli mail +reply --message-id <id> --body '收到，谢谢'
 
 ```bash
 # ✅ 验证操作结果：不需要 HTML
-lark-cli mail +message --message-id <id> --html=false
+xfchat_cli mail +message --message-id <id> --html=false
 
 # ✅ 需要阅读完整内容：保持默认
-lark-cli mail +message --message-id <id>
+xfchat_cli mail +message --message-id <id>
 ```
 
 ## 原生 API 调用规则
@@ -110,10 +110,10 @@ lark-cli mail +message --message-id <id>
 
 ```bash
 # 第一级：查看 mail 下所有资源
-lark-cli mail -h
+xfchat_cli mail -h
 
 # 第二级：查看某个资源下所有方法
-lark-cli mail user_mailbox.messages -h
+xfchat_cli mail user_mailbox.messages -h
 ```
 
 `-h` 输出的就是可执行的命令格式（空格分隔）。**不要跳过此步直接查 schema，不要猜测命令名称。**
@@ -123,11 +123,11 @@ lark-cli mail user_mailbox.messages -h
 确定 `<resource>` 和 `<method>` 后，查 schema 了解参数：
 
 ```bash
-lark-cli schema mail.<resource>.<method>
-# 例如：lark-cli schema mail.user_mailbox.messages.modify_message
+xfchat_cli schema mail.<resource>.<method>
+# 例如：xfchat_cli schema mail.user_mailbox.messages.modify_message
 ```
 
-> **⚠️ 注意**：① 必须精确到 method 级别，禁止查 resource 级别（如 `lark-cli schema mail.user_mailbox.messages`，输出 78K）。② schema 路径用 `.` 分隔（`mail.user_mailbox.messages.modify_message`），但 CLI 命令在 resource 和 method 之间用**空格**（`lark-cli mail user_mailbox.messages modify_message`），不要混淆。
+> **⚠️ 注意**：① 必须精确到 method 级别，禁止查 resource 级别（如 `xfchat_cli schema mail.user_mailbox.messages`，输出 78K）。② schema 路径用 `.` 分隔（`mail.user_mailbox.messages.modify_message`），但 CLI 命令在 resource 和 method 之间用**空格**（`xfchat_cli mail user_mailbox.messages modify_message`），不要混淆。
 
 schema 输出是 JSON，包含两个关键部分：
 
@@ -143,7 +143,7 @@ schema 输出是 JSON，包含两个关键部分：
 按 Step 2 的映射规则，拼接命令：
 
 ```
-lark-cli mail <resource> <method> --params '{...}' [--data '{...}']
+xfchat_cli mail <resource> <method> --params '{...}' [--data '{...}']
 ```
 
 ### 示例
@@ -152,7 +152,7 @@ lark-cli mail <resource> <method> --params '{...}' [--data '{...}']
 
 ```bash
 # schema 中：user_mailbox_id (path, required), page_size (query, required), folder_id (query, optional)
-lark-cli mail user_mailbox.messages list \
+xfchat_cli mail user_mailbox.messages list \
   --params '{"user_mailbox_id":"me","page_size":20,"folder_id":"INBOX"}'
 ```
 
@@ -161,7 +161,7 @@ lark-cli mail user_mailbox.messages list \
 ```bash
 # schema 中：parameters → user_mailbox_id (path, required)
 #            requestBody → name (required), parent_folder_id (required)
-lark-cli mail user_mailbox.folders create \
+xfchat_cli mail user_mailbox.folders create \
   --params '{"user_mailbox_id":"me"}' \
   --data '{"name":"newsletter","parent_folder_id":"0"}'
 ```

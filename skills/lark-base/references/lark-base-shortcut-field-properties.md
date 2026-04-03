@@ -1,6 +1,6 @@
 # base shortcut field JSON 规范（lark-base-shortcut-field-properties）
 
-> 适用命令：`lark-cli base +field-create`、`lark-cli base +field-update`
+> 适用命令：`xfchat_cli base +field-create`、`xfchat_cli base +field-update`
 
 本文件定义 **shortcut 写字段** 时 `--json` 的推荐格式，避免 AI 混用旧版 `type=数字 + field_name + property` 结构。
 

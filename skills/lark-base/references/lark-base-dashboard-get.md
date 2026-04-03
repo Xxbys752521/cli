@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +dashboard-get \
+xfchat_cli base +dashboard-get \
   --base-token VwGhb**************fMnod \
   --dashboard-id dshxxxxxxx
 ```

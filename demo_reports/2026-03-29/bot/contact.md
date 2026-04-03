@@ -9,11 +9,11 @@
 ## 测试记录
 
 1. 查询当前用户
-命令： `lark-cli contact +get-user --as bot`
+命令： `xfchat_cli contact +get-user --as bot`
 结果： 校验失败，bot 身份如果不显式传 `--user-id`，无法读取当前用户信息
 
 2. 验证 shortcut 是否支持
-命令： `lark-cli contact +search-user --as bot --query 王琦钊`
+命令： `xfchat_cli contact +search-user --as bot --query 王琦钊`
 结果： CLI 直接拒绝该身份，提示 `--as bot is not supported, this command only supports: user`
 
 ## 创建资源

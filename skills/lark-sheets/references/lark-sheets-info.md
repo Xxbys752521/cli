@@ -3,7 +3,7 @@
 
 > **前置条件：** 先阅读 [`../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) 了解认证、全局参数和安全规则。
 
-本 skill 对应 shortcut：`lark-cli sheets +info`。
+本 skill 对应 shortcut：`xfchat_cli sheets +info`。
 
 用于：
 
@@ -14,13 +14,13 @@
 
 ```bash
 # 传 URL（支持用户粘贴时带空格/引号/反引号；支持 wiki URL）
-lark-cli sheets +info --url "https://example.larksuite.com/sheets/shtxxxxxxxx"
+xfchat_cli sheets +info --url "https://example.larksuite.com/sheets/shtxxxxxxxx"
 
 # 传 spreadsheet_token
-lark-cli sheets +info --spreadsheet-token "shtxxxxxxxx"
+xfchat_cli sheets +info --spreadsheet-token "shtxxxxxxxx"
 
 # 仅预览请求参数（不发请求）
-lark-cli sheets +info --url "https://..." --dry-run
+xfchat_cli sheets +info --url "https://..." --dry-run
 ```
 
 ## 参数

@@ -17,7 +17,7 @@ var SheetCreate = common.Shortcut{
 	Command:     "+create",
 	Description: "Create a spreadsheet (optional header row and initial data)",
 	Risk:        "write",
-	Scopes:      []string{"sheets:spreadsheet:create", "sheets:spreadsheet:write_only"},
+	Scopes:      []string{"sheets:spreadsheet"},
 	AuthTypes:   []string{"user", "bot"},
 	Flags: []common.Flag{
 		{Name: "title", Desc: "spreadsheet title", Required: true},

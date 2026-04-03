@@ -9,7 +9,7 @@
 ## 测试记录
 
 1. Token 格式校验
-命令： `lark-cli minutes minutes get --as bot --params '{"minute_token":"dummy"}'`
+命令： `xfchat_cli minutes minutes get --as bot --params '{"minute_token":"dummy"}'`
 结果： failed with `code=99992402`, field validation reported `minute_token` min length `24`
 
 ## 创建资源

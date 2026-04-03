@@ -9,7 +9,7 @@
 ## 测试记录
 
 1. Search support check
-命令： `lark-cli vc +search --as bot --start 2026-03-22 --end 2026-03-29`
+命令： `xfchat_cli vc +search --as bot --start 2026-03-22 --end 2026-03-29`
 结果： CLI 直接拒绝该调用，提示 `--as bot is not supported, this command only supports: user`
 
 ## 创建资源

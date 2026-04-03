@@ -17,7 +17,7 @@ var SheetAppend = common.Shortcut{
 	Command:     "+append",
 	Description: "Append rows to a spreadsheet",
 	Risk:        "write",
-	Scopes:      []string{"sheets:spreadsheet:write_only", "sheets:spreadsheet:read"},
+	Scopes:      []string{"sheets:spreadsheet", "sheets:spreadsheet:readonly"},
 	AuthTypes:   []string{"user", "bot"},
 	Flags: []common.Flag{
 		{Name: "url", Desc: "spreadsheet URL"},

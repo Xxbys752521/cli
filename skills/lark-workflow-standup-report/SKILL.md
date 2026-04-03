@@ -4,7 +4,7 @@ version: 1.0.0
 description: "日程待办摘要：编排 calendar +agenda 和 task +get-my-tasks，生成指定日期的日程与未完成任务摘要。适用于了解今天/明天/本周的安排。"
 metadata:
   requires:
-    bins: ["lark-cli"]
+    bins: ["xfchat_cli"]
 ---
 
 # 日程待办摘要工作流
@@ -24,7 +24,7 @@ metadata:
 仅支持 **user 身份**。执行前确保已授权：
 
 ```bash
-lark-cli auth login --domain calendar,task
+xfchat_cli auth login --domain calendar,task
 ```
 
 ## 工作流
@@ -41,10 +41,10 @@ lark-cli auth login --domain calendar,task
 
 ```bash
 # 今天（默认，无需额外参数）
-lark-cli calendar +agenda
+xfchat_cli calendar +agenda
 
 # 指定日期范围（必须使用 ISO 8601 格式，不支持 "tomorrow" 等自然语言）
-lark-cli calendar +agenda --start "2026-03-26T00:00:00+08:00" --end "2026-03-26T23:59:59+08:00"
+xfchat_cli calendar +agenda --start "2026-03-26T00:00:00+08:00" --end "2026-03-26T23:59:59+08:00"
 ```
 
 > **注意**：`--start` / `--end` 仅支持 ISO 8601 格式（如 `2026-01-01` 或 `2026-01-01T15:04:05+08:00`）和 Unix timestamp，**不支持** `"tomorrow"`、`"next monday"` 等自然语言。需要 AI 根据当前日期自行计算目标日期。
@@ -55,13 +55,13 @@ lark-cli calendar +agenda --start "2026-03-26T00:00:00+08:00" --end "2026-03-26T
 
 ```bash
 # 默认：返回分配给当前用户的未完成任务（最多 20 条）
-lark-cli task +get-my-tasks
+xfchat_cli task +get-my-tasks
 
 # 只看指定日期前到期的（推荐用于摘要场景，减少数据量）
-lark-cli task +get-my-tasks --due-end "2026-03-27T23:59:59+08:00"
+xfchat_cli task +get-my-tasks --due-end "2026-03-27T23:59:59+08:00"
 
 # 获取全部（超过 20 条时）
-lark-cli task +get-my-tasks --page-all
+xfchat_cli task +get-my-tasks --page-all
 ```
 
 > **注意**：不带过滤条件时可能返回大量历史待办（实测 30+ 条、100KB+），容易超出上下文限制。摘要场景建议：

@@ -67,7 +67,7 @@ var BaseDashboardBlockCreate = common.Shortcut{
 			params["user_id_type"] = uid
 		}
 		return common.NewDryRunAPI().
-			POST("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id/blocks").
+			POST("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id/blocks").
 			Params(params).
 			Body(body).
 			Set("base_token", runtime.Str("base-token")).

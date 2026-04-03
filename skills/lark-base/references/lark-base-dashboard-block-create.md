@@ -9,7 +9,7 @@
 
 ```bash
 # 创建柱状图 block
-lark-cli base +dashboard-block-create \
+xfchat_cli base +dashboard-block-create \
   --base-token bascn***************CtadY \
   --dashboard-id blkxxx \
   --name "订单趋势" \
@@ -17,7 +17,7 @@ lark-cli base +dashboard-block-create \
   --data-config '{"table_name":"订单表","count_all":true,"group_by":[{"field_name":"金额","mode":"integrated"}],"filter":{"conjunction":"and","conditions":[{"field_name":"金额","operator":"isGreater","value":0},{"field_name":"状态","operator":"is","value":"已完成"},{"field_name":"负责人","operator":"isNotEmpty"},{"field_name":"创建日期","operator":"isGreaterEqual","value":1711209600000}]}}'
 
 # 创建指标卡（统计数字字段求和）
-lark-cli base +dashboard-block-create \
+xfchat_cli base +dashboard-block-create \
   --base-token bascn***************CtadY \
   --dashboard-id blkxxx \
   --name "销售总额" \
@@ -25,7 +25,7 @@ lark-cli base +dashboard-block-create \
   --data-config '{"table_name":"数据表","series":[{"field_name":"数字","rollup":"SUM"}]}'
 
 # 创建指标卡（统计记录行数）
-lark-cli base +dashboard-block-create \
+xfchat_cli base +dashboard-block-create \
   --base-token bascn***************CtadY \
   --dashboard-id blkxxx \
   --name "记录总数" \
@@ -33,7 +33,7 @@ lark-cli base +dashboard-block-create \
   --data-config '{"table_name":"数据表","count_all":true}'
 
 # 使用文件传入复杂 data_config
-lark-cli base +dashboard-block-create \
+xfchat_cli base +dashboard-block-create \
   --base-token bascn***************CtadY \
   --dashboard-id blkxxx \
   --name "销售漏斗" \

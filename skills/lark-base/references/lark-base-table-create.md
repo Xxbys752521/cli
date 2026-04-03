@@ -7,11 +7,11 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +table-create \
+xfchat_cli base +table-create \
   --base-token app_xxx \
   --name "客户名单"
 
-lark-cli base +table-create \
+xfchat_cli base +table-create \
   --base-token app_xxx \
   --name "项目管理" \
   --fields '[{"name":"项目名称","type":"text"}]' \

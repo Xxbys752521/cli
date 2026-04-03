@@ -4,31 +4,31 @@
 
 Fetch the message list for a conversation. Supports both group chats and direct messages.
 
-This skill maps to the shortcut: `lark-cli im +chat-messages-list` (internally calls `GET /open-apis/im/v1/messages`, and automatically resolves the p2p chat_id when needed).
+This skill maps to the shortcut: `xfchat_cli im +chat-messages-list` (internally calls `GET /open-apis/im/v1/messages`, and automatically resolves the p2p chat_id when needed).
 
 ## Commands
 
 ```bash
 # Get group chat messages (json output by default)
-lark-cli im +chat-messages-list --chat-id oc_xxx
+xfchat_cli im +chat-messages-list --chat-id oc_xxx
 
 # Get direct messages with a user (pass open_id and resolve p2p chat_id automatically)
-lark-cli im +chat-messages-list --user-id ou_xxx
+xfchat_cli im +chat-messages-list --user-id ou_xxx
 
 # Specify a time range (ISO 8601)
-lark-cli im +chat-messages-list --chat-id oc_xxx --start "2026-03-10T00:00:00+08:00" --end "2026-03-11T00:00:00+08:00"
+xfchat_cli im +chat-messages-list --chat-id oc_xxx --start "2026-03-10T00:00:00+08:00" --end "2026-03-11T00:00:00+08:00"
 
 # Specify a time range (date only)
-lark-cli im +chat-messages-list --chat-id oc_xxx --start 2026-03-10 --end 2026-03-11
+xfchat_cli im +chat-messages-list --chat-id oc_xxx --start 2026-03-10 --end 2026-03-11
 
 # Control sort order and page size (max 50)
-lark-cli im +chat-messages-list --chat-id oc_xxx --sort asc --page-size 20
+xfchat_cli im +chat-messages-list --chat-id oc_xxx --sort asc --page-size 20
 
 # Pagination
-lark-cli im +chat-messages-list --chat-id oc_xxx --page-token "xxx"
+xfchat_cli im +chat-messages-list --chat-id oc_xxx --page-token "xxx"
 
 # JSON output
-lark-cli im +chat-messages-list --chat-id oc_xxx --format json
+xfchat_cli im +chat-messages-list --chat-id oc_xxx --format json
 ```
 
 ## Parameters
@@ -63,7 +63,7 @@ Use [lark-im-messages-resources-download](lark-im-messages-resources-download.md
 In JSON output, a message may contain a `thread_id` (`omt_xxx`) field, which means the message has replies in a thread. Use [`im +threads-messages-list`](lark-im-threads-messages-list.md) to inspect replies in that thread:
 
 ```bash
-lark-cli im +threads-messages-list --thread omt_xxx
+xfchat_cli im +threads-messages-list --thread omt_xxx
 ```
 
 | Scenario | Recommendation |
@@ -100,13 +100,13 @@ Each message contains:
 `im +chat-messages-list` returns `has_more` and `page_token` when more data is available. Use `--page-token` to continue:
 
 ```bash
-lark-cli im +chat-messages-list --chat-id oc_xxx --page-token <PAGE_TOKEN>
+xfchat_cli im +chat-messages-list --chat-id oc_xxx --page-token <PAGE_TOKEN>
 ```
 
 You can also fall back to the generic API:
 
 ```bash
-lark-cli api GET /open-apis/im/v1/messages \
+xfchat_cli api GET /open-apis/im/v1/messages \
   --params 'container_id_type=chat&container_id=oc_xxx&page_size=50&page_token=<PAGE_TOKEN>'
 ```
 
@@ -125,8 +125,8 @@ lark-cli api GET /open-apis/im/v1/messages \
 1. **Resolving chat_id from a chat name:** When the user refers to a chat by name and you don't have the `chat_id`, use [`+chat-search`](lark-im-chat-search.md) first:
    ```bash
    # Find chat_id by name, then list messages
-   lark-cli im +chat-search --query "<chat name keyword>" --format json
-   lark-cli im +chat-messages-list --chat-id <chat_id>
+   xfchat_cli im +chat-search --query "<chat name keyword>" --format json
+   xfchat_cli im +chat-messages-list --chat-id <chat_id>
    ```
    **Do not use `im chats search` or `im chats list` — always use the `+chat-search` shortcut.**
 2. **Prefer `--chat-id` when available:** if the chat_id is already known, use it directly to avoid extra API calls.

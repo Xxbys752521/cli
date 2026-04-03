@@ -9,7 +9,7 @@
 ## 测试记录
 
 1. 邮件摘要查询
-命令： `lark-cli mail +triage --as bot --max 3 --format json`
+命令： `xfchat_cli mail +triage --as bot --max 3 --format json`
 结果： failed with `code=99991672`, required scope `mail:user_mailbox.message:readonly`
 
 ## 创建资源

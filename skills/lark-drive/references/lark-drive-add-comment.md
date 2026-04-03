@@ -9,54 +9,54 @@
 
 ```bash
 # 默认：未指定位置时添加全文评论
-lark-cli drive +add-comment \
+xfchat_cli drive +add-comment \
   --doc "https://example.larksuite.com/docx/<DOC_ID>" \
   --content '[{"type":"text","text":"请补充发布说明"}]'
 
 # 也可以显式指定为全文评论；旧版 doc URL 仅支持全文评论
-lark-cli drive +add-comment \
+xfchat_cli drive +add-comment \
   --doc "https://example.larksuite.com/doc/<DOC_ID>" \
   --full-comment \
   --content '[{"type":"text","text":"请补充旧版文档的背景信息"}]'
 
 # wiki 链接也可以，shortcut 会先解析到真实 doc/docx token
-lark-cli drive +add-comment \
+xfchat_cli drive +add-comment \
   --doc "https://example.larksuite.com/wiki/<WIKI_TOKEN>" \
   --content '[{"type":"text","text":"这里需要一段全文评论"}]'
 
 # 给 docx 文档里匹配到的文字添加局部评论
-lark-cli drive +add-comment \
+xfchat_cli drive +add-comment \
   --doc "https://example.larksuite.com/docx/<DOC_ID>" \
   --selection-with-ellipsis "流程" \
   --content '[{"type":"text","text":"请补充流程说明"}]'
 
 # wiki 链接也支持局部评论，但解析结果必须是 docx
-lark-cli drive +add-comment \
+xfchat_cli drive +add-comment \
   --doc "https://example.larksuite.com/wiki/<WIKI_TOKEN>" \
   --selection-with-ellipsis "流程" \
   --content '[{"type":"text","text":"请补充更细的开发步骤"}]'
 
 # 组合文本、@用户、链接元素
-lark-cli drive +add-comment \
+xfchat_cli drive +add-comment \
   --doc "https://example.larksuite.com/docx/<DOC_ID>" \
   --selection-with-ellipsis "流程" \
   --content '[{"type":"text","text":"请 "},{"type":"mention_user","text":"ou_xxx"},{"type":"text","text":" 处理，参考 "},{"type":"link","text":"https://example.com"}]'
 
 # 已知 block_id 时可跳过 MCP 直接创建局部评论
-lark-cli drive +add-comment \
+xfchat_cli drive +add-comment \
   --doc "<DOCX_TOKEN>" \
   --block-id "<BLOCK_ID>" \
   --content '[{"type":"text","text":"评论内容"}]'
 
 # 如果需要更底层的原生 API，也可以直接调用 V2 协议
-lark-cli schema drive.file.comments.create_v2
+xfchat_cli schema drive.file.comments.create_v2
 
-lark-cli drive file.comments create_v2 \
+xfchat_cli drive file.comments create_v2 \
   --params '{"file_token":"<DOC_TOKEN>"}' \
   --data '{"file_type":"docx","reply_elements":[{"type":"text","text":"全文评论内容"}]}'
 
 # 预览底层调用链
-lark-cli drive +add-comment \
+xfchat_cli drive +add-comment \
   --doc "https://example.larksuite.com/docx/<DOC_ID>" \
   --selection-with-ellipsis "流程" \
   --content '[{"type":"text","text":"请补充流程说明"}]' \
@@ -88,7 +88,7 @@ lark-cli drive +add-comment \
 - 全文评论：省略 `anchor`
 - 局部评论：传入 `anchor.block_id`
 - `--dry-run` 仅预览调用链和请求体，不会实际写入。
-- 如果需要更底层的控制，仍可改用 `lark-cli schema drive.file.comments.create_v2` + `lark-cli drive file.comments create_v2`。
+- 如果需要更底层的控制，仍可改用 `xfchat_cli schema drive.file.comments.create_v2` + `xfchat_cli drive file.comments create_v2`。
 
 > [!CAUTION]
 > 这是**写入操作** —— 执行前必须确认用户意图。

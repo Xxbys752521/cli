@@ -11,20 +11,20 @@
 
 ```bash
 # 创建日程 + 邀请参会人（ISO 8601 时间）
-lark-cli calendar +create \
+xfchat_cli calendar +create \
   --summary "产品评审" \
   --start "2026-03-12T14:00+08:00" \
   --end "2026-03-12T15:00+08:00" \
   --attendee-ids ou_aaa,ou_bbb
 
 # 无参会人
-lark-cli calendar +create \
+xfchat_cli calendar +create \
   --summary "午餐" \
   --start "2026-03-12T12:00+08:00" \
   --end "2026-03-12T13:00+08:00"
 
 # 指定日历
-lark-cli calendar +create --summary "..." --start "..." --end "..." \
+xfchat_cli calendar +create --summary "..." --start "..." --end "..." \
   --calendar-id cal_xxx
 ```
 
@@ -55,9 +55,9 @@ lark-cli calendar +create --summary "..." --start "..." --end "..." \
 ```bash
 # 第一步：创建日程（含高级参数）
 ## 查看完整参数定义
-lark-cli schema calendar.events.create
+xfchat_cli schema calendar.events.create
 ## 创建日程
-lark-cli calendar events create --calendar-id primary --data '{
+xfchat_cli calendar events create --calendar-id primary --data '{
   "summary": "产品评审",
   "description": "本周分享主题：CLI 架构设计",
   "start_time": { "timestamp": "1741586400" },
@@ -69,17 +69,17 @@ lark-cli calendar events create --calendar-id primary --data '{
 
 # 第二步：添加参会人（使用第一步返回的 calendar_id 和 event_id）
 ## 查看完整参数定义
-lark-cli schema calendar.event.attendees.create
+xfchat_cli schema calendar.event.attendees.create
 ## 添加参会人
-lark-cli calendar event.attendees create \
+xfchat_cli calendar event.attendees create \
   --calendar-id <CALENDAR_ID> --event-id <EVENT_ID> \
   --data '{"attendees": [{"type": "user", "user_id": "ou_xxx"}]}'
 
 # 可选第三步（推荐）：若第二步失败，回滚删除空日程
 ## 查看完整参数定义
-lark-cli schema calendar.events.delete
+xfchat_cli schema calendar.events.delete
 ## 删除空日程
-lark-cli calendar events delete \
+xfchat_cli calendar events delete \
   --calendar-id <CALENDAR_ID> --event-id <EVENT_ID> \
   --params '{"need_notification":false}'
 

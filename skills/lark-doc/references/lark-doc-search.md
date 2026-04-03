@@ -18,28 +18,28 @@
 
 ```bash
 # 关键词搜索
-lark-cli docs +search --query "季度总结"
+xfchat_cli docs +search --query "季度总结"
 
 # 搜标题里带“评测结果”的电子表格 / 文档
-lark-cli docs +search --query "评测结果"
+xfchat_cli docs +search --query "评测结果"
 
 # 标题包含关键词（默认按关键词检索，不做精确标题匹配）
-lark-cli docs +search --query "方案"
+xfchat_cli docs +search --query "方案"
 
 # 按最近打开时间过滤
-lark-cli docs +search \
+xfchat_cli docs +search \
   --query "方案" \
   --filter '{"open_time":{"start":"2025-09-24T00:00:00+08:00","end":"2025-12-24T23:59:59+08:00"}}'
 
 # 空搜（不传 query 或传空字符串）：按最近浏览等默认规则返回
-lark-cli docs +search
+xfchat_cli docs +search
 
 # 人类可读格式输出
-lark-cli docs +search --query "OKR" --format pretty
+xfchat_cli docs +search --query "OKR" --format pretty
 
 # 返回原始 JSON，并用 page_token 翻页
-lark-cli docs +search --query "方案" --format json
-lark-cli docs +search --query "方案" --format json --page-token '<PAGE_TOKEN>'
+xfchat_cli docs +search --query "方案" --format json
+xfchat_cli docs +search --query "方案" --format json --page-token '<PAGE_TOKEN>'
 ```
 
 ## 参数

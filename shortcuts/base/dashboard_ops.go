@@ -34,13 +34,13 @@ func dryRunDashboardList(_ context.Context, runtime *common.RuntimeContext) *com
 		params["page_token"] = pageToken
 	}
 	return dryRunDashboardBase(runtime).
-		GET("/open-apis/base/v3/bases/:base_token/dashboards").
+		GET("/open-apis/bitable/v1/apps/:base_token/dashboards").
 		Params(params)
 }
 
 func dryRunDashboardGet(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return dryRunDashboardBase(runtime).
-		GET("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id")
+		GET("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id")
 }
 
 func dryRunDashboardCreate(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
@@ -49,7 +49,7 @@ func dryRunDashboardCreate(_ context.Context, runtime *common.RuntimeContext) *c
 		body["theme"] = map[string]interface{}{"theme_style": themeStyle}
 	}
 	return dryRunDashboardBase(runtime).
-		POST("/open-apis/base/v3/bases/:base_token/dashboards").
+		POST("/open-apis/bitable/v1/apps/:base_token/dashboards").
 		Body(body)
 }
 
@@ -62,13 +62,13 @@ func dryRunDashboardUpdate(_ context.Context, runtime *common.RuntimeContext) *c
 		body["theme"] = map[string]interface{}{"theme_style": themeStyle}
 	}
 	return dryRunDashboardBase(runtime).
-		PATCH("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id").
+		PATCH("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id").
 		Body(body)
 }
 
 func dryRunDashboardDelete(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return dryRunDashboardBase(runtime).
-		DELETE("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id")
+		DELETE("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id")
 }
 
 func dryRunDashboardBlockList(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
@@ -80,7 +80,7 @@ func dryRunDashboardBlockList(_ context.Context, runtime *common.RuntimeContext)
 		params["page_token"] = pageToken
 	}
 	return dryRunDashboardBase(runtime).
-		GET("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id/blocks").
+		GET("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id/blocks").
 		Params(params)
 }
 
@@ -90,7 +90,7 @@ func dryRunDashboardBlockGet(_ context.Context, runtime *common.RuntimeContext) 
 		params["user_id_type"] = userIDType
 	}
 	return dryRunDashboardBase(runtime).
-		GET("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id/blocks/:block_id").
+		GET("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id/blocks/:block_id").
 		Params(params)
 }
 
@@ -113,7 +113,7 @@ func dryRunDashboardBlockCreate(_ context.Context, runtime *common.RuntimeContex
 		params["user_id_type"] = userIDType
 	}
 	return dryRunDashboardBase(runtime).
-		POST("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id/blocks").
+		POST("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id/blocks").
 		Params(params).
 		Body(body)
 }
@@ -133,14 +133,14 @@ func dryRunDashboardBlockUpdate(_ context.Context, runtime *common.RuntimeContex
 		params["user_id_type"] = userIDType
 	}
 	return dryRunDashboardBase(runtime).
-		PATCH("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id/blocks/:block_id").
+		PATCH("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id/blocks/:block_id").
 		Params(params).
 		Body(body)
 }
 
 func dryRunDashboardBlockDelete(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return dryRunDashboardBase(runtime).
-		DELETE("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id/blocks/:block_id")
+		DELETE("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id/blocks/:block_id")
 }
 
 // ── Dashboard CRUD ──────────────────────────────────────────────────

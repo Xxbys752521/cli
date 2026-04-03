@@ -42,7 +42,7 @@ var BaseDataQuery = common.Shortcut{
 		dec.UseNumber()
 		dec.Decode(&dsl)
 		return common.NewDryRunAPI().
-			POST("/open-apis/base/v3/bases/:base_token/data/query").
+			POST("/open-apis/bitable/v1/apps/:base_token/data/query").
 			Body(dsl).
 			Set("base_token", runtime.Str("base-token"))
 	},

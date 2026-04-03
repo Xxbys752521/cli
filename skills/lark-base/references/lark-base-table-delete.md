@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +table-delete \
+xfchat_cli base +table-delete \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --yes

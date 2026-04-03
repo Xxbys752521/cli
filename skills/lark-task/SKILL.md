@@ -4,8 +4,8 @@ version: 1.0.0
 description: "飞书任务：管理任务和清单。创建待办任务、查看和更新任务状态、拆分子任务、组织任务清单、分配协作成员。当用户需要创建待办事项、查看任务列表、跟踪任务进度、管理项目清单或给他人分配任务时使用。"
 metadata:
   requires:
-    bins: ["lark-cli"]
-  cliHelp: "lark-cli task --help"
+    bins: ["xfchat_cli"]
+  cliHelp: "xfchat_cli task --help"
 ---
 
 # task (v2)
@@ -35,8 +35,8 @@ metadata:
 ## API Resources
 
 ```bash
-lark-cli schema task.<resource>.<method>   # 调用 API 前必须先查看参数结构
-lark-cli task <resource> <method> [flags] # 调用 API
+xfchat_cli schema task.<resource>.<method>   # 调用 API 前必须先查看参数结构
+xfchat_cli task <resource> <method> [flags] # 调用 API
 ```
 
 > **重要**：使用原生 API 时，必须先运行 `schema` 查看 `--data` / `--params` 参数结构，不要猜测字段格式。

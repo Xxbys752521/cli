@@ -32,7 +32,7 @@ var BaseWorkflowDisable = common.Shortcut{
 	},
 	DryRun: func(ctx context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 		return common.NewDryRunAPI().
-			PATCH("/open-apis/base/v3/bases/:base_token/workflows/:workflow_id/disable").
+			PATCH("/open-apis/bitable/v1/apps/:base_token/workflows/:workflow_id/disable").
 			Set("base_token", runtime.Str("base-token")).
 			Set("workflow_id", runtime.Str("workflow-id"))
 	},

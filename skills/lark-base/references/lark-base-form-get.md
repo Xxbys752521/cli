@@ -8,20 +8,20 @@
 
 ```bash
 # 获取表单详情
-lark-cli base +form-get \
+xfchat_cli base +form-get \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id>
 
 # 以 pretty 格式展示
-lark-cli base +form-get \
+xfchat_cli base +form-get \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \
   --format pretty
 
 # 使用应用身份（bot）
-lark-cli base +form-get \
+xfchat_cli base +form-get \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \
@@ -60,7 +60,7 @@ lark-cli base +form-get \
 
 ## 提示
 
-- `form_id` 可通过 `lark-cli base +form-list --base-token <token> --table-id <id>` 获取
+- `form_id` 可通过 `xfchat_cli base +form-list --base-token <token> --table-id <id>` 获取
 
 ## 参考
 

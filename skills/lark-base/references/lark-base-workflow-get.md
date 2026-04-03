@@ -9,12 +9,12 @@
 
 ```bash
 # 基本用法
-lark-cli base +workflow-get \
+xfchat_cli base +workflow-get \
   --base-token BascXxxxxx \
   --workflow-id wkfxxxxxx
 
 # 指定用户 ID 类型（creator_id / updater_id 字段的格式）
-lark-cli base +workflow-get \
+xfchat_cli base +workflow-get \
   --base-token BascXxxxxx \
   --workflow-id wkfxxxxxx \
   --user-id-type open_id

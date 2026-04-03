@@ -1,17 +1,17 @@
-> **命名约定：** Shortcut 命令组和原生 API / schema 都使用 `lark-cli base ...`。
+> **命名约定：** Shortcut 命令组和原生 API / schema 都使用 `xfchat_cli base ...`。
 
 ## 核心规则
 
 1. **原生 API 命令路径必须完整** — 资源名是多级点分路径，不能省略前缀
-   - `lark-cli base table.records create` ✅
-   - `lark-cli base records create` ❌
+   - `xfchat_cli base table.records create` ✅
+   - `xfchat_cli base records create` ❌
 2. **优先使用 Shortcut** — 有 Shortcut 的操作不要手拼原生 API
 3. **写记录前** — 先调用 `table.fields list` 获取字段 `type/ui_type`，再读 [lark-base-shortcut-record-value.md](../../skills/lark-base/references/lark-base-shortcut-record-value.md) 确认每个字段类型的值格式
 4. **写字段前** — 先读 [lark-base-shortcut-field-properties.md](../../skills/lark-base/references/lark-base-shortcut-field-properties.md) 确认字段类型的 `property` 结构
 5. **筛选查询前** — 先读 [lark-base-view-set-filter.md](../../skills/lark-base/references/lark-base-view-set-filter.md)，当前 `base/v3` 通过 `view.filter update + table.records list` 组合完成筛选读取
 6. **批量上限 500 条/次** — 同一表建议串行写入，并在批次间延迟 0.5–1 秒
 7. **改名和删除按明确意图执行** — 视图重命名这类低风险改名操作，目标和新名称明确时可直接执行；删除记录 / 字段 / 表时，只要用户已经明确要求删除且目标明确，也可直接执行，不需要再补一次确认
-8. **不要走旧 bitable 路径** — Base 场景不要调用 `lark-cli api GET /open-apis/bitable/v1/...`；即使 wiki 解析结果是 `obj_type=bitable`，后续也应继续使用 `lark-cli base ...`
+8. **不要走旧 bitable 路径** — Base 场景不要调用 `xfchat_cli api GET /open-apis/bitable/v1/...`；即使 wiki 解析结果是 `obj_type=bitable`，后续也应继续使用 `xfchat_cli base ...`
 
 ## 意图 → 命令索引
 
@@ -30,14 +30,14 @@
 ## 操作注意事项
 
 - **Base token 口径统一**：无论 Shortcut 还是原生 API，都统一使用 `base_token`
-- **附件字段**：上传本地文件时只能走 `lark-cli base +record-upload-attachment`
+- **附件字段**：上传本地文件时只能走 `xfchat_cli base +record-upload-attachment`
 - **人员字段 / 用户字段**：调试时注意 `user_id_type` 与执行身份（user / bot）差异
 - **能力边界**：当前 `base/v3` 原生 spec 以单表 / 单记录 / 视图筛选配置为主，批量写入和旧 `search` 场景优先走 unified Shortcut 组合能力
 - **视图重命名确认规则**：用户已经明确“把哪个视图改成什么名字”时，执行 `table.views patch` / 对应 shortcut 直接改名即可，不需要再补一句确认
 - **删除确认规则（记录 / 字段 / 表）**：执行 `table.records delete / table.fields delete / tables delete` 或对应 shortcut 时，如果用户已经明确要求删除且目标明确，可以直接执行；只有目标不明确时才先追问
 - **创建 / 复制 Base 的友好性规则**：创建或复制 Base 时，`folder_token`、`time_zone`、复制时的新名称都属于可选项；用户没特别要求时不要为这些参数额外打断
 - **创建 / 复制 Base 的结果返回规范**：成功后必须主动返回新 Base 的 token；如果返回结果里带可访问链接（如 `base.url`），也要一并返回
-- **附件字段本地文件上传**：只能使用 `lark-cli base +record-upload-attachment`
+- **附件字段本地文件上传**：只能使用 `xfchat_cli base +record-upload-attachment`
 
 ## Wiki 链接特殊处理（特别关键！）
 
@@ -47,7 +47,7 @@
 
 1. **使用 `wiki.spaces.get_node` 查询节点信息**
    ```bash
-   lark-cli wiki spaces.get_node --params '{"token":"&lt;wiki_token&gt;"}'
+   xfchat_cli wiki spaces.get_node --params '{"token":"&lt;wiki_token&gt;"}'
    ```
 
 2. **从返回结果中提取关键信息**
@@ -62,7 +62,7 @@
    | `docx` | 新版云文档 | `drive file.comments.*`、`docx.*` |
    | `doc` | 旧版云文档 | `drive file.comments.*` |
    | `sheet` | 电子表格 | `sheets.*` |
-   | `bitable` | 多维表格 | `lark-cli base +...`（优先）；如果 shortcut 不覆盖，再用 `lark-cli base <resource> <method>`；不要改走 `lark-cli api /open-apis/bitable/v1/...` |
+   | `bitable` | 多维表格 | `xfchat_cli base +...`（优先）；如果 shortcut 不覆盖，再用 `xfchat_cli base <resource> <method>`；不要改走 `xfchat_cli api /open-apis/bitable/v1/...` |
    | `slides` | 幻灯片 | `drive.*` |
    | `file` | 文件 | `drive.*` |
    | `mindnote` | 思维导图 | `drive.*` |
@@ -74,13 +74,13 @@
 5. **如果已经报了 token 错，再回退检查 wiki**
    - 如果命令返回 `param baseToken is invalid`、`base_token invalid`、`not found`，并且输入来自 `/wiki/...`，优先怀疑“把 wiki token 当成了 base token”
    - 重新执行 `wiki.spaces.get_node`
-   - 确认 `obj_type=bitable` 后，用 `node.obj_token` 重试 `lark-cli base ...`
+   - 确认 `obj_type=bitable` 后，用 `node.obj_token` 重试 `xfchat_cli base ...`
 
 ### 查询示例
 
 ```bash
 # 查询 wiki 节点
-lark-cli wiki spaces.get_node --params '{"token":"Pgrrwvr***********UnRb"}'
+xfchat_cli wiki spaces.get_node --params '{"token":"Pgrrwvr***********UnRb"}'
 ```
 
 返回结果示例：

@@ -18,6 +18,7 @@ import (
 	"github.com/larksuite/cli/cmd/doctor"
 	"github.com/larksuite/cli/cmd/schema"
 	"github.com/larksuite/cli/cmd/service"
+	cmdskills "github.com/larksuite/cli/cmd/skills"
 	internalauth "github.com/larksuite/cli/internal/auth"
 	"github.com/larksuite/cli/internal/build"
 	"github.com/larksuite/cli/internal/cmdutil"
@@ -28,7 +29,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const rootLong = `xfchat_cli — Lark/Feishu CLI tool.
+const rootLong = `xfchat_cli — private-deployment lark-cli fork.
 
 USAGE:
     xfchat_cli <command> [subcommand] [method] [options]
@@ -61,21 +62,23 @@ FLAGS:
     --dry-run             print request without executing
 
 AI AGENT SKILLS:
-    xfchat_cli pairs with AI agent skills (Claude Code, etc.) that
-    teach the agent Lark API patterns, best practices, and workflows.
+    xfchat_cli ships bundled skills for external AI runtimes.
 
-    Install all skills:
-        npx skills add larksuite/cli --all -y
+    Show bundled skills directory:
+        xfchat_cli skills path
 
-    Or pick specific domains:
-        npx skills add larksuite/cli -s lark-calendar -y
-        npx skills add larksuite/cli -s lark-im -y
+    List bundled skill names:
+        xfchat_cli skills list
 
-    Learn more: https://github.com/larksuite/cli#install-ai-agent-skills
+    For runtimes that still require manual registration, point them at the
+    directory returned by "xfchat_cli skills path".
 
-COMMUNITY:
-    GitHub:     https://github.com/larksuite/cli
-    Issues:     https://github.com/larksuite/cli/issues
+RUNTIME NOTE:
+    mail service is intentionally disabled in this private-deployment build.
+
+PROJECT:
+    Source:     https://github.com/Xxbys752521/cli
+    Upstream:   https://github.com/larksuite/cli
     Docs:       https://open.feishu.cn/document/
 
 More help: xfchat_cli <command> --help`
@@ -86,7 +89,7 @@ func Execute() int {
 
 	rootCmd := &cobra.Command{
 		Use:     "xfchat_cli",
-		Short:   "Lark/Feishu CLI — OAuth authorization, UAT management, API calls",
+		Short:   "Private-deployment lark-cli fork — OAuth authorization, UAT management, API calls",
 		Long:    rootLong,
 		Version: build.Version,
 	}
@@ -101,6 +104,7 @@ func Execute() int {
 	rootCmd.AddCommand(doctor.NewCmdDoctor(f))
 	rootCmd.AddCommand(api.NewCmdApi(f, nil))
 	rootCmd.AddCommand(schema.NewCmdSchema(f, nil))
+	rootCmd.AddCommand(cmdskills.NewCmdSkills())
 	rootCmd.AddCommand(completion.NewCmdCompletion(f))
 	service.RegisterServiceCommands(rootCmd, f)
 	shortcuts.RegisterShortcuts(rootCmd, f)

@@ -1,28 +1,29 @@
-# lark-cli 私有化部署调研与测试报告
+# xfchat_cli（私有化 lark-cli）私有化部署调研与测试报告
 
 ## 一、项目概览
 
-**lark-cli** 是飞书/Lark 开放平台的官方 CLI 工具，Go 语言编写，MIT 开源协议。
+**xfchat_cli** 是基于官方 `lark-cli` 的私有化 fork，Go 语言编写，MIT 协议；当前发行二进制名为 `xfchat_cli`，配置目录为 `~/.xfchat_cli`。
 
-- **规模**：11 个业务域，200+ 命令，19 个 AI Agent Skills
+- **规模**：200+ 命令，19 个 AI Agent Skills，覆盖消息、文档、多维表格、电子表格、日历、任务、知识库、通讯录、视频会议等核心域
 - **架构**：三层命令体系 — Shortcuts（`+` 前缀）→ API Commands → Raw API
-- **覆盖域**：日历、即时消息、文档、云盘、多维表格、电子表格、任务、Wiki、通讯录、邮箱、视频会议
+- **覆盖域**：日历、即时消息、文档、云盘、多维表格、电子表格、任务、Wiki、通讯录、视频会议
+- **运行态说明**：`lark-mail` skill 仍随包保留，但当前私有化运行时默认禁用 `mail` 服务命令，不纳入 prod 能力矩阵
 
 ---
 
 ## 二、登录/鉴权机制
 
-### 2.1 认证流程：OAuth 2.0 Device Flow
+### 2.1 认证流程：OAuth 2.0 Device Flow / Authorization Code Flow
 
-CLI 采用 **OAuth 2.0 设备授权流（RFC 8628）**，专为 CLI/无头应用设计：
+公有云默认采用 **OAuth 2.0 设备授权流（RFC 8628）**；私有化环境不支持 Device Flow 时，当前 fork 通过 `--web` 回落到 Authorization Code Flow：
 
 ```
-1. lark-cli config init            → 配置 AppID + AppSecret + Brand
-2. lark-cli auth login --recommend → 发起 Device Flow 认证
-   ├─ POST {accounts}/oauth/v1/device_authorization
-   ├─ 返回 verification_url + user_code + device_code
-   ├─ 用户在浏览器打开 URL 扫码/授权
-   └─ CLI 轮询 POST {open}/open-apis/authen/v2/oauth/token
+1. xfchat_cli config init            → 配置 AppID + AppSecret + Brand
+2. xfchat_cli auth login --recommend 或 xfchat_cli auth login --web
+   ├─ Device Flow：POST {accounts}/oauth/v1/device_authorization
+   ├─ Authorization Code Flow：浏览器打开授权页并回调 localhost
+   ├─ 用户在浏览器完成扫码/授权
+   └─ CLI 获取 User Access Token (UAT) + Refresh Token
 3. 获取 User Access Token (UAT) + Refresh Token
 4. Token 存入系统 Keychain（macOS Keychain / Linux AES-256-GCM）
 ```
@@ -32,15 +33,15 @@ CLI 采用 **OAuth 2.0 设备授权流（RFC 8628）**，专为 CLI/无头应用
 | 身份 | Token 类型 | 获取方式 | 适用场景 |
 |------|-----------|---------|---------|
 | **Bot（`--as bot`）** | Tenant Access Token | SDK 用 AppID+AppSecret 自动获取 | 发消息、读写表格等机器人权限操作 |
-| **User（`--as user`）** | User Access Token | OAuth Device Flow 浏览器授权 | 通讯录搜索、用户日历等需要用户身份的操作 |
+| **User（`--as user`）** | User Access Token | OAuth 浏览器授权（私有化默认 `--web`） | 通讯录搜索、用户日历等需要用户身份的操作 |
 
 ### 2.3 所需凭证
 
 | 凭证 | 来源 | 存储位置 |
 |------|------|---------|
-| AppID | 飞书开放平台创建应用 | `~/.lark-cli/config.json` |
+| AppID | 飞书开放平台创建应用 | `~/.xfchat_cli/config.json` |
 | AppSecret | 飞书开放平台创建应用 | OS Keychain |
-| User Access Token | OAuth Device Flow 获取 | OS Keychain |
+| User Access Token | OAuth 浏览器授权获取 | OS Keychain |
 | Refresh Token | 随 UAT 一起返回 | OS Keychain |
 
 ### 2.4 Token 刷新机制
@@ -128,7 +129,7 @@ base := core.ResolveEndpoints(configuredBrand).Open + "/api/tools/open/api_defin
 
 ### 3.3 使用方式
 
-编辑 `~/.lark-cli/config.json`：
+编辑 `~/.xfchat_cli/config.json`：
 
 ```json
 {
@@ -162,7 +163,7 @@ base := core.ResolveEndpoints(configuredBrand).Open + "/api/tools/open/api_defin
 
 ### 4.2 功能测试明细
 
-#### 连通性检查（`lark-cli doctor`）
+#### 连通性检查（`xfchat_cli doctor`）
 
 ```
 config_file    ✅ config.json found
@@ -175,7 +176,7 @@ token_exists   ❌ no user logged in（Bot 模式不需要）
 #### Bot 信息
 
 ```bash
-./lark-cli api GET /open-apis/bot/v3/info --as bot
+./xfchat_cli api GET /open-apis/bot/v3/info --as bot
 ```
 
 ```json
@@ -274,7 +275,7 @@ token_exists   ❌ no user logged in（Bot 模式不需要）
 | 错误处理 | 10/10 | 分类退出码(0-5)，带 hint 和 console_url |
 | 非交互模式 | 10/10 | `--no-wait` 非阻塞认证，`--dry-run` 预览 |
 | 安全性 | 9/10 | 输入注入防护、ANSI 转义剥离、Keychain 存储 |
-| 域覆盖 | 9/10 | 11 个业务域，几乎覆盖飞书全部核心功能 |
+| 域覆盖 | 9/10 | 覆盖绝大部分飞书核心能力；当前私有化运行时默认禁用 `mail` |
 | 可发现性 | 10/10 | `schema` 自省命令，19 个预写 AI Skills |
 | 幂等性 | 9/10 | 消息发送支持 `--idempotency-key` |
 
@@ -282,25 +283,28 @@ token_exists   ❌ no user logged in（Bot 模式不需要）
 
 ```bash
 # 认证（非阻塞，适合 Agent）
-result=$(./lark-cli auth login --domain calendar,im --no-wait --format json)
+result=$(./xfchat_cli auth login --domain calendar,im --no-wait --format json)
 # → 返回 verification_url，Agent 把 URL 给用户
 
 # 发消息
-./lark-cli im +messages-send --chat-id oc_xxx --text "Hello" --as bot
+./xfchat_cli im +messages-send --chat-id oc_xxx --text "Hello" --as bot
 
 # 查日程
-./lark-cli calendar +agenda --format json
+./xfchat_cli calendar +agenda --format json
 
 # 预览后执行（安全模式）
-./lark-cli im +messages-send --chat-id oc_xxx --text "Hi" --dry-run
-./lark-cli im +messages-send --chat-id oc_xxx --text "Hi"
+./xfchat_cli im +messages-send --chat-id oc_xxx --text "Hi" --dry-run
+./xfchat_cli im +messages-send --chat-id oc_xxx --text "Hi"
 ```
 
 ### 5.3 已有 19 个 AI Skills
 
 ```bash
-npx skills add larksuite/cli --all -y       # 安装全部
-npx skills add larksuite/cli -s lark-im -y  # 只装消息模块
+# 查看随包 skills 目录
+xfchat_cli skills path
+
+# 查看已随包携带的 skills
+xfchat_cli skills list
 ```
 
 ### 5.4 局限性
@@ -322,9 +326,9 @@ npx skills add larksuite/cli -s lark-im -y  # 只装消息模块
 ### 待解决
 
 1. **MCP 服务**：部分 shortcut（如 `docs +create`）依赖 MCP，需要私有化环境部署 MCP 服务
-2. **User 身份**：通讯录搜索等操作需要 OAuth Device Flow 授权，需验证私有化环境是否支持
+2. **User 身份**：通讯录搜索等操作需要 OAuth 浏览器授权；私有化环境下应优先验证 `--web` 回调链路
 3. **元数据接口**：`/api/tools/open/api_definition` 在私有化环境可能不存在，可通过 `LARKSUITE_CLI_REMOTE_META=off` 禁用
 
 ### Agent 使用
 
-**非常适合**。工具本身是 Agent-Native 设计，结构化 I/O、非交互认证、错误分类、19 个预写 Skills，可直接作为 AI Agent 的飞书操控工具使用。
+**非常适合**。工具本身是 Agent-Native 设计，结构化 I/O、非交互认证、错误分类、19 个随包 Skills，可直接作为 AI Agent 的飞书操控工具使用。

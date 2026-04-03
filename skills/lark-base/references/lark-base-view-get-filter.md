@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +view-get-filter \
+xfchat_cli base +view-get-filter \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --view-id viw_xxx

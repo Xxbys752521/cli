@@ -1,4 +1,4 @@
-# lark-cli 私有化部署测试报告
+# xfchat_cli（私有化 lark-cli）私有化部署测试报告
 
 ## 测试环境
 
@@ -8,7 +8,7 @@
 | 应用 | 星火派-test（`cli_a9084c0706b8d379`） |
 | OAuth 认证域名 | `https://accounts.xfchat.iflytek.com` |
 | 测试时间 | 2026-03-28 |
-| CLI 版本 | 本地编译（含私有化端点覆盖 + Authorization Code Flow） |
+| CLI 版本 | 本地编译的私有化 fork（`xfchat_cli`，含端点覆盖 + Authorization Code Flow） |
 
 ## 认证方式
 
@@ -70,9 +70,10 @@
 - [ ] 任务（Task）
 - [ ] 文档（Docs）
 - [ ] 通讯录（Contact）
-- [ ] 邮箱（Mail）
 - [ ] 视频会议（VC）
 - [ ] Wiki
+
+> `mail` 不再列入待测项。当前私有化运行时默认不注册 `mail` 服务命令，`lark-mail` 仅保留历史/参考 skill 文档。
 
 ---
 

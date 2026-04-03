@@ -5,31 +5,31 @@
 
 查询会议纪要，支持通过会议 ID、妙记 Token 或日程事件 ID 获取纪要文档、逐字稿、AI 总结、待办和章节。只读操作。
 
-本 skill 对应 shortcut：`lark-cli vc +notes`。
+本 skill 对应 shortcut：`xfchat_cli vc +notes`。
 
 ## 命令
 
 ```bash
 # 通过会议 ID 查询（逗号分隔支持批量，最多 50 个）
-lark-cli vc +notes --meeting-ids 69xxxxxxxxxxxxx28
-lark-cli vc +notes --meeting-ids 69xxxxxxxxxxxxx28,69xxxxxxxxxxxxx29
+xfchat_cli vc +notes --meeting-ids 69xxxxxxxxxxxxx28
+xfchat_cli vc +notes --meeting-ids 69xxxxxxxxxxxxx28,69xxxxxxxxxxxxx29
 
 # 通过妙记 Token 查询（从妙记 URL 中提取）
-lark-cli vc +notes --minute-tokens obbxxxxxxxxxxxxxxxxxx
-lark-cli vc +notes --minute-tokens obbxxxxxxxxxxxxxxxxxx,obbyyyyyyyyyyyyyyyyyy
+xfchat_cli vc +notes --minute-tokens obbxxxxxxxxxxxxxxxxxx
+xfchat_cli vc +notes --minute-tokens obbxxxxxxxxxxxxxxxxxx,obbyyyyyyyyyyyyyyyyyy
 
 # 指定逐字稿输出目录（仅 --minute-tokens 路径有效）
-lark-cli vc +notes --minute-tokens obbxxxxxxxxxxxxxxxxxx --output-dir ./output
-lark-cli vc +notes --minute-tokens obbxxxxxxxxxxxxxxxxxx --overwrite
+xfchat_cli vc +notes --minute-tokens obbxxxxxxxxxxxxxxxxxx --output-dir ./output
+xfchat_cli vc +notes --minute-tokens obbxxxxxxxxxxxxxxxxxx --overwrite
 
 # 通过日程事件 ID 查询（从 calendar +agenda 获取 event_id）
-lark-cli vc +notes --calendar-event-ids xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx_0
+xfchat_cli vc +notes --calendar-event-ids xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx_0
 
 # 输出格式
-lark-cli vc +notes --meeting-ids 69xxxxxxxxxxxxx28 --format json
+xfchat_cli vc +notes --meeting-ids 69xxxxxxxxxxxxx28 --format json
 
 # 预览 API 调用
-lark-cli vc +notes --meeting-ids 69xxxxxxxxxxxxx28 --dry-run
+xfchat_cli vc +notes --meeting-ids 69xxxxxxxxxxxxx28 --dry-run
 ```
 
 ## 参数
@@ -51,7 +51,7 @@ lark-cli vc +notes --meeting-ids 69xxxxxxxxxxxxx28 --dry-run
 
 ### 2. 仅支持 user 身份
 
-该命令仅支持 `user` 身份，使用前需完成 `lark-cli auth login`。
+该命令仅支持 `user` 身份，使用前需完成 `xfchat_cli auth login`。
 
 ### 3. 批量上限
 

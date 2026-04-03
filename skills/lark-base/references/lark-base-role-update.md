@@ -10,13 +10,13 @@
 
 ```bash
 # 仅修改角色名称
-lark-cli base +role-update \
+xfchat_cli base +role-update \
   --base-token VwGhb**************fMnod \
   --role-id rolxxxxxx4 \
   --json '{"role_name":"高级审核员","role_type":"custom_role"}'
 
 # 修改某个表的权限（其他表不受影响）
-lark-cli base +role-update \
+xfchat_cli base +role-update \
   --base-token VwGhb**************fMnod \
   --role-id rolxxxxxx4 \
   --json '{"role_name":"财务审核员","role_type":"custom_role","table_rule_map":{"订单表":{"perm":"read_only"}}}'

@@ -4,8 +4,8 @@ version: 1.0.0
 description: "飞书日历（calendar）：提供日历与日程（会议）的全面管理能力。核心场景包括：查看/搜索日程、创建/更新日程、管理参会人、查询忙闲状态及推荐空闲时段。高频操作请优先使用 Shortcuts：+agenda（快速概览今日/近期行程）、+create（创建日程并按需邀请参会人）、+freebusy（查询用户主日历的忙闲信息和rsvp的状态）、+suggestion（针对时间未确定的预约日程需求，提供多个时间推荐方案）。"
 metadata:
   requires:
-    bins: ["lark-cli"]
-  cliHelp: "lark-cli calendar --help"
+    bins: ["xfchat_cli"]
+  cliHelp: "xfchat_cli calendar --help"
 ---
 
 # calendar (v4)
@@ -39,14 +39,14 @@ metadata:
    - **时长**：基于会议类型和上下文动态推断（例如：“评审/汇报”推断为 60 分钟等），如无法推断，则默认为 30 分钟。
 
 2. **时间建议与辅助决策（核心体验）**
-   - **有明确时间点**（如`明早10点`）：调用相关工具（如 `lark-cli calendar +freebusy` [lark-calendar-freebusy](references/lark-calendar-freebusy.md)）先查询该时间段参会人的忙闲状态（注：若参会人已有日程的 RSVP 状态为拒绝，则认为该时段为空闲）。若均无冲突，直接进入下一步确认并创建；若有冲突，提示用户冲突情况并询问是否继续创建或重新选择时间。
-   - **有时间区间**（如`明天`、`下午`、`本周`）：调用相关工具（如 `lark-cli calendar +suggestion` [lark-calendar-suggestion](references/lark-calendar-suggestion.md)）获取该区间内所有参会人的**多个时间推荐方案**供用户选择。**必须在用户确认方案后**，才能执行创建日程操作；且用户一旦选择了推荐的方案，**无需再次查询忙闲信息**。
+   - **有明确时间点**（如`明早10点`）：调用相关工具（如 `xfchat_cli calendar +freebusy` [lark-calendar-freebusy](references/lark-calendar-freebusy.md)）先查询该时间段参会人的忙闲状态（注：若参会人已有日程的 RSVP 状态为拒绝，则认为该时段为空闲）。若均无冲突，直接进入下一步确认并创建；若有冲突，提示用户冲突情况并询问是否继续创建或重新选择时间。
+   - **有时间区间**（如`明天`、`下午`、`本周`）：调用相关工具（如 `xfchat_cli calendar +suggestion` [lark-calendar-suggestion](references/lark-calendar-suggestion.md)）获取该区间内所有参会人的**多个时间推荐方案**供用户选择。**必须在用户确认方案后**，才能执行创建日程操作；且用户一旦选择了推荐的方案，**无需再次查询忙闲信息**。
    - **无任何时间信息**：默认推断一个合理区间（如“今天”或“近两天”），并同样获取**多个时间推荐方案**供用户快速选择。
    - **生活类需求**（如健身、游泳、遛弯、约饭、奶茶等，注意“约咖啡”算工作场景）：预期**不调用** `suggestion` 工具。应自行推断合适的非工作时间给到用户确认。如果无法推断，请尝试主动询问用户，并在用户给出反馈后形成记忆，以便后续直接应用。
    - **模糊语义消解与长期记忆构建 (Aha Moment)**：针对用户专属的时间表达习惯（如“上班后”、“下班前”）或存在歧义的时间场景（如未指明上下午的12小时制），严禁主观臆断。应通过主动澄清明确真实意图，并将此类个性化定义沉淀为长期偏好，推动系统认知能力的持续进化，最终实现“下次即懂”的智能化体验。
 
 3. **非阻断式执行**
-   - 待用户确认具体时间选项后，执行 `lark-cli calendar +create --summary "..." --start "..." --end "..." --attendee-ids ...`
+   - 待用户确认具体时间选项后，执行 `xfchat_cli calendar +create --summary "..." --start "..." --end "..." --attendee-ids ...`
 
 4. **友好反馈**
    - 报告结果：返回创建成功的日程摘要信息
@@ -74,7 +74,7 @@ Calendar (日历)
 
 ## Shortcuts（推荐优先使用）
 
-Shortcut 是对常用操作的高级封装（`lark-cli calendar +<verb> [flags]`）。有 Shortcut 的操作优先使用。
+Shortcut 是对常用操作的高级封装（`xfchat_cli calendar +<verb> [flags]`）。有 Shortcut 的操作优先使用。
 
 | Shortcut | 说明 |
 |----------|------|
@@ -86,14 +86,14 @@ Shortcut 是对常用操作的高级封装（`lark-cli calendar +<verb> [flags]`
 ## +suggestion 使用
 在调用 `+suggestion` 之前，务必读取 [lark-calendar-suggestion](references/lark-calendar-suggestion.md) 中的使用说明，禁止直接调用命令。
 ```bash
-lark-cli calendar +suggestion --start "2026-03-10T00:00:00+08:00" --end "2026-03-10T11:00:00+08:00" --attendee-ids "ou_xxx,oc_yyy" --duration-minutes 30 # 为用户ou_xxx和群组oc_yyy里的成员推荐空闲时段
+xfchat_cli calendar +suggestion --start "2026-03-10T00:00:00+08:00" --end "2026-03-10T11:00:00+08:00" --attendee-ids "ou_xxx,oc_yyy" --duration-minutes 30 # 为用户ou_xxx和群组oc_yyy里的成员推荐空闲时段
 `````
 
 ## API Resources
 
 ```bash
-lark-cli schema calendar.<resource>.<method>   # 调用 API 前必须先查看参数结构
-lark-cli calendar <resource> <method> [flags] # 调用 API
+xfchat_cli schema calendar.<resource>.<method>   # 调用 API 前必须先查看参数结构
+xfchat_cli calendar <resource> <method> [flags] # 调用 API
 ```
 
 > **重要**：使用原生 API 时，必须先运行 `schema` 查看 `--data` / `--params` 参数结构，不要猜测字段格式。

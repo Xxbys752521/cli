@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +workflow-disable \
+xfchat_cli base +workflow-disable \
   --base-token BascXxxxxx \
   --workflow-id wkfxxxxxx
 ```

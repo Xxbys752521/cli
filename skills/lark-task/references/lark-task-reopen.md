@@ -8,7 +8,7 @@ Reopen a previously completed task.
 
 ```bash
 # Reopen a task
-lark-cli task +reopen --task-id "t_xxx"
+xfchat_cli task +reopen --task-id "t_xxx"
 ```
 
 ## Parameters

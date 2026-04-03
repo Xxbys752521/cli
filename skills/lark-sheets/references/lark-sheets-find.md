@@ -4,7 +4,7 @@
 > **前置条件：** 先阅读 [`../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) 了解认证、全局参数和安全规则。
 > **边界说明：** `sheets +find` 不是云空间搜索，只在一个已知 spreadsheet 内查找单元格内容。如果还不知道目标 spreadsheet 是哪一个，先用 [`lark-doc`](../../lark-doc/SKILL.md) 的 `docs +search` 定位文件；`docs +search` 的结果里会直接返回 `SHEET` 类型，再回到 `sheets +info` / `sheets +find`。
 
-本 skill 对应 shortcut：`lark-cli sheets +find`。
+本 skill 对应 shortcut：`xfchat_cli sheets +find`。
 
 特性：
 
@@ -18,19 +18,19 @@
 
 ```bash
 # 在指定范围查找（默认区分大小写）
-lark-cli sheets +find --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
+xfchat_cli sheets +find --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
   --sheet-id "<sheetId>" --find "张三" --range "A1:H200"
 
 # 不区分大小写
-lark-cli sheets +find --spreadsheet-token "shtxxxxxxxx" \
+xfchat_cli sheets +find --spreadsheet-token "shtxxxxxxxx" \
   --sheet-id "<sheetId>" --find "仓库管理营收报表" --range "H1:H500" --ignore-case
 
 # 正则查找
-lark-cli sheets +find --spreadsheet-token "shtxxxxxxxx" \
+xfchat_cli sheets +find --spreadsheet-token "shtxxxxxxxx" \
   --sheet-id "<sheetId>" --find "仓库管理营收报表" --range "H1:H500" --search-by-regex
 
 # 仅预览参数（不发请求）
-lark-cli sheets +find --url "https://..." --sheet-id "<sheetId>" --find "xxx" --dry-run
+xfchat_cli sheets +find --url "https://..." --sheet-id "<sheetId>" --find "xxx" --dry-run
 ```
 
 ## 参数

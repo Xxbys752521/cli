@@ -4,8 +4,8 @@ version: 1.0.0
 description: "飞书云文档：创建和编辑飞书文档。从 Markdown 创建文档、获取文档内容、更新文档（追加/覆盖/替换/插入/删除）、上传和下载文档中的图片和文件、搜索云空间文档。当用户需要创建或编辑飞书文档、读取文档内容、在文档中插入图片、搜索云空间文档时使用；如果用户是想按名称或关键词先定位电子表格、报表等云空间对象，也优先使用本 skill 的 docs +search 做资源发现。"
 metadata:
   requires:
-    bins: ["lark-cli"]
-  cliHelp: "lark-cli docs --help"
+    bins: ["xfchat_cli"]
+  cliHelp: "xfchat_cli docs --help"
 ---
 
 # docs (v1)
@@ -36,7 +36,7 @@ metadata:
 
 1. **使用 `wiki.spaces.get_node` 查询节点信息**
    ```bash
-   lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+   xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
    ```
 
 2. **从返回结果中提取关键信息**
@@ -60,7 +60,7 @@ metadata:
 
 ```bash
 # 查询 wiki 节点
-lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
 ```
 
 返回结果示例：
@@ -119,7 +119,7 @@ Drive Folder (云空间文件夹)
 - 编辑画板需要使用专门的 [`../lark-whiteboard/SKILL.md`](../lark-whiteboard/SKILL.md)
 
 ## 快速决策
-- 用户说“找一个表格”“按名称搜电子表格”“找报表”“最近打开的表格”，先用 `lark-cli docs +search` 做资源发现。
+- 用户说“找一个表格”“按名称搜电子表格”“找报表”“最近打开的表格”，先用 `xfchat_cli docs +search` 做资源发现。
 - `docs +search` 不是只搜文档 / Wiki；结果里会直接返回 `SHEET` 等云空间对象。
 - 拿到 spreadsheet URL / token 后，再切到 `lark-sheets` 做对象内部读取、筛选、写入等操作。
 
@@ -128,7 +128,7 @@ Drive Folder (云空间文件夹)
 
 ## Shortcuts（推荐优先使用）
 
-Shortcut 是对常用操作的高级封装（`lark-cli docs +<verb> [flags]`）。有 Shortcut 的操作优先使用。
+Shortcut 是对常用操作的高级封装（`xfchat_cli docs +<verb> [flags]`）。有 Shortcut 的操作优先使用。
 
 | Shortcut | 说明 |
 |----------|------|

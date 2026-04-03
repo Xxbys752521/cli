@@ -10,7 +10,7 @@
 ## 测试记录
 
 1. 读取日程
-命令： `lark-cli calendar +agenda --as bot --start 2026-03-29T00:00:00+08:00 --end 2026-03-29T23:59:59+08:00`
+命令： `xfchat_cli calendar +agenda --as bot --start 2026-03-29T00:00:00+08:00 --end 2026-03-29T23:59:59+08:00`
 结果： failed with `code=99991672`, required scope `calendar:calendar.event:read`
 结论： 当前环境下，这套 app 配置尚不能支撑 bot 身份读取日程。
 

@@ -9,7 +9,7 @@
 
 > **默认草稿模式**：`+reply` 默认保存为草稿，不会立即发送。如需立即发送，使用 `--confirm-send` 参数（须经用户明确确认）。**优先使用 `+reply` 而不是 `+draft-create` 来创建回复草稿**，因为 `+reply` 会自动处理主题、收件人和会话头。
 
-本 skill 对应 shortcut：`lark-cli mail +reply`，内部步骤：
+本 skill 对应 shortcut：`xfchat_cli mail +reply`，内部步骤：
 1. `GET /open-apis/mail/v1/user_mailboxes/me/messages/{message_id}` — 获取原邮件元数据
 2. `GET /open-apis/mail/v1/user_mailboxes/me/profile` — 获取邮箱主地址（`primary_email_address`，填入默认 From 头）
 3. `POST /open-apis/mail/v1/user_mailboxes/me/drafts` — 创建草稿
@@ -21,7 +21,7 @@
 
 **Step 1** — 创建回复草稿（不带 `--confirm-send`）：
 ```bash
-lark-cli mail +reply --message-id <邮件ID> --body '<回复正文>'
+xfchat_cli mail +reply --message-id <邮件ID> --body '<回复正文>'
 ```
 → 返回 `draft_id`
 
@@ -29,7 +29,7 @@ lark-cli mail +reply --message-id <邮件ID> --body '<回复正文>'
 
 **Step 3** — 用户明确同意后，发送该草稿：
 ```bash
-lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<Step 1 返回的 draft_id>"}'
+xfchat_cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<Step 1 返回的 draft_id>"}'
 ```
 
 **禁止跳过 Step 1 直接使用 `--confirm-send`。禁止在用户未明确同意的情况下执行 Step 3。**
@@ -38,25 +38,25 @@ lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_
 
 ```bash
 # 回复一封邮件（默认保存为草稿，返回 draft_id）— HTML 推荐
-lark-cli mail +reply --message-id <邮件ID> --body '<p><b>已收到</b>，稍后跟进。</p>'
+xfchat_cli mail +reply --message-id <邮件ID> --body '<p><b>已收到</b>，稍后跟进。</p>'
 
 # 回复并追加收件人/抄送（保存为草稿）
-lark-cli mail +reply --message-id <邮件ID> --body '<p>已处理</p>' --to lead@example.com --cc colleague@example.com
+xfchat_cli mail +reply --message-id <邮件ID> --body '<p>已处理</p>' --to lead@example.com --cc colleague@example.com
 
 # 回复时插入内嵌图片（CID 为唯一标识符，可用随机字符串）
-lark-cli mail +reply --message-id <邮件ID> --body '<img src="cid:a1b2c3d4e5f6a7b8c9d0"> 详见图示。' --inline '[{"cid":"a1b2c3d4e5f6a7b8c9d0","file_path":"./logo.png"}]'
+xfchat_cli mail +reply --message-id <邮件ID> --body '<img src="cid:a1b2c3d4e5f6a7b8c9d0"> 详见图示。' --inline '[{"cid":"a1b2c3d4e5f6a7b8c9d0","file_path":"./logo.png"}]'
 
 # 纯文本回复（仅在内容极简时使用）
-lark-cli mail +reply --message-id <邮件ID> --body '收到，谢谢！'
+xfchat_cli mail +reply --message-id <邮件ID> --body '收到，谢谢！'
 
 # 指定发件人地址
-lark-cli mail +reply --message-id <邮件ID> --body '收到' --from me@example.com
+xfchat_cli mail +reply --message-id <邮件ID> --body '收到' --from me@example.com
 
 # 确认发送回复（用户明确确认后使用）
-lark-cli mail +reply --message-id <邮件ID> --body '<p>收到，谢谢！</p>' --confirm-send
+xfchat_cli mail +reply --message-id <邮件ID> --body '<p>收到，谢谢！</p>' --confirm-send
 
 # Dry Run（仅打印请求，不执行）
-lark-cli mail +reply --message-id <邮件ID> --body '<p>测试</p>' --dry-run
+xfchat_cli mail +reply --message-id <邮件ID> --body '<p>测试</p>' --dry-run
 ```
 
 ## 参数
@@ -83,7 +83,7 @@ lark-cli mail +reply --message-id <邮件ID> --body '<p>测试</p>' --dry-run
   "ok": true,
   "data": {
     "draft_id": "草稿ID",
-    "tip": "draft saved. To send: lark-cli mail user_mailbox.drafts send --params '{...}'"
+    "tip": "draft saved. To send: xfchat_cli mail user_mailbox.drafts send --params '{...}'"
   }
 }
 ```
@@ -103,20 +103,20 @@ lark-cli mail +reply --message-id <邮件ID> --body '<p>测试</p>' --dry-run
 
 ### 场景 1：用户说"帮我写个回复草稿"（只创建草稿）
 ```bash
-lark-cli mail +reply --message-id <邮件ID> --body '<p>收到，谢谢！</p>'
+xfchat_cli mail +reply --message-id <邮件ID> --body '<p>收到，谢谢！</p>'
 ```
 → 返回 `draft_id`，告诉用户回复草稿已创建。**注意：用 `+reply` 而不是 `+draft-create`**，这样草稿会自动关联原邮件的主题、收件人和会话头。
 
 ### 场景 2：用户说"回复这封邮件说已处理"（需要发送）
 ```bash
 # Step 1: 创建回复草稿
-lark-cli mail +reply --message-id <邮件ID> --body '<p>已处理，谢谢。</p>'
+xfchat_cli mail +reply --message-id <邮件ID> --body '<p>已处理，谢谢。</p>'
 # → 返回 draft_id
 
 # Step 2: 向用户确认 "回复草稿已创建：回复给 alice@example.com，内容「已处理，谢谢。」确认发送吗？"
 
 # Step 3: 用户确认后发送
-lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<draft_id>"}'
+xfchat_cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<draft_id>"}'
 ```
 
 ## 实现说明
@@ -145,7 +145,7 @@ References:  <原邮件references + smtp_message_id>
 **1. 确认投递状态**（必须）— 用返回的 `message_id` 查询投递状态：
 
 ```bash
-lark-cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me","message_id":"<发送返回的 message_id>"}'
+xfchat_cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me","message_id":"<发送返回的 message_id>"}'
 ```
 
 状态码：1=正在投递, 2=投递失败重试, 3=退信, 4=投递成功, 5=待审批, 6=审批拒绝。向用户简要报告投递结果，异常状态需重点提示。
@@ -153,7 +153,7 @@ lark-cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me
 **2. 标记已读**（可选）— 询问用户是否需要将原邮件标记为已读。如果用户同意：
 
 ```bash
-lark-cli mail user_mailbox.messages batch_modify_message --params '{"user_mailbox_id":"me"}' --data '{"message_ids":["<原邮件ID>"],"remove_label_ids":["UNREAD"]}'
+xfchat_cli mail user_mailbox.messages batch_modify_message --params '{"user_mailbox_id":"me"}' --data '{"message_ids":["<原邮件ID>"],"remove_label_ids":["UNREAD"]}'
 ```
 
 ## 编辑回复草稿
@@ -165,20 +165,20 @@ lark-cli mail user_mailbox.messages batch_modify_message --params '{"user_mailbo
 cat > /tmp/patch.json << 'EOF'
 { "ops": [{ "op": "set_reply_body", "value": "<p>修改后的回复内容</p>" }] }
 EOF
-lark-cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
+xfchat_cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
 ```
 
 如果用户要修改引用区内容或去掉引用区，则使用 `set_body` 全量替换。
 
 ## 注意事项
 
-- 需要已登录（`lark-cli auth login --scope "mail:user_mailbox.message:modify mail:user_mailbox.message:readonly mail:user_mailbox:readonly"`）且具备写/读邮件权限
-- 邮件 ID 可从 `lark-cli mail user_mailbox.messages list` 获取
+- 需要已登录（`xfchat_cli auth login --scope "mail:user_mailbox.message:modify mail:user_mailbox.message:readonly mail:user_mailbox:readonly"`）且具备写/读邮件权限
+- 邮件 ID 可从 `xfchat_cli mail user_mailbox.messages list` 获取
 - `--bcc` 仅在发送链路中生效，通常不会在收件方看到
 
 ## 相关命令
 
-- `lark-cli mail user_mailbox.messages list` — 列出邮件
-- `lark-cli mail user_mailbox.messages get` — 读取邮件详情
-- `lark-cli mail +reply-all` — 回复全部
-- `lark-cli mail +forward` — 转发邮件
+- `xfchat_cli mail user_mailbox.messages list` — 列出邮件
+- `xfchat_cli mail user_mailbox.messages get` — 读取邮件详情
+- `xfchat_cli mail +reply-all` — 回复全部
+- `xfchat_cli mail +forward` — 转发邮件

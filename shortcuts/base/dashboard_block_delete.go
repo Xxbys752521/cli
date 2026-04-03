@@ -24,7 +24,7 @@ var BaseDashboardBlockDelete = common.Shortcut{
 	},
 	DryRun: func(ctx context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 		return common.NewDryRunAPI().
-			DELETE("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id/blocks/:block_id").
+			DELETE("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id/blocks/:block_id").
 			Set("base_token", runtime.Str("base-token")).
 			Set("dashboard_id", runtime.Str("dashboard-id")).
 			Set("block_id", runtime.Str("block-id"))

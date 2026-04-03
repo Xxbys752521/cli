@@ -29,7 +29,7 @@ var BaseFormQuestionsCreate = common.Shortcut{
 	},
 	DryRun: func(ctx context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 		return common.NewDryRunAPI().
-			POST("/open-apis/base/v3/bases/:base_token/tables/:table_id/forms/:form_id/questions").
+			POST("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/forms/:form_id/questions").
 			Set("base_token", runtime.Str("base-token")).
 			Set("table_id", runtime.Str("table-id")).
 			Set("form_id", runtime.Str("form-id"))

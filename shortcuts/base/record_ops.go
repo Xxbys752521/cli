@@ -20,7 +20,7 @@ func dryRunRecordList(_ context.Context, runtime *common.RuntimeContext) *common
 		params["view_id"] = viewID
 	}
 	return common.NewDryRunAPI().
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id/records").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/records").
 		Params(params).
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime))
@@ -28,7 +28,7 @@ func dryRunRecordList(_ context.Context, runtime *common.RuntimeContext) *common
 
 func dryRunRecordGet(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return common.NewDryRunAPI().
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id/records/:record_id").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/records/:record_id").
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime)).
 		Set("record_id", runtime.Str("record-id"))
@@ -39,14 +39,14 @@ func dryRunRecordUpsert(_ context.Context, runtime *common.RuntimeContext) *comm
 	body = normalizeRecordBody(body)
 	if recordID := runtime.Str("record-id"); recordID != "" {
 		return common.NewDryRunAPI().
-			PUT("/open-apis/base/v3/bases/:base_token/tables/:table_id/records/:record_id").
+			PUT("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/records/:record_id").
 			Body(body).
 			Set("base_token", runtime.Str("base-token")).
 			Set("table_id", baseTableID(runtime)).
 			Set("record_id", recordID)
 	}
 	return common.NewDryRunAPI().
-		POST("/open-apis/base/v3/bases/:base_token/tables/:table_id/records").
+		POST("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/records").
 		Body(body).
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime))
@@ -54,7 +54,7 @@ func dryRunRecordUpsert(_ context.Context, runtime *common.RuntimeContext) *comm
 
 func dryRunRecordDelete(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return common.NewDryRunAPI().
-		DELETE("/open-apis/base/v3/bases/:base_token/tables/:table_id/records/:record_id").
+		DELETE("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/records/:record_id").
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime)).
 		Set("record_id", runtime.Str("record-id"))
@@ -70,7 +70,7 @@ func dryRunRecordHistoryList(_ context.Context, runtime *common.RuntimeContext) 
 		params["max_version"] = value
 	}
 	return common.NewDryRunAPI().
-		GET("/open-apis/base/v3/bases/:base_token/record_history").
+		GET("/open-apis/bitable/v1/apps/:base_token/record_history").
 		Params(params).
 		Set("base_token", runtime.Str("base-token"))
 }

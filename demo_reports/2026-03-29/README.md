@@ -1,12 +1,14 @@
-# lark-cli 演示测试总览
+# xfchat_cli 演示测试总览
 
 日期：2026-03-29  
-仓库：[larksuite/cli](https://github.com/larksuite/cli/tree/main)  
+仓库：[Xxbys752521/cli](https://github.com/Xxbys752521/cli)（上游参考：[larksuite/cli](https://github.com/larksuite/cli/tree/main)）  
 工作目录：`/Users/wangqizhao/Developer/iflytek/cli`
+
+> 本目录统一以当前私有化 fork `xfchat_cli` 为准。若材料里讨论“私有化 lark-cli”，指的就是当前这套发行版；二进制名与配置目录统一为 `xfchat_cli` / `~/.xfchat_cli`。
 
 ## 一、这份材料的用途
 
-这份目录下的文档用于沉淀一套可复现的 `lark-cli` 演示测试记录，按模块和身份拆开留痕，便于后续做三件事：
+这份目录下的文档用于沉淀一套可复现的 `xfchat_cli` 演示测试记录，按模块和身份拆开留痕，便于后续做三件事：
 
 1. 对外演示时快速查阅成功案例和失败边界。
 2. 对内评估私有化飞书环境下哪些能力已经可用，哪些能力仍有缺口。
@@ -18,7 +20,7 @@
 - `user/*.md`：以 `user` 身份执行的模块测试记录
 - `composite/cases.md`：跨模块组合案例
 - `artifacts/`：测试过程中生成的本地文件
-- `cli_vs_spark_comparison_report.md`：`spark` 与 `lark-cli` 对比报告
+- `cli_vs_spark_comparison_report.md`：`spark` 与 `xfchat_cli` 对比报告
 - `migration_technical_plan.md`：迁移技术方案
 
 ## 三、当前环境结论
@@ -41,7 +43,7 @@
 | Task | 不支持 | 通过 | 相关 shortcut 以 `user` 为主，`bot` 被命令层拒绝 |
 | Wiki | 通过 | 通过 | 两种身份都能解析节点信息 |
 | Contact | 不支持 | 通过 | `user` 查询通过，`bot` 不支持对应 shortcut |
-| Mail | 失败 | 失败 | `bot` 缺 scope，`user` 当前账号没有邮箱能力 |
+| Mail | 已禁用 | 已禁用 | 当前私有化运行时不注册 `mail` 服务命令，仅保留历史 skill 文档 |
 | VC | 不支持 | 通过 | `user` 查询通过但为空，`bot` 不支持对应 shortcut |
 | Minutes | 失败 | 失败 | `user` 缺少 minutes scope，`bot` 只验证到参数格式 |
 
@@ -61,7 +63,7 @@
 ### 1. 身份差异比命令名更重要
 
 同一个模块下，`bot` 和 `user` 的实际可用能力并不对称。  
-这不是 `lark-cli` 独有问题，而是飞书权限模型本身决定的，但 `lark-cli` 把这个差异暴露得比较清楚。
+这不是 `xfchat_cli` 独有问题，而是飞书权限模型本身决定的，但 `xfchat_cli` 把这个差异暴露得比较清楚。
 
 ### 2. 失败场景同样有价值
 
@@ -93,8 +95,8 @@
 
 ## 七、如何复现
 
-1. 先确认 `lark-cli --help` 可执行。
-2. 执行 `lark-cli auth status` 确认当前身份状态。
+1. 先确认 `xfchat_cli --help` 可执行。
+2. 执行 `xfchat_cli auth status` 确认当前身份状态。
 3. 需要 `user` 侧测试时，先完成 `auth login`。
 4. 逐个进入 `bot/*.md` 和 `user/*.md`，按文档中的命令重放。
 5. 用本文件里的资源 ID 做跨模块串联。

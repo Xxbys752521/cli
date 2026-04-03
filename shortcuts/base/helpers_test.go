@@ -167,10 +167,10 @@ func TestBuildTableFieldBodies(t *testing.T) {
 }
 
 func TestBaseV3Helpers(t *testing.T) {
-	if baseV3Path("/bases/", "app_1", "/tables/", "tbl_1") != "/open-apis/base/v3/bases/app_1/tables/tbl_1" {
+	if baseV3Path("/bases/", "app_1", "/tables/", "tbl_1") != "/open-apis/bitable/v1/apps/app_1/tables/tbl_1" {
 		t.Fatalf("baseV3Path mismatch")
 	}
-	if baseV3Path("bases", "app_1", "tables", "tbl/1", "fields", "fld?1", "views", "视图 1") != "/open-apis/base/v3/bases/app_1/tables/tbl%2F1/fields/fld%3F1/views/%E8%A7%86%E5%9B%BE%201" {
+	if baseV3Path("bases", "app_1", "tables", "tbl/1", "fields", "fld?1", "views", "视图 1") != "/open-apis/bitable/v1/apps/app_1/tables/tbl%2F1/fields/fld%3F1/views/%E8%A7%86%E5%9B%BE%201" {
 		t.Fatalf("baseV3Path encode mismatch")
 	}
 	if toInt("42") != 42 || toInt(7.0) != 7 {

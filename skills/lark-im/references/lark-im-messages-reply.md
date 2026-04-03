@@ -4,7 +4,7 @@
 
 Reply to a specific message. Only supports bot identity. Also supports thread replies.
 
-This skill maps to the shortcut: `lark-cli im +messages-reply` (internally calls `POST /open-apis/im/v1/messages/:message_id/reply`).
+This skill maps to the shortcut: `xfchat_cli im +messages-reply` (internally calls `POST /open-apis/im/v1/messages/:message_id/reply`).
 
 ## Safety Constraints
 
@@ -22,37 +22,37 @@ When using `--as bot`, the reply is sent in the app's name, so make sure the app
 
 ```bash
 # Reply to a message (plain text, bot identity, --text is recommended)
-lark-cli im +messages-reply --message-id om_xxx --text "Received"
+xfchat_cli im +messages-reply --message-id om_xxx --text "Received"
 
 # Equivalent manual JSON
-lark-cli im +messages-reply --message-id om_xxx --content '{"text":"Received"}'
+xfchat_cli im +messages-reply --message-id om_xxx --content '{"text":"Received"}'
 
 # Reply as a bot
-lark-cli im +messages-reply --message-id om_xxx --text "bot reply" --as bot
+xfchat_cli im +messages-reply --message-id om_xxx --text "bot reply" --as bot
 
 # Reply inside the thread (message appears in the target thread)
-lark-cli im +messages-reply --message-id om_xxx --text "Let's discuss this" --reply-in-thread
+xfchat_cli im +messages-reply --message-id om_xxx --text "Let's discuss this" --reply-in-thread
 
 # Bot identity + thread reply
-lark-cli im +messages-reply --message-id om_xxx --text "bot reply" --as bot --reply-in-thread
+xfchat_cli im +messages-reply --message-id om_xxx --text "bot reply" --as bot --reply-in-thread
 
 # Reply with a rich-text message
-lark-cli im +messages-reply --message-id om_xxx --msg-type post --content '{"zh_cn":{"title":"Reply","content":[[{"tag":"text","text":"Detailed content"}]]}}'
+xfchat_cli im +messages-reply --message-id om_xxx --msg-type post --content '{"zh_cn":{"title":"Reply","content":[[{"tag":"text","text":"Detailed content"}]]}}'
 
 # Reply with a local image (uploaded automatically before sending)
-lark-cli im +messages-reply --message-id om_xxx --image ./photo.png
+xfchat_cli im +messages-reply --message-id om_xxx --image ./photo.png
 
 # Reply with a local file (uploaded automatically before sending)
-lark-cli im +messages-reply --message-id om_xxx --file ./report.pdf
+xfchat_cli im +messages-reply --message-id om_xxx --file ./report.pdf
 
 # Reply with a local video (--video-cover is required as the video cover)
-lark-cli im +messages-reply --message-id om_xxx --video ./demo.mp4 --video-cover ./cover.png
+xfchat_cli im +messages-reply --message-id om_xxx --video ./demo.mp4 --video-cover ./cover.png
 
 # With an idempotency key
-lark-cli im +messages-reply --message-id om_xxx --text "Received" --idempotency-key my-unique-id
+xfchat_cli im +messages-reply --message-id om_xxx --text "Received" --idempotency-key my-unique-id
 
 # Preview the request without executing it
-lark-cli im +messages-reply --message-id om_xxx --text "Test" --dry-run
+xfchat_cli im +messages-reply --message-id om_xxx --text "Test" --dry-run
 ```
 
 ## Parameters
@@ -93,7 +93,7 @@ lark-cli im +messages-reply --message-id om_xxx --text "Test" --dry-run
 ### Scenario 1: Reply in the main chat stream
 
 ```bash
-lark-cli im +messages-reply --message-id om_xxx --text "OK, I will handle it"
+xfchat_cli im +messages-reply --message-id om_xxx --text "OK, I will handle it"
 ```
 
 The reply appears in the main chat stream and references the target message.
@@ -101,7 +101,7 @@ The reply appears in the main chat stream and references the target message.
 ### Scenario 2: Reply inside a thread
 
 ```bash
-lark-cli im +messages-reply --message-id om_xxx --text "Let me take a look at this" --reply-in-thread
+xfchat_cli im +messages-reply --message-id om_xxx --text "Let me take a look at this" --reply-in-thread
 ```
 
 The reply appears in the target message's thread and does not show up in the main chat stream.

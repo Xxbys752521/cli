@@ -36,7 +36,7 @@ var BaseWorkflowList = common.Shortcut{
 			body["status"] = s
 		}
 		return common.NewDryRunAPI().
-			POST("/open-apis/base/v3/bases/:base_token/workflows/list").
+			POST("/open-apis/bitable/v1/apps/:base_token/workflows/list").
 			Body(body).
 			Set("base_token", runtime.Str("base-token"))
 	},

@@ -41,56 +41,23 @@ var DocsCreate = common.Shortcut{
 		return nil
 	},
 	DryRun: func(ctx context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
-		args := map[string]interface{}{
-			"markdown": runtime.Str("markdown"),
-		}
+		body := map[string]interface{}{}
 		if v := runtime.Str("title"); v != "" {
-			args["title"] = v
-		}
-		if v := runtime.Str("folder-token"); v != "" {
-			args["folder_token"] = v
-		}
-		if v := runtime.Str("wiki-node"); v != "" {
-			args["wiki_node"] = v
-		}
-		if v := runtime.Str("wiki-space"); v != "" {
-			args["wiki_space"] = v
+			body["title"] = v
 		}
 		return common.NewDryRunAPI().
-			POST(common.MCPEndpoint(runtime.Config.Brand)).
-			Desc("MCP tool: create-doc").
-			Body(map[string]interface{}{"method": "tools/call", "params": map[string]interface{}{"name": "create-doc", "arguments": args}}).
-			Set("mcp_tool", "create-doc").Set("args", args)
+			POST("/open-apis/docx/v1/documents").
+			Desc("Create docx document via OpenAPI").
+			Body(body).
+			Set("backend", "openapi")
 	},
 	Execute: func(ctx context.Context, runtime *common.RuntimeContext) error {
-		args := map[string]interface{}{
-			"markdown": runtime.Str("markdown"),
+		if runtime.Str("folder-token") != "" || runtime.Str("wiki-node") != "" || runtime.Str("wiki-space") != "" {
+			return output.ErrValidation("OpenAPI adaptation does not yet support --folder-token/--wiki-node/--wiki-space")
 		}
-		if v := runtime.Str("title"); v != "" {
-			args["title"] = v
-		}
-		if v := runtime.Str("folder-token"); v != "" {
-			args["folder_token"] = v
-		}
-		if v := runtime.Str("wiki-node"); v != "" {
-			args["wiki_node"] = v
-		}
-		if v := runtime.Str("wiki-space"); v != "" {
-			args["wiki_space"] = v
-		}
-
-		result, err := common.CallMCPTool(runtime, "create-doc", args)
+		result, err := createDocxViaOpenAPI(runtime, runtime.Str("title"), runtime.Str("markdown"))
 		if err != nil {
 			return err
-		}
-		if shouldFallbackToDocxOpenAPI(result) {
-			if runtime.Str("folder-token") != "" || runtime.Str("wiki-node") != "" || runtime.Str("wiki-space") != "" {
-				return output.ErrValidation("private deployment fallback does not yet support --folder-token/--wiki-node/--wiki-space")
-			}
-			result, err = createDocxViaOpenAPI(runtime, runtime.Str("title"), runtime.Str("markdown"))
-			if err != nil {
-				return err
-			}
 		}
 
 		runtime.Out(result, nil)

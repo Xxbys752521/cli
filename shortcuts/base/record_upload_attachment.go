@@ -55,12 +55,12 @@ func dryRunRecordUploadAttachment(_ context.Context, runtime *common.RuntimeCont
 	}
 	return common.NewDryRunAPI().
 		Desc("4-step orchestration: validate attachment field → read existing record attachments → upload file to Base → patch merged attachment array").
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id/fields/:field_id").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/fields/:field_id").
 		Desc("[1] Read target field and ensure it is an attachment field").
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime)).
 		Set("field_id", runtime.Str("field-id")).
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id/records/:record_id").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/records/:record_id").
 		Desc("[2] Read current record to preserve existing attachments in the target cell").
 		Set("record_id", runtime.Str("record-id")).
 		POST("/open-apis/drive/v1/medias/upload_all").
@@ -71,7 +71,7 @@ func dryRunRecordUploadAttachment(_ context.Context, runtime *common.RuntimeCont
 			"parent_node": runtime.Str("base-token"),
 			"file":        "@" + filePath,
 		}).
-		PUT("/open-apis/base/v3/bases/:base_token/tables/:table_id/records/:record_id").
+		PUT("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/records/:record_id").
 		Desc("[4] Update the target attachment cell with existing attachments plus the uploaded file token").
 		Body(map[string]interface{}{
 			"<attachment_field_name>": []interface{}{

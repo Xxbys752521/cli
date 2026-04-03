@@ -25,41 +25,41 @@ func dryRunViewList(_ context.Context, runtime *common.RuntimeContext) *common.D
 	}
 	limit := common.ParseIntBounded(runtime, "limit", 1, 200)
 	return dryRunViewBase(runtime).
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id/views").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/views").
 		Params(map[string]interface{}{"offset": offset, "limit": limit})
 }
 
 func dryRunViewGet(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return dryRunViewBase(runtime).
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id/views/:view_id")
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/views/:view_id")
 }
 
 func dryRunViewCreate(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	api := dryRunViewBase(runtime)
 	bodyList, err := parseObjectList(runtime.Str("json"), "json")
 	if err != nil || len(bodyList) == 0 {
-		return api.POST("/open-apis/base/v3/bases/:base_token/tables/:table_id/views")
+		return api.POST("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/views")
 	}
 	for _, body := range bodyList {
-		api.POST("/open-apis/base/v3/bases/:base_token/tables/:table_id/views").Body(body)
+		api.POST("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/views").Body(body)
 	}
 	return api
 }
 
 func dryRunViewDelete(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return dryRunViewBase(runtime).
-		DELETE("/open-apis/base/v3/bases/:base_token/tables/:table_id/views/:view_id")
+		DELETE("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/views/:view_id")
 }
 
 func dryRunViewGetProperty(runtime *common.RuntimeContext, segment string) *common.DryRunAPI {
 	return dryRunViewBase(runtime).
-		GET(fmt.Sprintf("/open-apis/base/v3/bases/:base_token/tables/:table_id/views/:view_id/%s", url.PathEscape(segment)))
+		GET(fmt.Sprintf("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/views/:view_id/%s", url.PathEscape(segment)))
 }
 
 func dryRunViewSetJSONObject(runtime *common.RuntimeContext, segment string) *common.DryRunAPI {
 	body, _ := parseJSONObject(runtime.Str("json"), "json")
 	return dryRunViewBase(runtime).
-		PUT(fmt.Sprintf("/open-apis/base/v3/bases/:base_token/tables/:table_id/views/:view_id/%s", url.PathEscape(segment))).
+		PUT(fmt.Sprintf("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/views/:view_id/%s", url.PathEscape(segment))).
 		Body(body)
 }
 
@@ -69,7 +69,7 @@ func dryRunViewSetWrapped(runtime *common.RuntimeContext, segment string, wrappe
 		raw = nil
 	}
 	return dryRunViewBase(runtime).
-		PUT(fmt.Sprintf("/open-apis/base/v3/bases/:base_token/tables/:table_id/views/:view_id/%s", url.PathEscape(segment))).
+		PUT(fmt.Sprintf("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/views/:view_id/%s", url.PathEscape(segment))).
 		Body(wrapViewPropertyBody(raw, wrapper))
 }
 
@@ -115,7 +115,7 @@ func dryRunViewSetCard(_ context.Context, runtime *common.RuntimeContext) *commo
 
 func dryRunViewRename(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return dryRunViewBase(runtime).
-		PATCH("/open-apis/base/v3/bases/:base_token/tables/:table_id/views/:view_id").
+		PATCH("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/views/:view_id").
 		Body(map[string]interface{}{"view_name": runtime.Str("name")})
 }
 

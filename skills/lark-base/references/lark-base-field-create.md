@@ -15,12 +15,12 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +field-create \
+xfchat_cli base +field-create \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --json '{"name":"预算","type":"number","precision":2}' 
 
-lark-cli base +field-create \
+xfchat_cli base +field-create \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --json '{"name":"状态","type":"select","multiple":false,"options":[{"name":"Todo","hue":"Blue","lightness":"Lighter"},{"name":"Done","hue":"Green","lightness":"Light"}]}'

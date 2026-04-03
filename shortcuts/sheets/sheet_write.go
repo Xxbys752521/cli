@@ -17,7 +17,7 @@ var SheetWrite = common.Shortcut{
 	Command:     "+write",
 	Description: "Write to spreadsheet cells (overwrite mode)",
 	Risk:        "write",
-	Scopes:      []string{"sheets:spreadsheet:write_only", "sheets:spreadsheet:read"},
+	Scopes:      []string{"sheets:spreadsheet", "sheets:spreadsheet:readonly"},
 	AuthTypes:   []string{"user", "bot"},
 	Flags: []common.Flag{
 		{Name: "url", Desc: "spreadsheet URL"},

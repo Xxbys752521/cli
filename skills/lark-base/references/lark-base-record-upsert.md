@@ -7,12 +7,12 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +record-upsert \
+xfchat_cli base +record-upsert \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --json '{"项目名称":"Apollo","状态":"进行中"}' 
 
-lark-cli base +record-upsert \
+xfchat_cli base +record-upsert \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --record-id rec_xxx \

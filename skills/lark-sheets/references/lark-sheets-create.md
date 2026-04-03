@@ -3,7 +3,7 @@
 
 > **前置条件：** 先阅读 [`../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) 了解认证、全局参数和安全规则。
 
-本 skill 对应 shortcut：`lark-cli sheets +create`。
+本 skill 对应 shortcut：`xfchat_cli sheets +create`。
 
 特性：
 
@@ -15,10 +15,10 @@
 
 > [!IMPORTANT]
 > 如果表格是**以应用身份（bot）创建**的，agent 在创建成功后应**默认继续使用 bot 身份**，为当前可用的 user 身份添加该表格的 `full_access`（管理员）权限。推荐流程：
-> 1. 先用 `lark-cli contact +get-user` 获取当前用户信息，并从返回结果中读取该用户的 `open_id`
+> 1. 先用 `xfchat_cli contact +get-user` 获取当前用户信息，并从返回结果中读取该用户的 `open_id`
 > 2. 再切回 bot 身份，使用这个 `open_id` 给该用户授权该表格的 `full_access`（管理员）权限
 >
-> 如果 `lark-cli contact +get-user` 无法执行，或者本地没有可用的 user 身份、拿不到当前用户的 `open_id`，则应视为“本地没有可用的 user 身份”，明确说明因此未完成授权。
+> 如果 `xfchat_cli contact +get-user` 无法执行，或者本地没有可用的 user 身份、拿不到当前用户的 `open_id`，则应视为“本地没有可用的 user 身份”，明确说明因此未完成授权。
 >
 > 回复创建结果时，除 `spreadsheet_token` / `url` 外，还必须明确告知用户授权结果：
 > - 如果授权成功：直接说明当前 user 已获得该表格的管理员权限
@@ -33,18 +33,18 @@
 
 ```bash
 # 最简单：只创建
-lark-cli sheets +create --title "仓库管理营收报表"
+xfchat_cli sheets +create --title "仓库管理营收报表"
 
 # 创建并写入表头 + 初始数据
-lark-cli sheets +create --title "仓库管理营收报表" \
+xfchat_cli sheets +create --title "仓库管理营收报表" \
   --headers '["仓库","统计月份","入库金额","出库金额","销售收入","毛利率"]' \
   --data '[["华东一仓","2026-03",125000,98000,168000,"41.7%"]]'
 
 # 创建到指定文件夹（folder_token）
-lark-cli sheets +create --title "测试表" --folder-token "fldbc_xxx"
+xfchat_cli sheets +create --title "测试表" --folder-token "fldbc_xxx"
 
 # 仅预览参数（不发请求）
-lark-cli sheets +create --title "测试表" --dry-run
+xfchat_cli sheets +create --title "测试表" --dry-run
 ```
 
 ## 参数

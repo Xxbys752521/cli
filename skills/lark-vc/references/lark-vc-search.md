@@ -5,7 +5,7 @@
 
 搜索已结束的历史会议记录，支持关键词、时间范围、组织者、参与者以及会议室等多条件过滤。只读操作，不修改任何会议数据。
 
-本 skill 对应 shortcut：`lark-cli vc +search`（调用 `POST /open-apis/vc/v1/meetings/search`）。
+本 skill 对应 shortcut：`xfchat_cli vc +search`（调用 `POST /open-apis/vc/v1/meetings/search`）。
 
 ## 典型触发表达
 
@@ -22,35 +22,35 @@
 
 ```bash
 # 关键词搜索
-lark-cli vc +search --query "周会"
+xfchat_cli vc +search --query "周会"
 
 # 按时间范围搜索
-lark-cli vc +search --start "2026-03-10T00:00+08:00" --end "2026-03-17T00:00+08:00"
-lark-cli vc +search --start 2026-03-10 --end 2026-03-17
+xfchat_cli vc +search --start "2026-03-10T00:00+08:00" --end "2026-03-17T00:00+08:00"
+xfchat_cli vc +search --start 2026-03-10 --end 2026-03-17
 
 # 关键词 + 时间范围
-lark-cli vc +search --query "周会" --start "2026-03-10T00:00+08:00" --end "2026-03-17T00:00+08:00"
-lark-cli vc +search --query "周会" --start "2026-03-10T00:00+08:00"
-lark-cli vc +search --query "周会" --end "2026-03-17T00:00+08:00"
+xfchat_cli vc +search --query "周会" --start "2026-03-10T00:00+08:00" --end "2026-03-17T00:00+08:00"
+xfchat_cli vc +search --query "周会" --start "2026-03-10T00:00+08:00"
+xfchat_cli vc +search --query "周会" --end "2026-03-17T00:00+08:00"
 
 # 按组织者过滤（open_id，逗号分隔）
-lark-cli vc +search --organizer-ids "ou_a,ou_b"
+xfchat_cli vc +search --organizer-ids "ou_a,ou_b"
 
 # 按参与者过滤（open_id，逗号分隔）
-lark-cli vc +search --participant-ids "ou_x,ou_y"
+xfchat_cli vc +search --participant-ids "ou_x,ou_y"
 
 # 按会议室过滤
-lark-cli vc +search --room-ids "123,456"
+xfchat_cli vc +search --room-ids "123,456"
 
 # 多条件组合查询
-lark-cli vc +search --organizer-ids "ou_a" --room-ids "123" --start "2026-03-10T00:00+08:00"
+xfchat_cli vc +search --organizer-ids "ou_a" --room-ids "123" --start "2026-03-10T00:00+08:00"
 
 # 分页查询
-lark-cli vc +search --query "周会" --page-size 15
-lark-cli vc +search --query "周会" --page-token "next_page_token"
+xfchat_cli vc +search --query "周会" --page-size 15
+xfchat_cli vc +search --query "周会" --page-token "next_page_token"
 
 # 输出为表格/可读格式
-lark-cli vc +search --query "周会" --format json
+xfchat_cli vc +search --query "周会" --format json
 ```
 
 ## 参数
@@ -79,7 +79,7 @@ lark-cli vc +search --query "周会" --format json
 
 ### 3. 仅支持 user 身份
 
-该接口仅支持 `user` 身份，使用前需完成 `lark-cli auth login` 并具备 `vc:meeting.search:read` 权限。
+该接口仅支持 `user` 身份，使用前需完成 `xfchat_cli auth login` 并具备 `vc:meeting.search:read` 权限。
 
 ### 4. 支持分页
 
@@ -108,10 +108,10 @@ lark-cli vc +search --query "周会" --format json
 
 ```bash
 # First page
-lark-cli vc +search --query "周会" --page-size 15
+xfchat_cli vc +search --query "周会" --page-size 15
 
 # Next page
-lark-cli vc +search --query "周会" --page-size 15 --page-token "<PAGE_TOKEN>"
+xfchat_cli vc +search --query "周会" --page-size 15 --page-token "<PAGE_TOKEN>"
 ```
 
 ## 搜索结果中的下一步
@@ -120,7 +120,7 @@ lark-cli vc +search --query "周会" --page-size 15 --page-token "<PAGE_TOKEN>"
 
 ```bash
 # 根据 meeting_id 获取会议纪要
-lark-cli vc +notes --meeting-ids <MEETING_ID>
+xfchat_cli vc +notes --meeting-ids <MEETING_ID>
 ```
 
 ## 常见错误与排查

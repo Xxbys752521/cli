@@ -17,7 +17,7 @@ func dryRunFieldList(_ context.Context, runtime *common.RuntimeContext) *common.
 	}
 	limit := common.ParseIntBounded(runtime, "limit", 1, 200)
 	return common.NewDryRunAPI().
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id/fields").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/fields").
 		Params(map[string]interface{}{"offset": offset, "limit": limit}).
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime))
@@ -25,7 +25,7 @@ func dryRunFieldList(_ context.Context, runtime *common.RuntimeContext) *common.
 
 func dryRunFieldGet(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return common.NewDryRunAPI().
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id/fields/:field_id").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/fields/:field_id").
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime)).
 		Set("field_id", runtime.Str("field-id"))
@@ -34,7 +34,7 @@ func dryRunFieldGet(_ context.Context, runtime *common.RuntimeContext) *common.D
 func dryRunFieldCreate(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	body, _ := parseJSONObject(runtime.Str("json"), "json")
 	return common.NewDryRunAPI().
-		POST("/open-apis/base/v3/bases/:base_token/tables/:table_id/fields").
+		POST("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/fields").
 		Body(body).
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime))
@@ -43,7 +43,7 @@ func dryRunFieldCreate(_ context.Context, runtime *common.RuntimeContext) *commo
 func dryRunFieldUpdate(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	body, _ := parseJSONObject(runtime.Str("json"), "json")
 	return common.NewDryRunAPI().
-		PUT("/open-apis/base/v3/bases/:base_token/tables/:table_id/fields/:field_id").
+		PUT("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/fields/:field_id").
 		Body(body).
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime)).
@@ -52,7 +52,7 @@ func dryRunFieldUpdate(_ context.Context, runtime *common.RuntimeContext) *commo
 
 func dryRunFieldDelete(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return common.NewDryRunAPI().
-		DELETE("/open-apis/base/v3/bases/:base_token/tables/:table_id/fields/:field_id").
+		DELETE("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/fields/:field_id").
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime)).
 		Set("field_id", runtime.Str("field-id"))
@@ -70,7 +70,7 @@ func dryRunFieldSearchOptions(_ context.Context, runtime *common.RuntimeContext)
 		params["query"] = keyword
 	}
 	return common.NewDryRunAPI().
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id/fields/:field_id/options").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id/fields/:field_id/options").
 		Params(params).
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", baseTableID(runtime)).

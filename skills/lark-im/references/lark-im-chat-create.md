@@ -4,37 +4,37 @@
 
 Create a group chat using **bot identity (TAT)**. You can specify the group name, description, members (users/bots), owner, and chat type (private/public).
 
-This skill maps to the shortcut: `lark-cli im +chat-create` (internally calls `POST /open-apis/im/v1/chats`).
+This skill maps to the shortcut: `xfchat_cli im +chat-create` (internally calls `POST /open-apis/im/v1/chats`).
 
 ## Commands
 
 ```bash
 # Create a private group (default)
-lark-cli im +chat-create --name "My Group"
+xfchat_cli im +chat-create --name "My Group"
 
 # Create a public group (name is required and must be at least 2 characters)
-lark-cli im +chat-create --name "Public Group" --type public
+xfchat_cli im +chat-create --name "Public Group" --type public
 
 # Specify the group owner
-lark-cli im +chat-create --name "My Group" --owner ou_xxx
+xfchat_cli im +chat-create --name "My Group" --owner ou_xxx
 
 # Invite user members (comma-separated open_ids, up to 50)
-lark-cli im +chat-create --name "My Group" --users "ou_aaa,ou_bbb"
+xfchat_cli im +chat-create --name "My Group" --users "ou_aaa,ou_bbb"
 
 # Invite bot members (comma-separated app IDs, up to 5)
-lark-cli im +chat-create --name "My Group" --bots "cli_aaa,cli_bbb"
+xfchat_cli im +chat-create --name "My Group" --bots "cli_aaa,cli_bbb"
 
 # Invite both users and bots
-lark-cli im +chat-create --name "My Group" --users "ou_aaa" --bots "cli_aaa"
+xfchat_cli im +chat-create --name "My Group" --users "ou_aaa" --bots "cli_aaa"
 
 # Make the creating bot a group manager
-lark-cli im +chat-create --name "My Group" --set-bot-manager
+xfchat_cli im +chat-create --name "My Group" --set-bot-manager
 
 # JSON output
-lark-cli im +chat-create --name "My Group" --format json
+xfchat_cli im +chat-create --name "My Group" --format json
 
 # Preview the request without creating anything
-lark-cli im +chat-create --name "My Group" --dry-run
+xfchat_cli im +chat-create --name "My Group" --dry-run
 ```
 
 ## Parameters
@@ -57,11 +57,11 @@ lark-cli im +chat-create --name "My Group" --dry-run
 
 When the user asks to create a group, always use the **two-step flow** below. Do NOT pass other users' open_ids in `--users` during group creation — the bot and target users are often mutually invisible (error 232043).
 
-1. **Get the current user's open_id:** Run `lark-cli contact +get-user` to retrieve it.
+1. **Get the current user's open_id:** Run `xfchat_cli contact +get-user` to retrieve it.
 2. **Create the group — by default include the current user:**
 
    ```bash
-   lark-cli im +chat-create --name "<group name>" \
+   xfchat_cli im +chat-create --name "<group name>" \
      --users "<current user open_id>"
    ```
 
@@ -70,7 +70,7 @@ When the user asks to create a group, always use the **two-step flow** below. Do
 3. **Add other members via user identity** (requires the current user to be in the group):
 
    ```bash
-   lark-cli im chat.members create \
+   xfchat_cli im chat.members create \
      --params '{"chat_id":"<chat_id from step 2>","member_id_type":"open_id","succeed_type":1}' \
      --data '{"id_list":["ou_aaa","ou_bbb"]}' \
      --as user
@@ -96,13 +96,13 @@ When the user asks to create a group, always use the **two-step flow** below. Do
 ### Scenario 1: Create a group and specify the owner
 
 ```bash
-lark-cli im +chat-create --name "Project Discussion Group" --owner ou_xxx
+xfchat_cli im +chat-create --name "Project Discussion Group" --owner ou_xxx
 ```
 
 ### Scenario 2: Create a group and invite users and a bot
 
 ```bash
-lark-cli im +chat-create --name "Project Discussion Group" \
+xfchat_cli im +chat-create --name "Project Discussion Group" \
   --owner ou_xxx \
   --users "ou_aaa,ou_bbb" \
   --bots "cli_aaa"
@@ -111,8 +111,8 @@ lark-cli im +chat-create --name "Project Discussion Group" \
 ### Scenario 3: Create a group and send a welcome message
 
 ```bash
-CHAT_ID=$(lark-cli im +chat-create --name "New Group" --format json | jq -r '.data.chat_id')
-lark-cli im +messages-send --chat-id "$CHAT_ID" --text "Welcome, everyone!"
+CHAT_ID=$(xfchat_cli im +chat-create --name "New Group" --format json | jq -r '.data.chat_id')
+xfchat_cli im +messages-send --chat-id "$CHAT_ID" --text "Welcome, everyone!"
 ```
 
 ## Common Errors and Troubleshooting

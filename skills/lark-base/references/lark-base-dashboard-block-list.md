@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +dashboard-block-list \
+xfchat_cli base +dashboard-block-list \
   --base-token bascn***************CtadY \
   --dashboard-id blkxxx
 ```

@@ -32,7 +32,7 @@ var BaseDashboardUpdate = common.Shortcut{
 			body["theme"] = map[string]interface{}{"theme_style": themeStyle}
 		}
 		return common.NewDryRunAPI().
-			PATCH("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id").
+			PATCH("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id").
 			Body(body).
 			Set("base_token", runtime.Str("base-token")).
 			Set("dashboard_id", runtime.Str("dashboard-id"))

@@ -1,6 +1,6 @@
 # base shortcut record JSON 规范（lark-base-shortcut-record-value）
 
-> 适用命令：`lark-cli base +record-upsert`
+> 适用命令：`xfchat_cli base +record-upsert`
 
 本文件定义 **shortcut 写记录** 时 `--json` 的推荐格式，目标是让 AI 一次写对。
 
@@ -162,7 +162,7 @@
 
 ### 2.9 attachment
 
-对 agent 而言，附件上传是**特殊链路**：如果用户要把本地文件加到记录里，必须使用 `lark-cli base +record-upload-attachment` 上传到已有记录。
+对 agent 而言，附件上传是**特殊链路**：如果用户要把本地文件加到记录里，必须使用 `xfchat_cli base +record-upload-attachment` 上传到已有记录。
 
 **Schema - attachment**
 

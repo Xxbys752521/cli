@@ -9,7 +9,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +role-list --base-token VwGhb**************fMnod
+xfchat_cli base +role-list --base-token VwGhb**************fMnod
 ```
 
 ## 参数

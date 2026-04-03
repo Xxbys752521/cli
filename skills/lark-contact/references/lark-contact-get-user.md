@@ -3,7 +3,7 @@
 
 > **前置条件：** 先阅读 [`../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) 了解认证、全局参数和安全规则。
 
-本 skill 对应 shortcut：`lark-cli contact +get-user`。
+本 skill 对应 shortcut：`xfchat_cli contact +get-user`。
 
 支持两种模式：
 
@@ -14,16 +14,16 @@
 
 ```bash
 # 模式 1：获取当前用户
-lark-cli contact +get-user
+xfchat_cli contact +get-user
 
 # 模式 2：获取指定用户（默认 user_id_type=open_id）
-lark-cli contact +get-user --user-id ou_xxx
+xfchat_cli contact +get-user --user-id ou_xxx
 
 # 指定 user_id_type
-lark-cli contact +get-user --user-id 4g3f... --user-id-type user_id
+xfchat_cli contact +get-user --user-id 4g3f... --user-id-type user_id
 
 # 表格输出（默认 JSON）
-lark-cli contact +get-user --user-id ou_xxx --table
+xfchat_cli contact +get-user --user-id ou_xxx --table
 ```
 
 ## 参数

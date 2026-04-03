@@ -9,7 +9,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +role-get \
+xfchat_cli base +role-get \
   --base-token VwGhb**************fMnod \
   --role-id rolxxxxxx4
 ```

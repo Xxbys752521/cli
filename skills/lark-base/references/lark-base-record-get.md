@@ -7,12 +7,12 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +record-get \
+xfchat_cli base +record-get \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --record-id rec_xxx
 
-lark-cli base +record-get \
+xfchat_cli base +record-get \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --record-id rec_xxx \

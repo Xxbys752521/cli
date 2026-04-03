@@ -132,7 +132,7 @@ func TestBaseAdvpermEnableExecute(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/advperm/enable",
+		URL:    "/open-apis/bitable/v1/apps/app_x",
 		Body: map[string]interface{}{
 			"code": 0,
 			"msg":  "success",
@@ -143,7 +143,7 @@ func TestBaseAdvpermEnableExecute(t *testing.T) {
 	if err := runShortcut(t, BaseAdvpermEnable, args, factory, stdout); err != nil {
 		t.Fatalf("err=%v", err)
 	}
-	if got := stdout.String(); !strings.Contains(got, "success") {
+	if got := stdout.String(); !strings.Contains(got, `"ok": true`) {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -153,7 +153,7 @@ func TestBaseAdvpermDisableExecute(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/advperm/enable",
+		URL:    "/open-apis/bitable/v1/apps/app_x",
 		Body: map[string]interface{}{
 			"code": 0,
 			"msg":  "success",
@@ -164,7 +164,7 @@ func TestBaseAdvpermDisableExecute(t *testing.T) {
 	if err := runShortcut(t, BaseAdvpermDisable, args, factory, stdout); err != nil {
 		t.Fatalf("err=%v", err)
 	}
-	if got := stdout.String(); !strings.Contains(got, "success") {
+	if got := stdout.String(); !strings.Contains(got, `"ok": true`) {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -178,7 +178,7 @@ func TestBaseAdvpermEnableExecuteTransportError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/advperm/enable",
+		URL:    "/open-apis/bitable/v1/apps/app_x",
 		Status: 500,
 		Body:   "internal server error",
 	})
@@ -193,7 +193,7 @@ func TestBaseAdvpermEnableExecuteAPIError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/advperm/enable",
+		URL:    "/open-apis/bitable/v1/apps/app_x",
 		Body: map[string]interface{}{
 			"code": 190001,
 			"msg":  "bad request",
@@ -210,7 +210,7 @@ func TestBaseAdvpermDisableExecuteTransportError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/advperm/enable",
+		URL:    "/open-apis/bitable/v1/apps/app_x",
 		Status: 500,
 		Body:   "internal server error",
 	})
@@ -225,7 +225,7 @@ func TestBaseAdvpermDisableExecuteAPIError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/advperm/enable",
+		URL:    "/open-apis/bitable/v1/apps/app_x",
 		Body: map[string]interface{}{
 			"code": 190002,
 			"msg":  "permission denied",

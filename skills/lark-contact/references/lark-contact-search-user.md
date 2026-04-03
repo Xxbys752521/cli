@@ -5,19 +5,19 @@
 
 通过关键词搜索员工（姓名/邮箱/手机号等），结果通常按亲密度排序。
 
-本 skill 对应 shortcut：`lark-cli contact +search-user`（底层调用 `GET /open-apis/search/v1/user`）。
+本 skill 对应 shortcut：`xfchat_cli contact +search-user`（底层调用 `GET /open-apis/search/v1/user`）。
 
 ## 命令
 
 ```bash
 # 搜索员工（默认表格输出）
-lark-cli contact +search-user --query "张三"
+xfchat_cli contact +search-user --query "张三"
 
 # 分页（取下一页）
-lark-cli contact +search-user --query "张三" --page-size 50 --page-token <PAGE_TOKEN>
+xfchat_cli contact +search-user --query "张三" --page-size 50 --page-token <PAGE_TOKEN>
 
 # 人类可读格式输出
-lark-cli contact +search-user --query "张三" --format pretty
+xfchat_cli contact +search-user --query "张三" --format pretty
 ```
 
 ## 参数

@@ -75,7 +75,7 @@ func TestBaseWorkspaceExecuteCreate(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "POST",
-		URL:    "/open-apis/base/v3/bases",
+		URL:    "/open-apis/bitable/v1/apps",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"app_token": "app_x", "name": "Demo Base"},
@@ -95,7 +95,7 @@ func TestBaseWorkspaceExecuteGetAndCopy(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x",
+			URL:    "/open-apis/bitable/v1/apps/app_x",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"base_token": "app_x", "name": "Demo Base"},
@@ -114,7 +114,7 @@ func TestBaseWorkspaceExecuteGetAndCopy(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_src/copy",
+			URL:    "/open-apis/bitable/v1/apps/app_src/copy",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"base_token": "app_new", "name": "Copied Base", "url": "https://example.com/base/app_new"},
@@ -135,7 +135,7 @@ func TestBaseHistoryExecute(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/record_history",
+		URL:    "/open-apis/bitable/v1/apps/app_x/record_history",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"items": []interface{}{map[string]interface{}{"record_id": "rec_x"}}},
@@ -154,7 +154,7 @@ func TestBaseFieldExecuteUpdate(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/fields/fld_x",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/fields/fld_x",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"id": "fld_x", "name": "Amount", "type": "number"},
@@ -173,7 +173,7 @@ func TestBaseTableExecuteCreate(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "POST",
-		URL:    "/open-apis/base/v3/bases/app_x/tables",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"id": "tbl_new", "name": "Orders"},
@@ -181,7 +181,7 @@ func TestBaseTableExecuteCreate(t *testing.T) {
 	})
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_new/fields",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_new/fields",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"fields": []interface{}{map[string]interface{}{"id": "fld_primary", "name": "Primary"}}},
@@ -189,7 +189,7 @@ func TestBaseTableExecuteCreate(t *testing.T) {
 	})
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_new/fields/fld_primary",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_new/fields/fld_primary",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"id": "fld_primary", "name": "OrderNo", "type": "text"},
@@ -197,7 +197,7 @@ func TestBaseTableExecuteCreate(t *testing.T) {
 	})
 	reg.Register(&httpmock.Stub{
 		Method: "POST",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_new/views",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_new/views",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"id": "vew_main", "name": "Main", "type": "grid"},
@@ -217,7 +217,7 @@ func TestBaseTableExecuteUpdate(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PATCH",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"id": "tbl_x", "name": "Orders Updated"},
@@ -235,8 +235,8 @@ func TestBaseRecordExecuteUpsertUpdate(t *testing.T) {
 	factory, stdout, reg := newExecuteFactory(t)
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
-		Method: "PATCH",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/records/rec_x",
+		Method: "PUT",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/records/rec_x",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"record_id": "rec_x", "fields": map[string]interface{}{"Name": "Alice"}},
@@ -255,7 +255,7 @@ func TestBaseViewExecuteRename(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PATCH",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_x",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_x",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"id": "vew_x", "name": "Renamed", "type": "grid"},
@@ -275,7 +275,7 @@ func TestBaseViewExecutePropertyActions(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "PUT",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_x/group",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_x/group",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": []interface{}{map[string]interface{}{"field": "fld_status", "desc": false}},
@@ -294,7 +294,7 @@ func TestBaseViewExecutePropertyActions(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "PUT",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_x/sort",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_x/sort",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": []interface{}{map[string]interface{}{"field": "fld_amount", "desc": true}},
@@ -337,10 +337,12 @@ func TestBaseFieldExecuteCRUD(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/fields/fld_x",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/fields",
 			Body: map[string]interface{}{
 				"code": 0,
-				"data": map[string]interface{}{"id": "fld_x", "name": "Amount", "type": "number"},
+				"data": map[string]interface{}{"fields": []interface{}{
+					map[string]interface{}{"id": "fld_x", "name": "Amount", "type": "number"},
+				}},
 			},
 		})
 		if err := runShortcut(t, BaseFieldGet, []string{"+field-get", "--base-token", "app_x", "--table-id", "tbl_x", "--field-id", "fld_x"}, factory, stdout); err != nil {
@@ -356,7 +358,7 @@ func TestBaseFieldExecuteCRUD(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/fields",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/fields",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"id": "fld_new", "name": "Status", "type": "text"},
@@ -375,7 +377,7 @@ func TestBaseFieldExecuteCRUD(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "DELETE",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/fields/fld_x",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/fields/fld_x",
 			Body:   map[string]interface{}{"code": 0, "data": map[string]interface{}{}},
 		})
 		if err := runShortcut(t, BaseFieldDelete, []string{"+field-delete", "--base-token", "app_x", "--table-id", "tbl_x", "--field-id", "fld_x", "--yes"}, factory, stdout); err != nil {
@@ -414,7 +416,7 @@ func TestBaseTableExecuteReadAndDelete(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables",
 			Status: 404,
 			Body:   "404 page not found",
 			Headers: map[string][]string{
@@ -432,15 +434,17 @@ func TestBaseTableExecuteReadAndDelete(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables",
 			Body: map[string]interface{}{
 				"code": 0,
-				"data": map[string]interface{}{"id": "tbl_x", "name": "Orders", "primary_field": "fld_x"},
+				"data": map[string]interface{}{"items": []interface{}{
+					map[string]interface{}{"id": "tbl_x", "name": "Orders", "primary_field": "fld_x"},
+				}},
 			},
 		})
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/fields",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/fields",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"fields": []interface{}{map[string]interface{}{"id": "fld_x", "name": "OrderNo", "type": "text"}}},
@@ -448,7 +452,7 @@ func TestBaseTableExecuteReadAndDelete(t *testing.T) {
 		})
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/views",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"views": []interface{}{map[string]interface{}{"id": "vew_x", "name": "Main", "type": "grid"}}},
@@ -467,7 +471,7 @@ func TestBaseTableExecuteReadAndDelete(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "DELETE",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x",
 			Body:   map[string]interface{}{"code": 0, "data": map[string]interface{}{}},
 		})
 		if err := runShortcut(t, BaseTableDelete, []string{"+table-delete", "--base-token", "app_x", "--table-id", "tbl_x", "--yes"}, factory, stdout); err != nil {
@@ -532,7 +536,7 @@ func TestBaseRecordExecuteReadCreateDelete(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/records/rec_1",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/records/rec_1",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"records": map[string]interface{}{
@@ -555,7 +559,7 @@ func TestBaseRecordExecuteReadCreateDelete(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/records/rec_2",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/records/rec_2",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"unexpected": "shape", "record_id": "rec_2"},
@@ -574,7 +578,7 @@ func TestBaseRecordExecuteReadCreateDelete(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/records",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/records",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"record_id": "rec_new", "fields": map[string]interface{}{"Name": "Alice"}},
@@ -593,7 +597,7 @@ func TestBaseRecordExecuteReadCreateDelete(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "DELETE",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/records/rec_1",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/records/rec_1",
 			Body:   map[string]interface{}{"code": 0, "data": map[string]interface{}{}},
 		})
 		if err := runShortcut(t, BaseRecordDelete, []string{"+record-delete", "--base-token", "app_x", "--table-id", "tbl_x", "--record-id", "rec_1", "--yes"}, factory, stdout); err != nil {
@@ -622,7 +626,7 @@ func TestBaseRecordExecuteReadCreateDelete(t *testing.T) {
 
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/fields/fld_att",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/fields/fld_att",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"id": "fld_att", "name": "附件", "type": "attachment"},
@@ -630,7 +634,7 @@ func TestBaseRecordExecuteReadCreateDelete(t *testing.T) {
 		})
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/records/rec_x",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/records/rec_x",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -660,8 +664,8 @@ func TestBaseRecordExecuteReadCreateDelete(t *testing.T) {
 		}
 		reg.Register(uploadStub)
 		updateStub := &httpmock.Stub{
-			Method: "PATCH",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/records/rec_x",
+			Method: "PUT",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/records/rec_x",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -740,7 +744,7 @@ func TestBaseRecordExecuteReadCreateDelete(t *testing.T) {
 
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/fields/fld_status",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/fields/fld_status",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"id": "fld_status", "name": "状态", "type": "text"},
@@ -789,7 +793,7 @@ func TestBaseViewExecuteReadCreateDeleteAndFilter(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_1",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_1",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"id": "vew_1", "name": "Main", "type": "grid"},
@@ -808,7 +812,7 @@ func TestBaseViewExecuteReadCreateDeleteAndFilter(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/views",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"id": "vew_1", "name": "Main", "type": "grid"},
@@ -827,7 +831,7 @@ func TestBaseViewExecuteReadCreateDeleteAndFilter(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "DELETE",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_1",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_1",
 			Body:   map[string]interface{}{"code": 0, "data": map[string]interface{}{}},
 		})
 		if err := runShortcut(t, BaseViewDelete, []string{"+view-delete", "--base-token", "app_x", "--table-id", "tbl_x", "--view-id", "vew_1", "--yes"}, factory, stdout); err != nil {
@@ -843,7 +847,7 @@ func TestBaseViewExecuteReadCreateDeleteAndFilter(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "PUT",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_1/filter",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_1/filter",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"conditions": []interface{}{map[string]interface{}{"field_name": "Status"}}},
@@ -864,7 +868,7 @@ func TestBaseTableExecuteListFallbackShapes(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"items": []interface{}{map[string]interface{}{"id": "tbl_items", "name": "ItemsOnly"}}},
@@ -883,7 +887,7 @@ func TestBaseTableExecuteListFallbackShapes(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{"id": "tbl_single", "name": "SingleOnly"},
@@ -945,7 +949,7 @@ func TestBaseFieldExecuteSearchOptions(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/fields/fld_amount/options",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/fields/fld_amount/options",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"options": []interface{}{map[string]interface{}{"id": "opt_1", "name": "已完成"}}, "total": 1},
@@ -963,7 +967,7 @@ func TestBaseViewExecutePropertyGettersAndExtendedSetters(t *testing.T) {
 	t.Run("get-group", func(t *testing.T) {
 		factory, stdout, reg := newExecuteFactory(t)
 		registerTokenStub(reg)
-		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_x/group", Body: map[string]interface{}{"code": 0, "data": []interface{}{map[string]interface{}{"field": "fld_status", "desc": false}}}})
+		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_x/group", Body: map[string]interface{}{"code": 0, "data": []interface{}{map[string]interface{}{"field": "fld_status", "desc": false}}}})
 		if err := runShortcut(t, BaseViewGetGroup, []string{"+view-get-group", "--base-token", "app_x", "--table-id", "tbl_x", "--view-id", "vew_x"}, factory, stdout); err != nil {
 			t.Fatalf("err=%v", err)
 		}
@@ -975,7 +979,7 @@ func TestBaseViewExecutePropertyGettersAndExtendedSetters(t *testing.T) {
 	t.Run("get-filter", func(t *testing.T) {
 		factory, stdout, reg := newExecuteFactory(t)
 		registerTokenStub(reg)
-		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_x/filter", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"conditions": []interface{}{map[string]interface{}{"field_name": "Status"}}}}})
+		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_x/filter", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"conditions": []interface{}{map[string]interface{}{"field_name": "Status"}}}}})
 		if err := runShortcut(t, BaseViewGetFilter, []string{"+view-get-filter", "--base-token", "app_x", "--table-id", "tbl_x", "--view-id", "vew_x"}, factory, stdout); err != nil {
 			t.Fatalf("err=%v", err)
 		}
@@ -987,7 +991,7 @@ func TestBaseViewExecutePropertyGettersAndExtendedSetters(t *testing.T) {
 	t.Run("get-sort", func(t *testing.T) {
 		factory, stdout, reg := newExecuteFactory(t)
 		registerTokenStub(reg)
-		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_x/sort", Body: map[string]interface{}{"code": 0, "data": []interface{}{map[string]interface{}{"field": "fld_priority", "desc": true}}}})
+		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_x/sort", Body: map[string]interface{}{"code": 0, "data": []interface{}{map[string]interface{}{"field": "fld_priority", "desc": true}}}})
 		if err := runShortcut(t, BaseViewGetSort, []string{"+view-get-sort", "--base-token", "app_x", "--table-id", "tbl_x", "--view-id", "vew_x"}, factory, stdout); err != nil {
 			t.Fatalf("err=%v", err)
 		}
@@ -999,7 +1003,7 @@ func TestBaseViewExecutePropertyGettersAndExtendedSetters(t *testing.T) {
 	t.Run("get-timebar", func(t *testing.T) {
 		factory, stdout, reg := newExecuteFactory(t)
 		registerTokenStub(reg)
-		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_time/timebar", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"start_time": "fld_start", "end_time": "fld_end", "title": "fld_title"}}})
+		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_time/timebar", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"start_time": "fld_start", "end_time": "fld_end", "title": "fld_title"}}})
 		if err := runShortcut(t, BaseViewGetTimebar, []string{"+view-get-timebar", "--base-token", "app_x", "--table-id", "tbl_x", "--view-id", "vew_time"}, factory, stdout); err != nil {
 			t.Fatalf("err=%v", err)
 		}
@@ -1011,7 +1015,7 @@ func TestBaseViewExecutePropertyGettersAndExtendedSetters(t *testing.T) {
 	t.Run("set-timebar", func(t *testing.T) {
 		factory, stdout, reg := newExecuteFactory(t)
 		registerTokenStub(reg)
-		reg.Register(&httpmock.Stub{Method: "PUT", URL: "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_time/timebar", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"start_time": "fld_start", "end_time": "fld_end", "title": "fld_title"}}})
+		reg.Register(&httpmock.Stub{Method: "PUT", URL: "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_time/timebar", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"start_time": "fld_start", "end_time": "fld_end", "title": "fld_title"}}})
 		args := []string{"+view-set-timebar", "--base-token", "app_x", "--table-id", "tbl_x", "--view-id", "vew_time", "--json", `{"start_time":"fld_start","end_time":"fld_end","title":"fld_title"}`}
 		if err := runShortcut(t, BaseViewSetTimebar, args, factory, stdout); err != nil {
 			t.Fatalf("err=%v", err)
@@ -1024,7 +1028,7 @@ func TestBaseViewExecutePropertyGettersAndExtendedSetters(t *testing.T) {
 	t.Run("get-card", func(t *testing.T) {
 		factory, stdout, reg := newExecuteFactory(t)
 		registerTokenStub(reg)
-		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_card/card", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"cover_field": "fld_cover"}}})
+		reg.Register(&httpmock.Stub{Method: "GET", URL: "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_card/card", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"cover_field": "fld_cover"}}})
 		if err := runShortcut(t, BaseViewGetCard, []string{"+view-get-card", "--base-token", "app_x", "--table-id", "tbl_x", "--view-id", "vew_card"}, factory, stdout); err != nil {
 			t.Fatalf("err=%v", err)
 		}
@@ -1036,7 +1040,7 @@ func TestBaseViewExecutePropertyGettersAndExtendedSetters(t *testing.T) {
 	t.Run("set-card", func(t *testing.T) {
 		factory, stdout, reg := newExecuteFactory(t)
 		registerTokenStub(reg)
-		reg.Register(&httpmock.Stub{Method: "PUT", URL: "/open-apis/base/v3/bases/app_x/tables/tbl_x/views/vew_card/card", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"cover_field": "fld_cover"}}})
+		reg.Register(&httpmock.Stub{Method: "PUT", URL: "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_card/card", Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"cover_field": "fld_cover"}}})
 		if err := runShortcut(t, BaseViewSetCard, []string{"+view-set-card", "--base-token", "app_x", "--table-id", "tbl_x", "--view-id", "vew_card", "--json", `{"cover_field":"fld_cover"}`}, factory, stdout); err != nil {
 			t.Fatalf("err=%v", err)
 		}

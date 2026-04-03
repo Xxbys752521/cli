@@ -16,15 +16,15 @@ func TestBaseFormExecuteList(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
 					"has_more": false,
 					"total":    2,
-					"forms": []interface{}{
-						map[string]interface{}{"id": "vew_form1", "name": "用户调研问卷", "description": "2024年调研"},
-						map[string]interface{}{"id": "vew_form2", "name": "产品反馈表", "description": ""},
+					"views": []interface{}{
+						map[string]interface{}{"id": "vew_form1", "name": "用户调研问卷", "description": "2024年调研", "type": "form"},
+						map[string]interface{}{"id": "vew_form2", "name": "产品反馈表", "description": "", "type": "form"},
 					},
 				},
 			},
@@ -43,35 +43,32 @@ func TestBaseFormExecuteList(t *testing.T) {
 		// First page: has_more=true
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms",
+			URL:    "offset=0",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
-					"has_more":   true,
-					"page_token": "tok_p2",
-					"total":      2,
-					"forms": []interface{}{
-						map[string]interface{}{"id": "vew_form1", "name": "Page1 Form", "description": ""},
+					"total": 2,
+					"views": []interface{}{
+						map[string]interface{}{"id": "vew_form1", "name": "Page1 Form", "description": "", "type": "form"},
 					},
 				},
 			},
 		})
-		// Second page: has_more=false
+		// Second page: offset=1
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "page_token=tok_p2",
+			URL:    "offset=1",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
-					"has_more": false,
-					"total":    2,
-					"forms": []interface{}{
-						map[string]interface{}{"id": "vew_form2", "name": "Page2 Form", "description": ""},
+					"total": 2,
+					"views": []interface{}{
+						map[string]interface{}{"id": "vew_form2", "name": "Page2 Form", "description": "", "type": "form"},
 					},
 				},
 			},
 		})
-		if err := runShortcut(t, BaseFormsList, []string{"+form-list", "--base-token", "app_x", "--table-id", "tbl_x"}, factory, stdout); err != nil {
+		if err := runShortcut(t, BaseFormsList, []string{"+form-list", "--base-token", "app_x", "--table-id", "tbl_x", "--page-size", "1"}, factory, stdout); err != nil {
 			t.Fatalf("err=%v", err)
 		}
 		got := stdout.String()
@@ -89,7 +86,7 @@ func TestBaseFormExecuteGet(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms/vew_form1",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/forms/vew_form1",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{
@@ -113,7 +110,7 @@ func TestBaseFormExecuteCreate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -136,7 +133,19 @@ func TestBaseFormExecuteCreate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views",
+			Body: map[string]interface{}{
+				"code": 0,
+				"data": map[string]interface{}{
+					"id":          "vew_form_desc",
+					"name":        "含描述表单",
+					"description": "这是表单说明",
+				},
+			},
+		})
+		reg.Register(&httpmock.Stub{
+			Method: "PATCH",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/forms/vew_form_desc",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -161,7 +170,19 @@ func TestBaseFormExecuteCreate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views",
+			Body: map[string]interface{}{
+				"code": 0,
+				"data": map[string]interface{}{
+					"id":          "vew_form_link",
+					"name":        "含链接表单",
+					"description": "更多信息请查看[这里](https://example.com)",
+				},
+			},
+		})
+		reg.Register(&httpmock.Stub{
+			Method: "PATCH",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/forms/vew_form_link",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -188,7 +209,7 @@ func TestBaseFormExecuteUpdate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "PATCH",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms/vew_form1",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/forms/vew_form1",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -211,7 +232,7 @@ func TestBaseFormExecuteUpdate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "PATCH",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms/vew_form1",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/forms/vew_form1",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -237,7 +258,7 @@ func TestBaseFormExecuteDelete(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "DELETE",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms/vew_form1",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/views/vew_form1",
 		Body:   map[string]interface{}{"code": 0, "data": map[string]interface{}{}},
 	})
 	if err := runShortcut(t, BaseFormDelete, []string{"+form-delete", "--base-token", "app_x", "--table-id", "tbl_x", "--form-id", "vew_form1", "--yes"}, factory, stdout); err != nil {
@@ -253,12 +274,12 @@ func TestBaseFormQuestionsExecuteList(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms/vew_form1/questions",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/forms/vew_form1/fields",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{
 				"total": 2,
-				"questions": []interface{}{
+				"fields": []interface{}{
 					map[string]interface{}{"id": "q_001", "title": "您的姓名", "required": true, "description": nil},
 					map[string]interface{}{"id": "q_002", "title": "您的年龄", "required": false, "description": nil},
 				},
@@ -279,7 +300,7 @@ func TestBaseFormQuestionsExecuteCreate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms/vew_form1/questions",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/forms/vew_form1/questions",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -314,13 +335,13 @@ func TestBaseFormQuestionsExecuteUpdate(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PATCH",
-		URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms/vew_form1/questions",
+		URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/forms/vew_form1/fields/q_001",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{
-				"questions": []interface{}{
-					map[string]interface{}{"id": "q_001", "title": "更新后的问题", "required": true},
-				},
+				"id":       "q_001",
+				"title":    "更新后的问题",
+				"required": true,
 			},
 		},
 	})
@@ -340,7 +361,7 @@ func TestBaseFormQuestionsExecuteDelete(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "DELETE",
-			URL:    "/open-apis/base/v3/bases/app_x/tables/tbl_x/forms/vew_form1/questions",
+			URL:    "/open-apis/bitable/v1/apps/app_x/tables/tbl_x/forms/vew_form1/questions",
 			Body:   map[string]interface{}{"code": 0, "data": map[string]interface{}{}},
 		})
 		args := []string{"+form-questions-delete", "--base-token", "app_x", "--table-id", "tbl_x", "--form-id", "vew_form1",

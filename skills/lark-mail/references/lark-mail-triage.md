@@ -9,30 +9,30 @@
 
 ```bash
 # 默认：收件箱邮件（默认 20 条，默认table 格式）
-lark-cli mail +triage
+xfchat_cli mail +triage
 
 # 查看收件箱未读
-lark-cli mail +triage --filter '{"folder":"inbox","is_unread":true}'
+xfchat_cli mail +triage --filter '{"folder":"inbox","is_unread":true}'
 
 # 全文搜索
-lark-cli mail +triage --query "合同审批"
+xfchat_cli mail +triage --query "合同审批"
 
 # 按发件人 / 主题搜索
-lark-cli mail +triage --filter '{"from":["boss@example.com"],"subject":"季度报告"}'
+xfchat_cli mail +triage --filter '{"from":["boss@example.com"],"subject":"季度报告"}'
 
 # 按时间范围搜索（如"上周的邮件"）
-lark-cli mail +triage --query "项目评审" --filter '{"time_range":{"start_time":"2026-03-16T00:00:00+08:00","end_time":"2026-03-22T23:59:59+08:00"}}'
+xfchat_cli mail +triage --query "项目评审" --filter '{"time_range":{"start_time":"2026-03-16T00:00:00+08:00","end_time":"2026-03-22T23:59:59+08:00"}}'
 
 # 指定文件夹
-lark-cli mail +triage --filter '{"folder":"sent"}'
+xfchat_cli mail +triage --filter '{"folder":"sent"}'
 
 # 系统标签（可通过 folder 或 label 传入，搜索时自动转为 folder）
-lark-cli mail +triage --filter '{"folder":"flagged"}'
-lark-cli mail +triage --filter '{"label":"important"}'
-lark-cli mail +triage --filter '{"label":"重要邮件"}'
+xfchat_cli mail +triage --filter '{"folder":"flagged"}'
+xfchat_cli mail +triage --filter '{"label":"important"}'
+xfchat_cli mail +triage --filter '{"label":"重要邮件"}'
 
 # data 格式方便 jq 处理
-lark-cli mail +triage --format data | jq '.[].subject'
+xfchat_cli mail +triage --format data | jq '.[].subject'
 ```
 
 ## 参数

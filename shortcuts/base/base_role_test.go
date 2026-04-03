@@ -246,7 +246,7 @@ func TestBaseRoleCreateExecute(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "POST",
-		URL:    "/open-apis/base/v3/bases/app_x/roles",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles",
 		Body: map[string]interface{}{
 			"code": 0,
 			"msg":  "success",
@@ -270,7 +270,7 @@ func TestBaseRoleDeleteExecute(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "DELETE",
-		URL:    "/open-apis/base/v3/bases/app_x/roles/rol_1",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles/rol_1",
 		Body: map[string]interface{}{
 			"code": 0,
 			"msg":  "success",
@@ -281,7 +281,7 @@ func TestBaseRoleDeleteExecute(t *testing.T) {
 	if err := runShortcut(t, BaseRoleDelete, args, factory, stdout); err != nil {
 		t.Fatalf("err=%v", err)
 	}
-	if got := stdout.String(); !strings.Contains(got, "success") {
+	if got := stdout.String(); !strings.Contains(got, `"deleted": true`) {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -291,7 +291,7 @@ func TestBaseRoleGetExecute(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/roles/rol_1",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles/rol_1",
 		Body: map[string]interface{}{
 			"code": 0,
 			"msg":  "success",
@@ -319,13 +319,12 @@ func TestBaseRoleListExecute(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/roles",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles",
 		Body: map[string]interface{}{
 			"code": 0,
 			"msg":  "success",
 			"data": map[string]interface{}{
-				"code": 0,
-				"data": []interface{}{
+				"roles": []interface{}{
 					map[string]interface{}{"role_id": "rol_1", "role_name": "Admin"},
 					map[string]interface{}{"role_id": "rol_2", "role_name": "Viewer"},
 				},
@@ -346,7 +345,7 @@ func TestBaseRoleUpdateExecute(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/roles/rol_1",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles/rol_1",
 		Body: map[string]interface{}{
 			"code": 0,
 			"msg":  "success",
@@ -374,7 +373,7 @@ func TestBaseRoleCreateExecuteAPIError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "POST",
-		URL:    "/open-apis/base/v3/bases/app_x/roles",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles",
 		Body: map[string]interface{}{
 			"code": 190001,
 			"msg":  "bad request",
@@ -391,7 +390,7 @@ func TestBaseRoleListExecuteTransportError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/roles",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles",
 		Status: 500,
 		Body:   "internal server error",
 	})
@@ -406,7 +405,7 @@ func TestBaseRoleListExecuteAPIError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/roles",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles",
 		Body: map[string]interface{}{
 			"code": 190002,
 			"msg":  "not found",
@@ -423,7 +422,7 @@ func TestBaseRoleDeleteExecuteAPIError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "DELETE",
-		URL:    "/open-apis/base/v3/bases/app_x/roles/rol_1",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles/rol_1",
 		Body: map[string]interface{}{
 			"code": 190003,
 			"msg":  "forbidden",
@@ -440,7 +439,7 @@ func TestBaseRoleUpdateExecuteAPIError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PUT",
-		URL:    "/open-apis/base/v3/bases/app_x/roles/rol_1",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles/rol_1",
 		Body: map[string]interface{}{
 			"code": 190004,
 			"msg":  "invalid params",
@@ -457,14 +456,10 @@ func TestBaseRoleGetExecuteBusinessError(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/roles/rol_bad",
+		URL:    "/open-apis/bitable/v1/apps/app_x/roles/rol_bad",
 		Body: map[string]interface{}{
-			"code": 0,
-			"msg":  "success",
-			"data": map[string]interface{}{
-				"code":    100001,
-				"message": "role not found",
-			},
+			"code": 100001,
+			"msg":  "role not found",
 		},
 	})
 	args := []string{"+role-get", "--base-token", "app_x", "--role-id", "rol_bad"}

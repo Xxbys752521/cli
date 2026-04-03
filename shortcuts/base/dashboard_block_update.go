@@ -63,7 +63,7 @@ var BaseDashboardBlockUpdate = common.Shortcut{
 			params["user_id_type"] = uid
 		}
 		return common.NewDryRunAPI().
-			PATCH("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id/blocks/:block_id").
+			PATCH("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id/blocks/:block_id").
 			Params(params).
 			Body(body).
 			Set("base_token", runtime.Str("base-token")).

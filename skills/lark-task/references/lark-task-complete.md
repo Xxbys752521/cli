@@ -8,7 +8,7 @@ Mark a task as completed.
 
 ```bash
 # Complete a task
-lark-cli task +complete --task-id "t_xxx"
+xfchat_cli task +complete --task-id "t_xxx"
 ```
 
 ## Parameters

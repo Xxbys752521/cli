@@ -8,13 +8,13 @@ Update an existing task in Lark.
 
 ```bash
 # Update task summary
-lark-cli task +update --task-id "t_xxx" --summary "New Summary"
+xfchat_cli task +update --task-id "t_xxx" --summary "New Summary"
 
 # Update multiple tasks' due dates
-lark-cli task +update --task-id "t_xxx,t_yyy" --due "+2d"
+xfchat_cli task +update --task-id "t_xxx,t_yyy" --due "+2d"
 
 # Update with JSON data
-lark-cli task +update --task-id "t_xxx" --data '{"description": "New description"}'
+xfchat_cli task +update --task-id "t_xxx" --data '{"description": "New description"}'
 ```
 
 ## Parameters
@@ -30,7 +30,7 @@ lark-cli task +update --task-id "t_xxx" --data '{"description": "New description
 ## Workflow
 
 1. Confirm with the user the tasks to update and the fields.
-2. Execute `lark-cli task +update --task-id "..." ...`
+2. Execute `xfchat_cli task +update --task-id "..." ...`
 3. Report the successful updates.
 
 > [!CAUTION]

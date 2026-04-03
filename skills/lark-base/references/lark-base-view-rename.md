@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +view-rename \
+xfchat_cli base +view-rename \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --view-id viw_xxx \

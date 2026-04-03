@@ -7,12 +7,12 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +view-create \
+xfchat_cli base +view-create \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --json '{"name":"进行中","type":"grid"}' 
 
-lark-cli base +view-create \
+xfchat_cli base +view-create \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --json '[{"name":"进行中","type":"grid"},{"name":"日历","type":"calendar"}]'

@@ -8,16 +8,16 @@
 
 ```bash
 # 列出全部工作流
-lark-cli base +workflow-list \
+xfchat_cli base +workflow-list \
   --base-token BascXxxxxx
 
 # 只看已启用的工作流
-lark-cli base +workflow-list \
+xfchat_cli base +workflow-list \
   --base-token BascXxxxxx \
   --status enabled
 
 # 只看已禁用的工作流
-lark-cli base +workflow-list \
+xfchat_cli base +workflow-list \
   --base-token BascXxxxxx \
   --status disabled
 ```

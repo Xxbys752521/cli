@@ -8,18 +8,18 @@
 
 ```bash
 # 列出指定数据表的所有表单
-lark-cli base +form-list \
+xfchat_cli base +form-list \
   --base-token <base_token> \
   --table-id <table_id>
 
 # 以表格形式展示
-lark-cli base +form-list \
+xfchat_cli base +form-list \
   --base-token <base_token> \
   --table-id <table_id> \
   --format table
 
 # 使用应用身份（bot）
-lark-cli base +form-list \
+xfchat_cli base +form-list \
   --base-token <base_token> \
   --table-id <table_id> \
   --as bot
@@ -64,7 +64,7 @@ JSON 输出示例（`--format json`，默认）：
 ## 提示
 
 - `base_token` 在多维表格 URL 中可找到（形如 `bascnXXXX`）
-- `table_id` 可通过 `lark-cli base app.tables list --app-token <token> --params '{"app_token":"<token>"}'` 获取
+- `table_id` 可通过 `xfchat_cli base app.tables list --app-token <token> --params '{"app_token":"<token>"}'` 获取
 - 如无表单，输出 `forms: []`
 
 ## 参考

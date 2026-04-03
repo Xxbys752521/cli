@@ -5,16 +5,16 @@
 ## 前置条件
 
 - 身份： `user`
-- 报告开始时状态： `lark-cli auth status` 显示当前没有已登录 user
+- 报告开始时状态： `xfchat_cli auth status` 显示当前没有已登录 user
 
 ## 测试记录
 
 1. 创建挂在知识库下的文档
-命令： `lark-cli docs +create --as user --wiki-space my_library --title 'Codex Wiki Demo 2026-03-29' --markdown '# Wiki Demo\n\nCreated from lark-cli as user.'`
+命令： `xfchat_cli docs +create --as user --wiki-space my_library --title 'Codex Wiki Demo 2026-03-29' --markdown '# Wiki Demo\n\nCreated from xfchat_cli as user.'`
 结果： `doc_id=HHsbdDBROo3kboxdfrPcdZLinYd`, returned wiki URL
 
 2. 读取内容
-命令： `lark-cli docs +fetch --as user --doc HHsbdDBROo3kboxdfrPcdZLinYd`
+命令： `xfchat_cli docs +fetch --as user --doc HHsbdDBROo3kboxdfrPcdZLinYd`
 结果： 成功读取 Markdown，标题和正文与预期一致
 
 ## 创建资源

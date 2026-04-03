@@ -67,58 +67,29 @@ var DocsUpdate = common.Shortcut{
 		return nil
 	},
 	DryRun: func(ctx context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
-		args := map[string]interface{}{
-			"doc_id": runtime.Str("doc"),
-			"mode":   runtime.Str("mode"),
+		d := common.NewDryRunAPI().Set("backend", "openapi")
+		mode := runtime.Str("mode")
+		if mode == "overwrite" {
+			d.GET("/open-apis/docx/v1/documents/:document_id/blocks/:document_id/children").
+				Desc("Query root children before overwrite").
+				DELETE("/open-apis/docx/v1/documents/:document_id/blocks/:document_id/children/batch_delete").
+				Desc("Delete existing root children")
 		}
-		if v := runtime.Str("markdown"); v != "" {
-			args["markdown"] = v
-		}
-		if v := runtime.Str("selection-with-ellipsis"); v != "" {
-			args["selection_with_ellipsis"] = v
-		}
-		if v := runtime.Str("selection-by-title"); v != "" {
-			args["selection_by_title"] = v
-		}
-		if v := runtime.Str("new-title"); v != "" {
-			args["new_title"] = v
-		}
-		return common.NewDryRunAPI().
-			POST(common.MCPEndpoint(runtime.Config.Brand)).
-			Desc("MCP tool: update-doc").
-			Body(map[string]interface{}{"method": "tools/call", "params": map[string]interface{}{"name": "update-doc", "arguments": args}}).
-			Set("mcp_tool", "update-doc").Set("args", args)
+		return d.POST("/open-apis/docx/v1/documents/:document_id/blocks/:document_id/children").
+			Desc("Create all target blocks in a single append request").
+			PATCH("/open-apis/docx/v1/documents/:document_id/blocks/batch_update").
+			Desc("Batch update block text elements")
 	},
 	Execute: func(ctx context.Context, runtime *common.RuntimeContext) error {
-		args := map[string]interface{}{
-			"doc_id": runtime.Str("doc"),
-			"mode":   runtime.Str("mode"),
+		if isWhiteboardCreateMarkdown(runtime.Str("markdown")) {
+			return output.ErrValidation("OpenAPI adaptation does not support whiteboard markdown via docs +update")
 		}
-		if v := runtime.Str("markdown"); v != "" {
-			args["markdown"] = v
+		if runtime.Str("new-title") != "" {
+			return output.ErrValidation("OpenAPI adaptation does not yet support --new-title")
 		}
-		if v := runtime.Str("selection-with-ellipsis"); v != "" {
-			args["selection_with_ellipsis"] = v
-		}
-		if v := runtime.Str("selection-by-title"); v != "" {
-			args["selection_by_title"] = v
-		}
-		if v := runtime.Str("new-title"); v != "" {
-			args["new_title"] = v
-		}
-
-		result, err := common.CallMCPTool(runtime, "update-doc", args)
+		result, err := updateDocxViaOpenAPI(runtime, runtime.Str("doc"), runtime.Str("mode"), runtime.Str("markdown"))
 		if err != nil {
 			return err
-		}
-		if shouldFallbackToDocxOpenAPI(result) {
-			if isWhiteboardCreateMarkdown(runtime.Str("markdown")) {
-				return output.ErrValidation("private deployment fallback does not support whiteboard markdown via docs +update")
-			}
-			result, err = updateDocxViaOpenAPI(runtime, runtime.Str("doc"), runtime.Str("mode"), runtime.Str("markdown"))
-			if err != nil {
-				return err
-			}
 		}
 
 		normalizeDocsUpdateResult(result, runtime.Str("markdown"))

@@ -13,16 +13,16 @@ By default, the command will automatically paginate up to 20 times. Use `--page-
 
 ```bash
 # Search for a specific task by name
-lark-cli task +get-my-tasks --query "Lobster No. 1"
+xfchat_cli task +get-my-tasks --query "Lobster No. 1"
 
 # Get my incomplete tasks (fetches up to 20 pages by default)
-lark-cli task +get-my-tasks
+xfchat_cli task +get-my-tasks
 
 # Fetch all tasks (up to 40 pages)
-lark-cli task +get-my-tasks --page-all
+xfchat_cli task +get-my-tasks --page-all
 
 # Fetch up to 10 pages
-lark-cli task +get-my-tasks --page-limit 10
+xfchat_cli task +get-my-tasks --page-limit 10
 ```
 
 ## Parameters

@@ -339,10 +339,11 @@ func TestCreate_NoEventIdReturned(t *testing.T) {
 
 func TestAgenda_Success(t *testing.T) {
 	f, stdout, _, reg := cmdutil.TestFactory(t, defaultConfig())
+	registerPrimaryCalendarStub(reg, "cal_primary")
 
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/events/instance_view",
+		URL:    "/open-apis/calendar/v4/calendars/cal_primary/events/instance_view",
 		Body: map[string]interface{}{
 			"code": 0, "msg": "ok",
 			"data": map[string]interface{}{
@@ -392,10 +393,11 @@ func TestAgenda_Success(t *testing.T) {
 
 func TestAgenda_EmptyResult(t *testing.T) {
 	f, stdout, _, reg := cmdutil.TestFactory(t, defaultConfig())
+	registerPrimaryCalendarStub(reg, "cal_primary")
 
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/events/instance_view",
+		URL:    "/open-apis/calendar/v4/calendars/cal_primary/events/instance_view",
 		Body: map[string]interface{}{
 			"code": 0, "msg": "ok",
 			"data": map[string]interface{}{
@@ -424,10 +426,11 @@ func TestAgenda_EmptyResult(t *testing.T) {
 
 func TestAgenda_FiltersCancelledEvents(t *testing.T) {
 	f, stdout, _, reg := cmdutil.TestFactory(t, defaultConfig())
+	registerPrimaryCalendarStub(reg, "cal_primary")
 
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/events/instance_view",
+		URL:    "/open-apis/calendar/v4/calendars/cal_primary/events/instance_view",
 		Body: map[string]interface{}{
 			"code": 0, "msg": "ok",
 			"data": map[string]interface{}{
@@ -494,6 +497,26 @@ func TestAgenda_ExplicitCalendarId(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
+}
+
+func registerPrimaryCalendarStub(reg *httpmock.Registry, calendarID string) {
+	reg.Register(&httpmock.Stub{
+		Method: "POST",
+		URL:    "/open-apis/calendar/v4/calendars/primary",
+		Body: map[string]interface{}{
+			"code": 0,
+			"msg":  "ok",
+			"data": map[string]interface{}{
+				"calendars": []interface{}{
+					map[string]interface{}{
+						"calendar": map[string]interface{}{
+							"calendar_id": calendarID,
+						},
+					},
+				},
+			},
+		},
+	})
 }
 
 // ---------------------------------------------------------------------------

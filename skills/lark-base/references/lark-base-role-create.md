@@ -10,12 +10,12 @@
 
 ```bash
 # 创建简单角色（仅设置名称和类型）
-lark-cli base +role-create \
+xfchat_cli base +role-create \
   --base-token VwGhb**************fMnod \
   --json '{"role_name":"财务审核员","role_type":"custom_role"}'
 
 # 创建角色并配置表权限、字段权限、记录筛选
-lark-cli base +role-create \
+xfchat_cli base +role-create \
   --base-token VwGhb**************fMnod \
   --json '{"role_name":"财务审核员","role_type":"custom_role","base_rule_map":{"copy":false,"download":false},"table_rule_map":{"订单表":{"perm":"edit","record_rule":{"record_operations":["add"],"edit_filter_rule_group":{"conjunction":"and","filter_rules":[{"conjunction":"and","filters":[{"field_name":"部门","operator":"is","filter_values":["财务部"]}]}]},"other_record_all_read":true},"field_rule":{"field_perm_mode":"specify","field_perms":{"金额":"edit","备注":"read","密码":"no_perm"}}},"用户表":{"perm":"read_only"}},"dashboard_rule_map":{"销售看板":{"perm":"read_only"}}}'
 ```

@@ -8,10 +8,10 @@ Add existing tasks to a tasklist.
 
 ```bash
 # Add a single task to a tasklist
-lark-cli task +tasklist-task-add --tasklist-id "tl_xxx" --task-id "t_aaa"
+xfchat_cli task +tasklist-task-add --tasklist-id "tl_xxx" --task-id "t_aaa"
 
 # Add multiple tasks to a tasklist
-lark-cli task +tasklist-task-add --tasklist-id "tl_xxx" --task-id "t_aaa,t_bbb,t_ccc"
+xfchat_cli task +tasklist-task-add --tasklist-id "tl_xxx" --task-id "t_aaa,t_bbb,t_ccc"
 ```
 
 ## Parameters
@@ -24,7 +24,7 @@ lark-cli task +tasklist-task-add --tasklist-id "tl_xxx" --task-id "t_aaa,t_bbb,t
 ## Workflow
 
 1. Confirm the tasklist and the tasks to add.
-2. Execute the command `lark-cli task +tasklist-task-add ...`.
+2. Execute the command `xfchat_cli task +tasklist-task-add ...`.
 3. Report the result (successful vs failed tasks).
 
 > [!CAUTION]

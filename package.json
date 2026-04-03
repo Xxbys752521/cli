@@ -1,7 +1,7 @@
 {
   "name": "xfchat_cli",
   "version": "1.0.0",
-  "description": "The official CLI for Lark/Feishu open platform",
+  "description": "Private-deployment lark-cli fork for the Lark/Feishu open platform",
   "bin": {
     "xfchat_cli": "scripts/run.js"
   },
@@ -22,12 +22,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/larksuite/cli.git"
+    "url": "git+https://github.com/Xxbys752521/cli.git"
   },
   "license": "MIT",
   "files": [
     "scripts/install.js",
     "scripts/run.js",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "skills/**/*",
+    "skill-template/**/*",
+    "README.md",
+    "README.zh.md"
   ]
 }

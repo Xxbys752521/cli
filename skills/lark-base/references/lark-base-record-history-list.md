@@ -8,13 +8,13 @@
 
 ```bash
 # 查询最新一页历史
-lark-cli base +record-history-list \
+xfchat_cli base +record-history-list \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --record-id rec_xxx
 
 # 指定分页大小，带游标翻页
-lark-cli base +record-history-list \
+xfchat_cli base +record-history-list \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --record-id rec_xxx \

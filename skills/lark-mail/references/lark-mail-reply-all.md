@@ -9,7 +9,7 @@
 
 > **默认草稿**：`+reply-all` 默认保存为草稿，不会立即发送。如需立即发送，添加 `--confirm-send` 参数（仅在用户明确确认后使用）。
 
-本 skill 对应 shortcut：`lark-cli mail +reply-all`。
+本 skill 对应 shortcut：`xfchat_cli mail +reply-all`。
 
 ## CRITICAL — 发送工作流（必须遵循）
 
@@ -17,7 +17,7 @@
 
 **Step 1** — 创建回复全部草稿（不带 `--confirm-send`）：
 ```bash
-lark-cli mail +reply-all --message-id <邮件ID> --body '<回复正文>'
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '<回复正文>'
 ```
 → 返回 `draft_id`
 
@@ -25,7 +25,7 @@ lark-cli mail +reply-all --message-id <邮件ID> --body '<回复正文>'
 
 **Step 3** — 用户明确同意后，发送该草稿：
 ```bash
-lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<Step 1 返回的 draft_id>"}'
+xfchat_cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<Step 1 返回的 draft_id>"}'
 ```
 
 **禁止跳过 Step 1 直接使用 `--confirm-send`。禁止在用户未明确同意的情况下执行 Step 3。**
@@ -34,25 +34,25 @@ lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_
 
 ```bash
 # 回复全部（默认保存为草稿）— HTML 推荐
-lark-cli mail +reply-all --message-id <邮件ID> --body '<p><b>已完成</b>，详见下方说明。</p>'
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '<p><b>已完成</b>，详见下方说明。</p>'
 
 # 回复全部并追加收件人/抄送（草稿）
-lark-cli mail +reply-all --message-id <邮件ID> --body '<p>同步更新</p>' --to lead@example.com --cc pm@example.com
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '<p>同步更新</p>' --to lead@example.com --cc pm@example.com
 
 # 从回复名单中排除某些地址（草稿）
-lark-cli mail +reply-all --message-id <邮件ID> --body '<p>见上</p>' --remove bot@example.com,noreply@example.com
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '<p>见上</p>' --remove bot@example.com,noreply@example.com
 
 # 回复全部时插入内嵌图片（CID 为唯一标识符，可用随机字符串）
-lark-cli mail +reply-all --message-id <邮件ID> --body '<img src="cid:a1b2c3d4e5f6a7b8c9d0"> 详见图示。' --inline '[{"cid":"a1b2c3d4e5f6a7b8c9d0","file_path":"./logo.png"}]'
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '<img src="cid:a1b2c3d4e5f6a7b8c9d0"> 详见图示。' --inline '[{"cid":"a1b2c3d4e5f6a7b8c9d0","file_path":"./logo.png"}]'
 
 # 纯文本回复全部（仅在内容极简时使用）
-lark-cli mail +reply-all --message-id <邮件ID> --body '收到，已处理。'
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '收到，已处理。'
 
 # 确认发送（用户明确确认后才可使用）
-lark-cli mail +reply-all --message-id <邮件ID> --body '<p>收到，已处理。</p>' --confirm-send
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '<p>收到，已处理。</p>' --confirm-send
 
 # Dry Run（仅打印请求，不发送）
-lark-cli mail +reply-all --message-id <邮件ID> --body '测试' --dry-run
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '测试' --dry-run
 ```
 
 ## 参数
@@ -80,7 +80,7 @@ lark-cli mail +reply-all --message-id <邮件ID> --body '测试' --dry-run
   "ok": true,
   "data": {
     "draft_id": "草稿ID",
-    "tip": "draft saved. To send: lark-cli mail user_mailbox.drafts send --params '{...}'"
+    "tip": "draft saved. To send: xfchat_cli mail user_mailbox.drafts send --params '{...}'"
   }
 }
 ```
@@ -100,20 +100,20 @@ lark-cli mail +reply-all --message-id <邮件ID> --body '测试' --dry-run
 
 ### 场景 1：用户说"帮我回复全部说同意"（只创建草稿）
 ```bash
-lark-cli mail +reply-all --message-id <邮件ID> --body '<p>同意，没有问题。</p>'
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '<p>同意，没有问题。</p>'
 ```
 → 返回 `draft_id`，告诉用户回复全部草稿已创建。
 
 ### 场景 2：用户说"回复全部说已确认"（需要发送）
 ```bash
 # Step 1: 创建回复全部草稿
-lark-cli mail +reply-all --message-id <邮件ID> --body '<p>已确认。</p>'
+xfchat_cli mail +reply-all --message-id <邮件ID> --body '<p>已确认。</p>'
 # → 返回 draft_id
 
 # Step 2: 向用户确认 "回复全部草稿已创建：收件人 alice@, bob@, carol@，内容「已确认。」确认发送吗？"
 
 # Step 3: 用户确认后发送
-lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<draft_id>"}'
+xfchat_cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<draft_id>"}'
 ```
 
 ## 实现说明
@@ -130,7 +130,7 @@ lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_
 **1. 确认投递状态**（必须）— 用返回的 `message_id` 查询投递状态：
 
 ```bash
-lark-cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me","message_id":"<发送返回的 message_id>"}'
+xfchat_cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me","message_id":"<发送返回的 message_id>"}'
 ```
 
 状态码：1=正在投递, 2=投递失败重试, 3=退信, 4=投递成功, 5=待审批, 6=审批拒绝。向用户简要报告投递结果，异常状态需重点提示。
@@ -138,11 +138,11 @@ lark-cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me
 **2. 标记已读**（可选）— 询问用户是否需要将原邮件标记为已读。如果用户同意：
 
 ```bash
-lark-cli mail user_mailbox.messages batch_modify_message --params '{"user_mailbox_id":"me"}' --data '{"message_ids":["<原邮件ID>"],"remove_label_ids":["UNREAD"]}'
+xfchat_cli mail user_mailbox.messages batch_modify_message --params '{"user_mailbox_id":"me"}' --data '{"message_ids":["<原邮件ID>"],"remove_label_ids":["UNREAD"]}'
 ```
 
 ## 相关命令
 
-- `lark-cli mail +reply` — 仅回复发件人
-- `lark-cli mail +forward` — 转发邮件
-- `lark-cli mail user_mailbox.messages get` — 查看邮件详情
+- `xfchat_cli mail +reply` — 仅回复发件人
+- `xfchat_cli mail +forward` — 转发邮件
+- `xfchat_cli mail user_mailbox.messages get` — 查看邮件详情

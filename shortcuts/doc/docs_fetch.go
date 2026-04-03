@@ -7,7 +7,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"strconv"
 
 	"github.com/larksuite/cli/shortcuts/common"
 )
@@ -22,49 +21,19 @@ var DocsFetch = common.Shortcut{
 	HasFormat:   true,
 	Flags: []common.Flag{
 		{Name: "doc", Desc: "document URL or token", Required: true},
-		{Name: "offset", Desc: "pagination offset"},
-		{Name: "limit", Desc: "pagination limit"},
 	},
 	DryRun: func(ctx context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
-		args := map[string]interface{}{
-			"doc_id": runtime.Str("doc"),
-		}
-		if v := runtime.Str("offset"); v != "" {
-			n, _ := strconv.Atoi(v)
-			args["offset"] = n
-		}
-		if v := runtime.Str("limit"); v != "" {
-			n, _ := strconv.Atoi(v)
-			args["limit"] = n
-		}
 		return common.NewDryRunAPI().
-			POST(common.MCPEndpoint(runtime.Config.Brand)).
-			Desc("MCP tool: fetch-doc").
-			Body(map[string]interface{}{"method": "tools/call", "params": map[string]interface{}{"name": "fetch-doc", "arguments": args}}).
-			Set("mcp_tool", "fetch-doc").Set("args", args)
+			GET("/open-apis/docx/v1/documents/:document_id").
+			Desc("Fetch docx metadata via OpenAPI").
+			GET("/open-apis/docx/v1/documents/:document_id/blocks").
+			Desc("Fetch docx block tree via OpenAPI").
+			Set("backend", "openapi")
 	},
 	Execute: func(ctx context.Context, runtime *common.RuntimeContext) error {
-		args := map[string]interface{}{
-			"doc_id": runtime.Str("doc"),
-		}
-		if v := runtime.Str("offset"); v != "" {
-			n, _ := strconv.Atoi(v)
-			args["offset"] = n
-		}
-		if v := runtime.Str("limit"); v != "" {
-			n, _ := strconv.Atoi(v)
-			args["limit"] = n
-		}
-
-		result, err := common.CallMCPTool(runtime, "fetch-doc", args)
+		result, err := fetchDocxViaOpenAPI(runtime, runtime.Str("doc"))
 		if err != nil {
 			return err
-		}
-		if shouldFallbackToDocxOpenAPI(result) {
-			result, err = fetchDocxViaOpenAPI(runtime, runtime.Str("doc"))
-			if err != nil {
-				return err
-			}
 		}
 
 		runtime.OutFormat(result, nil, func(w io.Writer) {

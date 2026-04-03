@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +view-get-card \
+xfchat_cli base +view-get-card \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --view-id viw_xxx

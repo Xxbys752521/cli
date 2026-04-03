@@ -40,7 +40,7 @@ var BaseWorkflowCreate = common.Shortcut{
 			body, _ = parseJSONObject(raw, "json")
 		}
 		return common.NewDryRunAPI().
-			POST("/open-apis/base/v3/bases/:base_token/workflows").
+			POST("/open-apis/bitable/v1/apps/:base_token/workflows").
 			Body(body).
 			Set("base_token", runtime.Str("base-token"))
 	},

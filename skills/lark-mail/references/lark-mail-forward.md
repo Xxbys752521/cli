@@ -9,7 +9,7 @@
 
 > **默认草稿**：`+forward` 默认保存为草稿，不会立即发送。如需立即发送，添加 `--confirm-send` 参数（仅在用户明确确认后使用）。
 
-本 skill 对应 shortcut：`lark-cli mail +forward`。
+本 skill 对应 shortcut：`xfchat_cli mail +forward`。
 
 ## CRITICAL — 发送工作流（必须遵循）
 
@@ -17,7 +17,7 @@
 
 **Step 1** — 创建转发草稿（不带 `--confirm-send`）：
 ```bash
-lark-cli mail +forward --message-id <邮件ID> --to <收件人>
+xfchat_cli mail +forward --message-id <邮件ID> --to <收件人>
 ```
 → 返回 `draft_id`
 
@@ -25,7 +25,7 @@ lark-cli mail +forward --message-id <邮件ID> --to <收件人>
 
 **Step 3** — 用户明确同意后，发送该草稿：
 ```bash
-lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<Step 1 返回的 draft_id>"}'
+xfchat_cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<Step 1 返回的 draft_id>"}'
 ```
 
 **禁止跳过 Step 1 直接使用 `--confirm-send`。禁止在用户未明确同意的情况下执行 Step 3。**
@@ -34,22 +34,22 @@ lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_
 
 ```bash
 # 转发邮件（默认保存为草稿）— HTML 推荐
-lark-cli mail +forward --message-id <邮件ID> --to alice@example.com --body '<p>FYI，请看下面原邮件。</p>'
+xfchat_cli mail +forward --message-id <邮件ID> --to alice@example.com --body '<p>FYI，请看下面原邮件。</p>'
 
 # 转发并附加说明 + 抄送（草稿）
-lark-cli mail +forward --message-id <邮件ID> --to alice@example.com --cc bob@example.com --body '<b>请参考</b>'
+xfchat_cli mail +forward --message-id <邮件ID> --to alice@example.com --cc bob@example.com --body '<b>请参考</b>'
 
 # 转发时插入内嵌图片（CID 为唯一标识符，可用随机字符串）
-lark-cli mail +forward --message-id <邮件ID> --to alice@example.com --body '<img src="cid:a1b2c3d4e5f6a7b8c9d0"> 详见图示。' --inline '[{"cid":"a1b2c3d4e5f6a7b8c9d0","file_path":"./logo.png"}]'
+xfchat_cli mail +forward --message-id <邮件ID> --to alice@example.com --body '<img src="cid:a1b2c3d4e5f6a7b8c9d0"> 详见图示。' --inline '[{"cid":"a1b2c3d4e5f6a7b8c9d0","file_path":"./logo.png"}]'
 
 # 纯文本转发（仅在内容极简时使用）
-lark-cli mail +forward --message-id <邮件ID> --to alice@example.com
+xfchat_cli mail +forward --message-id <邮件ID> --to alice@example.com
 
 # 确认发送（用户明确确认后才可使用）
-lark-cli mail +forward --message-id <邮件ID> --to alice@example.com --confirm-send
+xfchat_cli mail +forward --message-id <邮件ID> --to alice@example.com --confirm-send
 
 # Dry Run（仅打印请求，不发送）
-lark-cli mail +forward --message-id <邮件ID> --to alice@example.com --dry-run
+xfchat_cli mail +forward --message-id <邮件ID> --to alice@example.com --dry-run
 ```
 
 ## 参数
@@ -76,7 +76,7 @@ lark-cli mail +forward --message-id <邮件ID> --to alice@example.com --dry-run
   "ok": true,
   "data": {
     "draft_id": "草稿ID",
-    "tip": "draft saved. To send: lark-cli mail user_mailbox.drafts send --params '{...}'"
+    "tip": "draft saved. To send: xfchat_cli mail user_mailbox.drafts send --params '{...}'"
   }
 }
 ```
@@ -96,20 +96,20 @@ lark-cli mail +forward --message-id <邮件ID> --to alice@example.com --dry-run
 
 ### 场景 1：用户说"把这封邮件转发给 Bob"（只创建草稿）
 ```bash
-lark-cli mail +forward --message-id <邮件ID> --to bob@example.com --body '<p>FYI</p>'
+xfchat_cli mail +forward --message-id <邮件ID> --to bob@example.com --body '<p>FYI</p>'
 ```
 → 返回 `draft_id`，告诉用户转发草稿已创建。
 
 ### 场景 2：用户说"转发给 Bob 并发送"（需要发送）
 ```bash
 # Step 1: 创建转发草稿
-lark-cli mail +forward --message-id <邮件ID> --to bob@example.com --body '<p>FYI，请查收。</p>'
+xfchat_cli mail +forward --message-id <邮件ID> --to bob@example.com --body '<p>FYI，请查收。</p>'
 # → 返回 draft_id
 
 # Step 2: 向用户确认 "转发草稿已创建：收件人 bob@example.com。确认发送吗？"
 
 # Step 3: 用户确认后发送
-lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<draft_id>"}'
+xfchat_cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<draft_id>"}'
 ```
 
 ## 转发整个会话
@@ -118,13 +118,13 @@ lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_
 
 ```bash
 # 1. 用 +triage 或 +thread 找到会话
-lark-cli mail +thread --thread-id <THREAD_ID> --html=false --format json
+xfchat_cli mail +thread --thread-id <THREAD_ID> --html=false --format json
 
 # 2. 取最后一条消息的 message_id
 #    messages 按时间升序排列，最后一条 = messages[-1].message_id
 
 # 3. 转发该消息
-lark-cli mail +forward --message-id <最后一条的message_id> --to recipient@example.com --body '请过目'
+xfchat_cli mail +forward --message-id <最后一条的message_id> --to recipient@example.com --body '请过目'
 ```
 
 ## 实现说明
@@ -140,7 +140,7 @@ lark-cli mail +forward --message-id <最后一条的message_id> --to recipient@e
 **1. 确认投递状态**（必须）— 用返回的 `message_id` 查询投递状态：
 
 ```bash
-lark-cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me","message_id":"<发送返回的 message_id>"}'
+xfchat_cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me","message_id":"<发送返回的 message_id>"}'
 ```
 
 状态码：1=正在投递, 2=投递失败重试, 3=退信, 4=投递成功, 5=待审批, 6=审批拒绝。向用户简要报告投递结果，异常状态需重点提示。
@@ -148,7 +148,7 @@ lark-cli mail user_mailbox.messages send_status --params '{"user_mailbox_id":"me
 **2. 标记已读**（可选）— 询问用户是否需要将原邮件标记为已读。如果用户同意：
 
 ```bash
-lark-cli mail user_mailbox.messages batch_modify_message --params '{"user_mailbox_id":"me"}' --data '{"message_ids":["<原邮件ID>"],"remove_label_ids":["UNREAD"]}'
+xfchat_cli mail user_mailbox.messages batch_modify_message --params '{"user_mailbox_id":"me"}' --data '{"message_ids":["<原邮件ID>"],"remove_label_ids":["UNREAD"]}'
 ```
 
 ## 编辑转发草稿
@@ -160,13 +160,13 @@ lark-cli mail user_mailbox.messages batch_modify_message --params '{"user_mailbo
 cat > /tmp/patch.json << 'EOF'
 { "ops": [{ "op": "set_reply_body", "value": "<p>修改后的转发附言</p>" }] }
 EOF
-lark-cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
+xfchat_cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
 ```
 
 如果用户要修改引用区内容或去掉引用区，则使用 `set_body` 全量替换。
 
 ## 相关命令
 
-- `lark-cli mail +send` — 发送新邮件
-- `lark-cli mail +reply` — 回复邮件
-- `lark-cli mail user_mailbox.messages get` — 查看邮件详情
+- `xfchat_cli mail +send` — 发送新邮件
+- `xfchat_cli mail +reply` — 回复邮件
+- `xfchat_cli mail user_mailbox.messages get` — 查看邮件详情

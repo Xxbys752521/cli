@@ -3,7 +3,7 @@
 
 > **前置条件：** 先阅读 [`../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) 了解认证、全局参数和安全规则。
 
-本 skill 对应 shortcut：`lark-cli sheets +export`。
+本 skill 对应 shortcut：`xfchat_cli sheets +export`。
 
 特性：
 
@@ -15,18 +15,18 @@
 
 ```bash
 # 导出为 xlsx 并保存到本地
-lark-cli sheets +export --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
+xfchat_cli sheets +export --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
   --file-extension xlsx --output-path "./report.xlsx"
 
 # 导出为 csv（必须指定 sheet-id）
-lark-cli sheets +export --spreadsheet-token "shtxxxxxxxx" \
+xfchat_cli sheets +export --spreadsheet-token "shtxxxxxxxx" \
   --file-extension csv --sheet-id "<sheetId>" --output-path "./report.csv"
 
 # 不下载：只获取 file_token
-lark-cli sheets +export --spreadsheet-token "shtxxxxxxxx" --file-extension xlsx
+xfchat_cli sheets +export --spreadsheet-token "shtxxxxxxxx" --file-extension xlsx
 
 # 仅预览参数（不发请求）
-lark-cli sheets +export --url "https://..." --file-extension xlsx --output-path "./report.xlsx" --dry-run
+xfchat_cli sheets +export --url "https://..." --file-extension xlsx --output-path "./report.xlsx" --dry-run
 ```
 
 ## 参数

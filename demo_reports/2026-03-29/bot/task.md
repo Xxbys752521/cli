@@ -9,7 +9,7 @@
 ## 测试记录
 
 1. 验证 shortcut 支持情况
-命令： `lark-cli task +get-my-tasks --as bot`
+命令： `xfchat_cli task +get-my-tasks --as bot`
 结果： CLI 直接拒绝该调用，提示 `--as bot is not supported, this command only supports: user`
 
 ## 创建资源

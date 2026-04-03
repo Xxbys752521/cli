@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +dashboard-block-delete \
+xfchat_cli base +dashboard-block-delete \
   --base-token bascn***************CtadY \
   --dashboard-id blkxxx \
   --block-id 9v7g********idcd

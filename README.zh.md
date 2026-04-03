@@ -1,19 +1,23 @@
-# xfchat_cli
+# xfchat_cli（私有化 lark-cli）
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Go Version](https://img.shields.io/badge/go-%3E%3D1.23-blue.svg)](https://go.dev/)
-[![npm version](https://img.shields.io/npm/v/@larksuite/cli.svg)](https://www.npmjs.com/package/@larksuite/cli)
+[![npm version](https://img.shields.io/npm/v/xfchat_cli.svg)](https://www.npmjs.com/package/xfchat_cli)
 
 [中文版](./README.zh.md) | [English](./README.md)
 
-飞书官方 CLI 工具，由 [larksuite](https://github.com/larksuite) 团队维护 — 让人类和 AI Agent 都能在终端中操作飞书。覆盖消息、文档、多维表格、电子表格、日历、邮箱、任务、会议等核心业务域，提供 200+ 命令及 19 个 AI Agent [Skills](./skills/)。
+`xfchat_cli` 是基于官方 [larksuite/cli](https://github.com/larksuite/cli) 的私有化 fork，面向讯飞私有化飞书环境。产品身份统一为“私有化 lark-cli”，当前发行二进制名与配置目录分别为 `xfchat_cli` 和 `~/.xfchat_cli`。
+
+当前运行态覆盖消息、文档、多维表格、电子表格、日历、任务、知识库、通讯录、视频会议等核心业务域，并随包提供 19 个 AI Agent [Skills](./skills/)。其中 `lark-mail` 仅保留为历史/参考 skill 文档，私有化运行时默认不注册 `mail` 服务命令。
 
 [安装](#安装与快速开始) · [AI Agent Skills](#agent-skills) · [认证](#认证) · [命令](#三层命令调用) · [进阶用法](#进阶用法) · [安全](#安全与风险提示使用前必读) · [贡献](#贡献)
 
 ## 为什么选 xfchat_cli？
 
+- **私有化适配** — 内置 endpoint override、私有化 OAuth 容错和 bundled skills 分发方式
 - **为 Agent 原生设计** — [Skills](./skills/) 开箱即用，适配主流 AI 工具，Agent 无需额外适配即可操作飞书
-- **覆盖面广** — 11 大业务域、200+ 精选命令、 19 个 AI Agent [Skills](./skills/)
+- **覆盖核心域** — 覆盖消息、文档、多维表格、电子表格、日历、任务、知识库、通讯录、会议等核心域，19 个 Skills 随包提供
+- **能力口径清晰** — 文档、测试和运行态统一；`mail` skill 保留但默认禁用，不纳入当前 prod 能力矩阵
 - **AI 友好调优** — 每条命令经过 Agent 实测验证，提供更友好的参数、智能默认值和结构化输出，大幅提升 Agent 调用成功率
 - **开源零门槛** — MIT 协议，开箱即用，`npm install` 即可使用
 - **三分钟上手** — 一键创建应用、交互式登录授权，从安装到第一次 API 调用只需三步
@@ -33,8 +37,9 @@
 | ✅ 任务     | 创建、查询、更新和完成任务；管理任务清单、子任务、评论与提醒              |
 | 📚 知识库   | 创建和管理知识空间、节点和文档                                            |
 | 👤 通讯录   | 按姓名/邮箱/手机号搜索用户、获取用户信息                                  |
-| 📧 邮箱     | 浏览、搜索、阅读邮件，发送、回复、转发邮件，管理草稿，监听新邮件          |
 | 🎥 视频会议 | 搜索会议记录、查询会议纪要与录制                                          |
+
+> 说明：`mail` 能力当前不在私有化运行态内；`skills/lark-mail` 仅作为历史/参考 skill 文档随包保留。
 
 ## 安装与快速开始
 
@@ -59,8 +64,9 @@
 # 安装 CLI
 npm install -g xfchat_cli
 
-# 安装 CLI SKILL（必需）
-npx skills add larksuite/cli -y -g
+# xfchat_cli 已随包提供 Skills
+xfchat_cli skills path
+xfchat_cli skills list
 ```
 
 **方式二 — 从源码安装：**
@@ -68,12 +74,13 @@ npx skills add larksuite/cli -y -g
 需要 Go `v1.23`+ 和 Python 3。
 
 ```bash
-git clone https://github.com/larksuite/cli.git
+git clone https://github.com/Xxbys752521/cli.git
 cd cli
 make install
 
-# 安装 CLI SKILL（必需）
-npx skills add larksuite/cli -y -g
+# 源码目录已包含 Skills
+./xfchat_cli skills path
+./xfchat_cli skills list
 ```
 
 #### 配置与使用
@@ -99,8 +106,9 @@ xfchat_cli calendar +agenda
 # 安装 CLI
 npm install -g xfchat_cli
 
-# 安装 CLI SKILL（必需）
-npx skills add larksuite/cli -y -g
+# xfchat_cli 已随包提供 Skills
+xfchat_cli skills path
+xfchat_cli skills list
 ```
 
 **第 2 步 — 配置应用凭证**
@@ -138,7 +146,7 @@ xfchat_cli auth status
 | `lark-sheets`                   | 创建、读取、写入、追加、查找、导出电子表格                                  |
 | `lark-base`                     | 多维表格、字段、记录、视图、仪表盘、数据聚合分析                            |
 | `lark-task`                     | 任务、任务清单、子任务、提醒、成员分配                                      |
-| `lark-mail`                     | 浏览、搜索、阅读邮件，发送、回复、转发，草稿管理，监听新邮件                |
+| `lark-mail`                     | 历史/参考 skill；当前私有化运行时默认禁用，不纳入能力矩阵                    |
 | `lark-contact`                  | 按姓名/邮箱/手机号搜索用户，获取用户信息                                    |
 | `lark-wiki`                     | 知识空间、节点、文档                                                        |
 | `lark-event`                    | 实时事件订阅（WebSocket），支持正则路由与 Agent 友好格式                    |
@@ -268,11 +276,11 @@ xfchat_cli schema im.messages.delete
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=larksuite/cli&type=Date)](https://star-history.com/#larksuite/cli&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Xxbys752521/cli&type=Date)](https://star-history.com/#Xxbys752521/cli&Date)
 
 ## 贡献
 
-欢迎社区贡献！如果你发现 bug 或有功能建议，请提交 [Issue](https://github.com/larksuite/cli/issues) 或 [Pull Request](https://github.com/larksuite/cli/pulls)。
+欢迎在当前私有化 fork 提交 [Issue](https://github.com/Xxbys752521/cli/issues) 或 [Pull Request](https://github.com/Xxbys752521/cli/pulls)。若需对照上游官方实现，可同时参考 [larksuite/cli](https://github.com/larksuite/cli)。
 
 对于较大的改动，建议先通过 Issue 与我们讨论。
 

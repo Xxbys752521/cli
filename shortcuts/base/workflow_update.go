@@ -44,7 +44,7 @@ var BaseWorkflowUpdate = common.Shortcut{
 			body, _ = parseJSONObject(raw, "json")
 		}
 		return common.NewDryRunAPI().
-			PUT("/open-apis/base/v3/bases/:base_token/workflows/:workflow_id").
+			PUT("/open-apis/bitable/v1/apps/:base_token/workflows/:workflow_id").
 			Body(body).
 			Set("base_token", runtime.Str("base-token")).
 			Set("workflow_id", runtime.Str("workflow-id"))

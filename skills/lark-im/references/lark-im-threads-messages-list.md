@@ -4,33 +4,33 @@
 
 Fetch the reply message list inside a thread. When `im +chat-messages-list` returns messages that include a `thread_id` field, use this command to inspect all replies in that thread.
 
-This skill maps to the shortcut: `lark-cli im +threads-messages-list` (internally calls `GET /open-apis/im/v1/messages` with `container_id_type=thread` to fetch thread messages).
+This skill maps to the shortcut: `xfchat_cli im +threads-messages-list` (internally calls `GET /open-apis/im/v1/messages` with `container_id_type=thread` to fetch thread messages).
 
 ## Commands
 
 ```bash
 # Get thread replies (ascending by time by default, table output)
-lark-cli im +threads-messages-list --thread omt_xxx
+xfchat_cli im +threads-messages-list --thread omt_xxx
 
 # Reverse chronological order (latest first)
-lark-cli im +threads-messages-list --thread omt_xxx --sort desc
+xfchat_cli im +threads-messages-list --thread omt_xxx --sort desc
 
 # Control page size
-lark-cli im +threads-messages-list --thread omt_xxx --page-size 20
+xfchat_cli im +threads-messages-list --thread omt_xxx --page-size 20
 
 # Pagination
-lark-cli im +threads-messages-list --thread omt_xxx --page-token <PAGE_TOKEN>
+xfchat_cli im +threads-messages-list --thread omt_xxx --page-token <PAGE_TOKEN>
 
 # Output format options
-lark-cli im +threads-messages-list --thread omt_xxx --format pretty
-lark-cli im +threads-messages-list --thread omt_xxx --format table
-lark-cli im +threads-messages-list --thread omt_xxx --format csv
+xfchat_cli im +threads-messages-list --thread omt_xxx --format pretty
+xfchat_cli im +threads-messages-list --thread omt_xxx --format table
+xfchat_cli im +threads-messages-list --thread omt_xxx --format csv
 
 # View as a bot
-lark-cli im +threads-messages-list --thread omt_xxx --as bot
+xfchat_cli im +threads-messages-list --thread omt_xxx --as bot
 
 # Preview the request without executing it
-lark-cli im +threads-messages-list --thread omt_xxx --dry-run
+xfchat_cli im +threads-messages-list --thread omt_xxx --dry-run
 ```
 
 ## Parameters
@@ -74,20 +74,20 @@ Thread messages do not support `start_time` / `end_time` filtering because of Fe
 
 ```bash
 # Step 1: Fetch group messages and find one that contains thread_id
-lark-cli im +chat-messages-list --chat-id oc_xxx
+xfchat_cli im +chat-messages-list --chat-id oc_xxx
 
 # Step 2: Extract thread_id from the JSON output and fetch thread replies
-lark-cli im +threads-messages-list --thread omt_xxx
+xfchat_cli im +threads-messages-list --thread omt_xxx
 ```
 
 ### Scenario 2: Paginate through a long thread
 
 ```bash
 # First page
-lark-cli im +threads-messages-list --thread omt_xxx
+xfchat_cli im +threads-messages-list --thread omt_xxx
 
 # If has_more=true is returned, continue with page_token
-lark-cli im +threads-messages-list --thread omt_xxx --page-token <PAGE_TOKEN>
+xfchat_cli im +threads-messages-list --thread omt_xxx --page-token <PAGE_TOKEN>
 ```
 
 ## Resource Rendering

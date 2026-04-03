@@ -8,7 +8,7 @@
 
 ```bash
 # 启用高级权限
-lark-cli base +advperm-enable \
+xfchat_cli base +advperm-enable \
   --base-token VwGh**************Mnod
 ```
 

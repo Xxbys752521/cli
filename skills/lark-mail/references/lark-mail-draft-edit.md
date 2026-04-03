@@ -45,19 +45,19 @@
 
 ```bash
 # 编辑草稿元数据（主题、收件人）
-lark-cli mail +draft-edit --draft-id <draft-id> --set-subject '更新后的主题' --set-to alice@example.com,bob@example.com
+xfchat_cli mail +draft-edit --draft-id <draft-id> --set-subject '更新后的主题' --set-to alice@example.com,bob@example.com
 
 # 编辑草稿正文（必须通过 patch-file）
-lark-cli mail +draft-edit --draft-id <draft-id> --patch-file ./patch.json
+xfchat_cli mail +draft-edit --draft-id <draft-id> --patch-file ./patch.json
 
 # 查看草稿（只读）— 返回包含 has_quoted_content、attachments_summary 和 inline_summary 的投影
-lark-cli mail +draft-edit --draft-id <draft-id> --inspect
+xfchat_cli mail +draft-edit --draft-id <draft-id> --inspect
 
 # 打印补丁模板
-lark-cli mail +draft-edit --print-patch-template
+xfchat_cli mail +draft-edit --print-patch-template
 
 # Dry Run（仅打印请求，不执行）
-lark-cli mail +draft-edit --draft-id <draft-id> --set-subject '测试' --dry-run
+xfchat_cli mail +draft-edit --draft-id <draft-id> --set-subject '测试' --dry-run
 ```
 
 ## 通用参数
@@ -172,7 +172,7 @@ lark-cli mail +draft-edit --draft-id <draft-id> --set-subject '测试' --dry-run
 **如何获取 `part_id` / `cid`：** `remove_attachment`、`remove_inline` 和 `replace_inline` 需要 `part_id` 或 `cid` 来定位目标部分。这些值来自草稿的 MIME 结构，与公开 API 的附件 ID **不同**。要获取这些值，先运行 `--inspect`：
 
 ```bash
-lark-cli mail +draft-edit --draft-id <draft_id> --inspect
+xfchat_cli mail +draft-edit --draft-id <draft_id> --inspect
 ```
 
 返回的 `projection.attachments_summary` 和 `projection.inline_summary` 列出了每个部分的 `part_id`、`cid`、`filename` 和 `content_type`。在 `remove_attachment` / `remove_inline` / `replace_inline` 操作中使用这些值。
@@ -247,16 +247,16 @@ lark-cli mail +draft-edit --draft-id <draft_id> --inspect
 
 ```bash
 # 1. 查看草稿当前状态
-lark-cli mail +draft-edit --draft-id <draft_id> --inspect
+xfchat_cli mail +draft-edit --draft-id <draft_id> --inspect
 
 # 2. 编辑草稿（元数据用 flag，正文用 patch-file）
 cat > /tmp/patch.json << 'EOF'
 { "ops": [{ "op": "set_body", "value": "<p>更新后的内容</p>" }] }
 EOF
-lark-cli mail +draft-edit --draft-id <draft_id> --set-subject '最终版本' --patch-file /tmp/patch.json
+xfchat_cli mail +draft-edit --draft-id <draft_id> --set-subject '最终版本' --patch-file /tmp/patch.json
 
 # 3. 发送草稿
-lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<draft_id>"}'
+xfchat_cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_id":"<draft_id>"}'
 ```
 
 ### 编辑回复/转发草稿的正文
@@ -265,7 +265,7 @@ lark-cli mail user_mailbox.drafts send --params '{"user_mailbox_id":"me","draft_
 
 ```bash
 # 1. 查看草稿，确认是否有引用区
-lark-cli mail +draft-edit --draft-id <draft_id> --inspect
+xfchat_cli mail +draft-edit --draft-id <draft_id> --inspect
 # 返回包含：
 #   has_quoted_content: true  ← 说明有引用区，应使用 set_reply_body
 #   body_html_summary: "<div>原有回复内容</div>..."
@@ -274,7 +274,7 @@ lark-cli mail +draft-edit --draft-id <draft_id> --inspect
 cat > /tmp/patch.json << 'EOF'
 { "ops": [{ "op": "set_reply_body", "value": "<p>修改后的回复内容</p>" }] }
 EOF
-lark-cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
+xfchat_cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
 ```
 
 **注意：** 如果误用 `set_body`，引用区将被覆盖丢失。如果用户明确要去掉引用区或修改引用区内容，则应使用 `set_body`。
@@ -283,7 +283,7 @@ lark-cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
 
 ```bash
 # 1. 查看草稿以获取附件的 part_id / cid
-lark-cli mail +draft-edit --draft-id <draft_id> --inspect
+xfchat_cli mail +draft-edit --draft-id <draft_id> --inspect
 # 返回包含 projection.attachments_summary，如：
 #   [{"part_id":"1.3","filename":"report.pdf","content_type":"application/pdf"}]
 
@@ -298,7 +298,7 @@ cat > /tmp/patch.json << 'EOF'
 EOF
 
 # 3. 应用补丁
-lark-cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
+xfchat_cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
 ```
 
 ### 在正文中插入内嵌图片
@@ -307,7 +307,7 @@ lark-cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
 
 ```bash
 # 1. 查看草稿以获取当前 HTML 正文和已有的内嵌部分
-lark-cli mail +draft-edit --draft-id <draft_id> --inspect
+xfchat_cli mail +draft-edit --draft-id <draft_id> --inspect
 # 返回包含：
 #   projection.body_html_summary: "<div>原有内容<img src=\"cid:existing.png\" /></div>"
 #   projection.inline_summary: [{"part_id":"1.1.2","cid":"existing.png", ...}]
@@ -324,14 +324,14 @@ cat > /tmp/patch.json << 'EOF'
 EOF
 
 # 3. 应用补丁
-lark-cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
+xfchat_cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
 ```
 
 ### 使用 patch-file 进行高级编辑
 
 ```bash
 # 1. 查看补丁模板
-lark-cli mail +draft-edit --print-patch-template
+xfchat_cli mail +draft-edit --print-patch-template
 
 # 2. 编写补丁文件（例如添加一个抄送并移除一个附件）
 cat > /tmp/patch.json << 'EOF'
@@ -345,11 +345,11 @@ cat > /tmp/patch.json << 'EOF'
 EOF
 
 # 3. 应用补丁
-lark-cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
+xfchat_cli mail +draft-edit --draft-id <draft_id> --patch-file /tmp/patch.json
 ```
 
 ## 相关命令
 
-- `lark-cli mail +draft-create` — 创建新草稿
-- `lark-cli mail user_mailbox.drafts get` — 获取草稿原始内容
-- `lark-cli mail user_mailbox.drafts send` — 发送已有草稿
+- `xfchat_cli mail +draft-create` — 创建新草稿
+- `xfchat_cli mail user_mailbox.drafts get` — 获取草稿原始内容
+- `xfchat_cli mail user_mailbox.drafts send` — 发送已有草稿

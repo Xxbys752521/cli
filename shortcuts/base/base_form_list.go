@@ -32,12 +32,25 @@ var BaseFormsList = common.Shortcut{
 			Set("table_id", runtime.Str("table-id"))
 	},
 	Execute: func(ctx context.Context, runtime *common.RuntimeContext) error {
-		views, _, err := listAllViews(runtime, runtime.Str("base-token"), runtime.Str("table-id"), 0, runtime.Int("page-size"))
-		if err != nil {
-			return err
+		pageSize := runtime.Int("page-size")
+		if pageSize <= 0 || pageSize > 100 {
+			pageSize = 100
+		}
+		allViews := make([]map[string]interface{}, 0)
+		offset := 0
+		for {
+			views, total, err := listAllViews(runtime, runtime.Str("base-token"), runtime.Str("table-id"), offset, pageSize)
+			if err != nil {
+				return err
+			}
+			allViews = append(allViews, views...)
+			if len(views) == 0 || len(views) < pageSize || (total > 0 && len(allViews) >= total) {
+				break
+			}
+			offset += len(views)
 		}
 		allForms := make([]interface{}, 0)
-		for _, view := range views {
+		for _, view := range allViews {
 			if viewType(view) == "form" {
 				allForms = append(allForms, map[string]interface{}{
 					"id":          viewID(view),

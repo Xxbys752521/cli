@@ -32,7 +32,7 @@ var BaseDashboardList = common.Shortcut{
 			params["page_token"] = pt
 		}
 		return common.NewDryRunAPI().
-			GET("/open-apis/base/v3/bases/:base_token/dashboards").
+			GET("/open-apis/bitable/v1/apps/:base_token/dashboards").
 			Params(params).
 			Set("base_token", runtime.Str("base-token"))
 	},

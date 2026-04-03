@@ -9,40 +9,40 @@
 
 ```bash
 # 推荐：使用 shortcut 一步上传
-lark-cli drive +upload --file ./report.pdf --folder-token fldbc_xxx
+xfchat_cli drive +upload --file ./report.pdf --folder-token fldbc_xxx
 
 # 自定义上传后的文件名
-lark-cli drive +upload --file ./report.pdf --name "季度总结.pdf"
+xfchat_cli drive +upload --file ./report.pdf --name "季度总结.pdf"
 
 # 生成可用临时下载链接的上传方式（素材上传，适用于后续用 curl 下载）
 # 注意：需要可写 docx 文档 ID（用于挂载素材 block），且文件最大 20MB
-lark-cli drive +upload --as-media --doc docx_xxx --file ./report.pdf
+xfchat_cli drive +upload --as-media --doc docx_xxx --file ./report.pdf
 
 # 取出 tmp_download_url 后可直接 curl 下载
 curl -L -o report.pdf "<TMP_DOWNLOAD_URL>"
 
 # 原生命令（高级/分片上传）：预上传 + 完成上传
-lark-cli drive files upload_prepare --data '{
+xfchat_cli drive files upload_prepare --data '{
   "file_name": "report.pdf",
   "parent_type": "explorer",
   "parent_node": "fldbc_xxx",
   "size": 1048576
 }'
-lark-cli drive files upload_finish --data '{
+xfchat_cli drive files upload_finish --data '{
   "upload_id": "<UPLOAD_ID>",
   "block_num": 1
 }'
 
 # 查看完整参数定义
-lark-cli schema drive.files.upload_prepare
+xfchat_cli schema drive.files.upload_prepare
 ```
 
 > [!IMPORTANT]
 > 如果文件是**以应用身份（bot）上传**的，agent 在上传成功后应**默认继续使用 bot 身份**，为当前可用的 user 身份添加该文件的 `full_access`（管理员）权限。推荐流程：
-> 1. 先用 `lark-cli contact +get-user` 获取当前用户信息，并从返回结果中读取该用户的 `open_id`
+> 1. 先用 `xfchat_cli contact +get-user` 获取当前用户信息，并从返回结果中读取该用户的 `open_id`
 > 2. 再切回 bot 身份，使用这个 `open_id` 给该用户授权该文件的 `full_access`（管理员）权限
 >
-> 如果 `lark-cli contact +get-user` 无法执行，或者本地没有可用的 user 身份、拿不到当前用户的 `open_id`，则应视为“本地没有可用的 user 身份”，明确说明因此未完成授权。
+> 如果 `xfchat_cli contact +get-user` 无法执行，或者本地没有可用的 user 身份、拿不到当前用户的 `open_id`，则应视为“本地没有可用的 user 身份”，明确说明因此未完成授权。
 >
 > 回复上传结果时，除 `file_token` 外，还必须明确告知用户授权结果：
 > - 如果授权成功：直接说明当前 user 已获得该文件的管理员权限

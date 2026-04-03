@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +table-update \
+xfchat_cli base +table-update \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --name "重点客户名单"

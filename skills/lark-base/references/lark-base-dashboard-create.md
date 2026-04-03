@@ -8,12 +8,12 @@
 
 ```bash
 # 创建仪表盘
-lark-cli base +dashboard-create \
+xfchat_cli base +dashboard-create \
   --base-token VwGhb**************fMnod \
   --name "销售报表"
 
 # 创建仪表盘（指定主题）
-lark-cli base +dashboard-create \
+xfchat_cli base +dashboard-create \
   --base-token VwGhb**************fMnod \
   --name "销售报表" \
   --theme-style default

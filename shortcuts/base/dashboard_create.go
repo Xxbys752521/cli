@@ -31,7 +31,7 @@ var BaseDashboardCreate = common.Shortcut{
 			body["theme"] = map[string]interface{}{"theme_style": themeStyle}
 		}
 		return common.NewDryRunAPI().
-			POST("/open-apis/base/v3/bases/:base_token/dashboards").
+			POST("/open-apis/bitable/v1/apps/:base_token/dashboards").
 			Body(body).
 			Set("base_token", runtime.Str("base-token"))
 	},

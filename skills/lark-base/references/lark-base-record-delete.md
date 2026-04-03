@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +record-delete \
+xfchat_cli base +record-delete \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --record-id rec_xxx \

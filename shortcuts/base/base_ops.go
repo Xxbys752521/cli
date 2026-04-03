@@ -12,7 +12,7 @@ import (
 
 func dryRunBaseGet(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return common.NewDryRunAPI().
-		GET("/open-apis/base/v3/bases/:base_token").
+		GET("/open-apis/bitable/v1/apps/:base_token").
 		Set("base_token", runtime.Str("base-token"))
 }
 
@@ -31,7 +31,7 @@ func dryRunBaseCopy(_ context.Context, runtime *common.RuntimeContext) *common.D
 		body["time_zone"] = timeZone
 	}
 	return common.NewDryRunAPI().
-		POST("/open-apis/base/v3/bases/:base_token/copy").
+		POST("/open-apis/bitable/v1/apps/:base_token/copy").
 		Body(body).
 		Set("base_token", runtime.Str("base-token"))
 }
@@ -45,7 +45,7 @@ func dryRunBaseCreate(_ context.Context, runtime *common.RuntimeContext) *common
 		body["time_zone"] = timeZone
 	}
 	return common.NewDryRunAPI().
-		POST("/open-apis/base/v3/bases").
+		POST("/open-apis/bitable/v1/apps").
 		Body(body)
 }
 

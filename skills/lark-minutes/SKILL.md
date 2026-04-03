@@ -4,8 +4,8 @@ version: 1.0.0
 description: "飞书妙记：获取妙记基础信息（标题、封面、时长）和相关的 AI 产物（总结、待办、章节）。飞书妙记的 URL 格式为: http(s)://<host>/minutes/<minute-token>"
 metadata:
   requires:
-    bins: ["lark-cli"]
-  cliHelp: "lark-cli minutes --help"
+    bins: ["xfchat_cli"]
+  cliHelp: "xfchat_cli minutes --help"
 ---
 
 # minutes (v1)
@@ -24,7 +24,7 @@ metadata:
    - 示例：从 `https://domain.feishu.cn/minutes/obc123456?project=xxx` 中提取出 `obc123456`。
 
 2. **获取妙记信息**：
-   - 使用 `lark-cli schema minutes.minutes.get` 可以查看具体的返回值结构。
+   - 使用 `xfchat_cli schema minutes.minutes.get` 可以查看具体的返回值结构。
    - 返回的核心字段通常包含：
      - `title`：会议标题
      - `cover`：视频/音频封面 URL
@@ -38,12 +38,12 @@ metadata:
 
 ```bash
 # 首先查询妙记元信息（标题、时长、封面） → 用本 skill
-lark-cli minutes minutes get --params '{"minute_token": "obcn***************"}'
+xfchat_cli minutes minutes get --params '{"minute_token": "obcn***************"}'
 
-# 查妙记关联的纪要产物：逐字稿、总结、待办、章节等 → 用 lark-cli vc +notes
-lark-cli vc +notes --minute-tokens obcnhijv43vq6bcsl5xasfb2
+# 查妙记关联的纪要产物：逐字稿、总结、待办、章节等 → 用 xfchat_cli vc +notes
+xfchat_cli vc +notes --minute-tokens obcnhijv43vq6bcsl5xasfb2
 ```
-本 skill 仅提供妙记**基础元信息**查询（标题、封面、时长）。如需获取纪要**内容**（逐字稿、AI 总结、待办、章节），请使用 [lark-cli vc +notes](../lark-vc/references/lark-vc-notes.md)：
+本 skill 仅提供妙记**基础元信息**查询（标题、封面、时长）。如需获取纪要**内容**（逐字稿、AI 总结、待办、章节），请使用 [xfchat_cli vc +notes](../lark-vc/references/lark-vc-notes.md)：
 
 - 用户未指定需要查询妙记的哪些内容时，默认查询基础元信息和相关联的纪要产物信息。
 - 用户未明确指定查看纪要产物（逐字稿、总结、待办、章节）时，向用户展示对应产物的链接即可，不需要直接读取产物内容。
@@ -52,8 +52,8 @@ lark-cli vc +notes --minute-tokens obcnhijv43vq6bcsl5xasfb2
 ## API Resources
 
 ```bash
-lark-cli schema minutes.<resource>.<method>   # 调用 API 前必须先查看参数结构
-lark-cli minutes <resource> <method> [flags] # 调用 API
+xfchat_cli schema minutes.<resource>.<method>   # 调用 API 前必须先查看参数结构
+xfchat_cli minutes <resource> <method> [flags] # 调用 API
 ```
 
 > **重要**：使用原生 API 时，必须先运行 `schema` 查看 `--data` / `--params` 参数结构，不要猜测字段格式。

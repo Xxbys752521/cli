@@ -8,13 +8,13 @@
 
 ```bash
 # 删除表单
-lark-cli base +form-delete \
+xfchat_cli base +form-delete \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id>
 
 # 预览（不实际执行）
-lark-cli base +form-delete \
+xfchat_cli base +form-delete \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \

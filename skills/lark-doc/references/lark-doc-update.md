@@ -9,34 +9,34 @@
 
 ```bash
 # 追加内容
-lark-cli docs +update --doc "<doc_id_or_url>" --mode append --markdown "## 新章节\n\n追加内容"
+xfchat_cli docs +update --doc "<doc_id_or_url>" --mode append --markdown "## 新章节\n\n追加内容"
 
 # 定位替换（内容定位）
-lark-cli docs +update --doc "<doc_id>" --mode replace_range --selection-with-ellipsis "旧标题...旧结尾" --markdown "## 新内容"
+xfchat_cli docs +update --doc "<doc_id>" --mode replace_range --selection-with-ellipsis "旧标题...旧结尾" --markdown "## 新内容"
 
 # 定位替换（标题定位）
-lark-cli docs +update --doc "<doc_id>" --mode replace_range --selection-by-title "## 功能说明" --markdown "## 功能说明\n\n新内容"
+xfchat_cli docs +update --doc "<doc_id>" --mode replace_range --selection-by-title "## 功能说明" --markdown "## 功能说明\n\n新内容"
 
 # 全文替换
-lark-cli docs +update --doc "<doc_id>" --mode replace_all --selection-with-ellipsis "张三" --markdown "李四"
+xfchat_cli docs +update --doc "<doc_id>" --mode replace_all --selection-with-ellipsis "张三" --markdown "李四"
 
 # 前插入
-lark-cli docs +update --doc "<doc_id>" --mode insert_before --selection-with-ellipsis "## 危险操作" --markdown "> 警告：以下需谨慎！"
+xfchat_cli docs +update --doc "<doc_id>" --mode insert_before --selection-with-ellipsis "## 危险操作" --markdown "> 警告：以下需谨慎！"
 
 # 后插入
-lark-cli docs +update --doc "<doc_id>" --mode insert_after --selection-with-ellipsis "代码示例" --markdown "**输出示例**：result = 42"
+xfchat_cli docs +update --doc "<doc_id>" --mode insert_after --selection-with-ellipsis "代码示例" --markdown "**输出示例**：result = 42"
 
 # 删除内容
-lark-cli docs +update --doc "<doc_id>" --mode delete_range --selection-by-title "## 废弃章节"
+xfchat_cli docs +update --doc "<doc_id>" --mode delete_range --selection-by-title "## 废弃章节"
 
 # 覆盖（慎用）
-lark-cli docs +update --doc "<doc_id>" --mode overwrite --markdown "# 全新内容"
+xfchat_cli docs +update --doc "<doc_id>" --mode overwrite --markdown "# 全新内容"
 
 # 同时更新标题
-lark-cli docs +update --doc "<doc_id>" --mode append --markdown "## 更新日志" --new-title "文档 v2.0"
+xfchat_cli docs +update --doc "<doc_id>" --mode append --markdown "## 更新日志" --new-title "文档 v2.0"
 
 # 在指定内容后新增两个空白画板
-lark-cli docs +update --doc "<doc_id>" --mode insert_after --selection-with-ellipsis "有序列表" --markdown $'<whiteboard type="blank"></whiteboard>\n<whiteboard type="blank"></whiteboard>'
+xfchat_cli docs +update --doc "<doc_id>" --mode insert_after --selection-with-ellipsis "有序列表" --markdown $'<whiteboard type="blank"></whiteboard>\n<whiteboard type="blank"></whiteboard>'
 ```
 
 ## 参数
@@ -140,25 +140,25 @@ lark-cli docs +update --doc "<doc_id>" --mode insert_after --selection-with-elli
 ## append - 追加到末尾
 
 ```bash
-lark-cli docs +update --doc "文档ID或URL" --mode append --markdown "## 新章节\n\n追加的内容..."
+xfchat_cli docs +update --doc "文档ID或URL" --mode append --markdown "## 新章节\n\n追加的内容..."
 ```
 
 ## replace_range - 定位替换
 
 使用 `--selection-with-ellipsis`：
 ```bash
-lark-cli docs +update --doc "文档ID" --mode replace_range --selection-with-ellipsis "## 旧标题...旧结尾。" --markdown "## 新标题\n\n新的内容..."
+xfchat_cli docs +update --doc "文档ID" --mode replace_range --selection-with-ellipsis "## 旧标题...旧结尾。" --markdown "## 新标题\n\n新的内容..."
 ```
 
 使用 `--selection-by-title`（替换整个章节）：
 ```bash
-lark-cli docs +update --doc "文档ID" --mode replace_range --selection-by-title "## 功能说明" --markdown "## 功能说明\n\n更新后的内容..."
+xfchat_cli docs +update --doc "文档ID" --mode replace_range --selection-by-title "## 功能说明" --markdown "## 功能说明\n\n更新后的内容..."
 ```
 
 ## replace_all - 全文替换
 
 ```bash
-lark-cli docs +update --doc "文档ID" --mode replace_all --selection-with-ellipsis "张三" --markdown "李四"
+xfchat_cli docs +update --doc "文档ID" --mode replace_all --selection-with-ellipsis "张三" --markdown "李四"
 ```
 
 返回值包含 `replace_count` 字段，表示替换的次数。
@@ -171,7 +171,7 @@ lark-cli docs +update --doc "文档ID" --mode replace_all --selection-with-ellip
 ## delete_range - 删除内容
 
 ```bash
-lark-cli docs +update --doc "文档ID" --mode delete_range --selection-by-title "## 废弃章节"
+xfchat_cli docs +update --doc "文档ID" --mode delete_range --selection-by-title "## 废弃章节"
 ```
 
 注意：delete_range 模式不需要 `--markdown` 参数。
@@ -181,7 +181,7 @@ lark-cli docs +update --doc "文档ID" --mode delete_range --selection-by-title 
 ⚠️ 会清空文档后重写，可能丢失图片、评论等，仅在需要完全重建文档时使用。
 
 ```bash
-lark-cli docs +update --doc "文档ID" --mode overwrite --markdown "# 新文档\n\n全新的内容..."
+xfchat_cli docs +update --doc "文档ID" --mode overwrite --markdown "# 新文档\n\n全新的内容..."
 ```
 
 ## 创建空白画板
@@ -193,10 +193,10 @@ lark-cli docs +update --doc "文档ID" --mode overwrite --markdown "# 新文档\
 
 ```bash
 # 追加一个空白画板
-lark-cli docs +update --doc "文档ID" --mode append --markdown '<whiteboard type="blank"></whiteboard>'
+xfchat_cli docs +update --doc "文档ID" --mode append --markdown '<whiteboard type="blank"></whiteboard>'
 
 # 在指定内容后新增两个空白画板
-lark-cli docs +update --doc "文档ID" --mode insert_after --selection-with-ellipsis "有序列表" --markdown $'<whiteboard type="blank"></whiteboard>\n<whiteboard type="blank"></whiteboard>'
+xfchat_cli docs +update --doc "文档ID" --mode insert_after --selection-with-ellipsis "有序列表" --markdown $'<whiteboard type="blank"></whiteboard>\n<whiteboard type="blank"></whiteboard>'
 ```
 
 成功后，响应里的 `data.board_tokens` 就是新建画板的 token 列表；如果后续要继续编辑这些画板，直接使用这些 token。

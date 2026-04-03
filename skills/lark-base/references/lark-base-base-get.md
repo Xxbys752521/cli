@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +base-get \
+xfchat_cli base +base-get \
   --base-token app_xxx
 ```
 
@@ -32,7 +32,7 @@ GET /open-apis/base/v3/bases/:base_token
 ## 坑点
 
 - ⚠️ 先确认传入的是 `base_token`，不是 `workspace_token`。
-- ⚠️ 如果最初输入来自 `/wiki/...`，不要直接把 `wiki_token` 当 `--base-token`；若报 `param baseToken is invalid` / `base_token invalid`，先用 `lark-cli wiki spaces get_node` 取 `node.obj_token`，再重试 `+base-get`。
+- ⚠️ 如果最初输入来自 `/wiki/...`，不要直接把 `wiki_token` 当 `--base-token`；若报 `param baseToken is invalid` / `base_token invalid`，先用 `xfchat_cli wiki spaces get_node` 取 `node.obj_token`，再重试 `+base-get`。
 
 ## 参考
 

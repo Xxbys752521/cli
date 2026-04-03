@@ -9,20 +9,20 @@
 
 ```bash
 # 插入图片（默认）
-lark-cli docs +media-insert --doc doxcnXXX --file ./image.png
+xfchat_cli docs +media-insert --doc doxcnXXX --file ./image.png
 
 # doc 支持直接传 docx URL（自动提取 document_id）
-lark-cli docs +media-insert --doc "https://xxx.feishu.cn/docx/doxcnXXX" --file ./image.png
+xfchat_cli docs +media-insert --doc "https://xxx.feishu.cn/docx/doxcnXXX" --file ./image.png
 
 # 如果上一步是 create-doc，优先传返回值里的 doc_id
 # 不要把 /wiki/... 形式的 doc_url 直接传给 docs +media-insert
-lark-cli docs +media-insert --doc doxcnReturnedByCreateDoc --file ./image.png
+xfchat_cli docs +media-insert --doc doxcnReturnedByCreateDoc --file ./image.png
 
 # 插入文件（非图片）
-lark-cli docs +media-insert --doc doxcnXXX --file ./spec.pdf --type file
+xfchat_cli docs +media-insert --doc doxcnXXX --file ./spec.pdf --type file
 
 # 图片对齐与描述（caption）
-lark-cli docs +media-insert --doc doxcnXXX --file ./arch.png --align center --caption "架构图"
+xfchat_cli docs +media-insert --doc doxcnXXX --file ./arch.png --align center --caption "架构图"
 ```
 
 ## 参数

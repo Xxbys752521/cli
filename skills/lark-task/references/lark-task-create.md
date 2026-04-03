@@ -8,7 +8,7 @@ Create a new task in Lark.
 
 ```bash
 # Create a task with all details
-lark-cli task +create \
+xfchat_cli task +create \
   --summary "Quarterly Sales Review" \
   --description "Review the sales performance for the last quarter." \
   --assignee "ou_xxx" \
@@ -16,11 +16,11 @@ lark-cli task +create \
   --tasklist-id "https://applink.larkoffice.com/client/todo/task_list?guid=a4b00000-000-000-000-00000000036c"
 
 # Create a simple task
-lark-cli task +create \
+xfchat_cli task +create \
   --summary "Buy milk"
 
 # Preview the API call without executing
-lark-cli task +create --summary "Test Task" --dry-run
+xfchat_cli task +create --summary "Test Task" --dry-run
 ```
 
 ## Parameters
@@ -38,8 +38,8 @@ lark-cli task +create --summary "Test Task" --dry-run
 ## Workflow
 
 1. Confirm with the user: task summary, due date, assignee, and tasklist if necessary.
-   - **Crucial Rule for Assignee**: If the user explicitly or implicitly says "create a task for me" (给我创建一个任务), or "help me create a task" (帮我新建/创建一个任务), you MUST assign the task to the current logged-in user. You can get the current user's `open_id` by executing `lark-cli auth status --json` or `lark-cli contact +get-user` first, extracting the `userOpenId` or `open_id`, and then passing it to the `--assignee` parameter.
-2. Execute `lark-cli task +create --summary "..." ...`
+   - **Crucial Rule for Assignee**: If the user explicitly or implicitly says "create a task for me" (给我创建一个任务), or "help me create a task" (帮我新建/创建一个任务), you MUST assign the task to the current logged-in user. You can get the current user's `open_id` by executing `xfchat_cli auth status --json` or `xfchat_cli contact +get-user` first, extracting the `userOpenId` or `open_id`, and then passing it to the `--assignee` parameter.
+2. Execute `xfchat_cli task +create --summary "..." ...`
 3. Report the result: task ID and summary.
 
 > [!CAUTION]

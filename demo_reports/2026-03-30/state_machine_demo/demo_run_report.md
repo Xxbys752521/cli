@@ -1,4 +1,4 @@
-# lark-cli 状态机 Demo 运行报告
+# xfchat_cli 状态机 Demo 运行报告
 
 - 运行时间：2026-03-30 12:16:49 +0800
 - 执行用户：王琦钊
@@ -16,7 +16,7 @@
 ### doc_create
 
 ```bash
-lark-cli docs +create --as user --title '状态机Demo知识库-20260330_121648' --markdown "# 常见答疑知识库
+xfchat_cli docs +create --as user --title '状态机Demo知识库-20260330_121648' --markdown "# 常见答疑知识库
 
 ## 案例 1：私有化环境知识库打不开
 
@@ -49,7 +49,7 @@ lark-cli docs +create --as user --title '状态机Demo知识库-20260330_121648'
 ### base_create
 
 ```bash
-lark-cli base +base-create --as user --name '状态机Demo答疑表-20260330_121648' --time-zone Asia/Shanghai
+xfchat_cli base +base-create --as user --name '状态机Demo答疑表-20260330_121648' --time-zone Asia/Shanghai
 ```
 
 ```json
@@ -72,7 +72,7 @@ lark-cli base +base-create --as user --name '状态机Demo答疑表-20260330_121
 ### table_create
 
 ```bash
-lark-cli base +table-create --as user --base-token WI0TbNEbxain2EsAHlKcqHcrn25 --name '答疑表' --fields '[
+xfchat_cli base +table-create --as user --base-token WI0TbNEbxain2EsAHlKcqHcrn25 --name '答疑表' --fields '[
   {"name":"问题ID","type":"text"},
   {"name":"当前状态","type":"select","multiple":false,"options":[{"name":"待补充"},{"name":"待检索"},{"name":"已自动回答"},{"name":"已转人工"},{"name":"人工已处理"},{"name":"已回写知识库"},{"name":"已结束"}]},
   {"name":"提问人","type":"text"},

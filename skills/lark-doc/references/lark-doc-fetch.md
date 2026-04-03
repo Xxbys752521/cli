@@ -7,19 +7,19 @@
 
 ```bash
 # 获取文档内容（默认输出 Markdown 文本）
-lark-cli docs +fetch --doc "https://xxx.feishu.cn/docx/Z1FjxxxxxxxxxxxxxxxxxxxtnAc"
+xfchat_cli docs +fetch --doc "https://xxx.feishu.cn/docx/Z1FjxxxxxxxxxxxxxxxxxxxtnAc"
 
 # 直接传 token
-lark-cli docs +fetch --doc Z1FjxxxxxxxxxxxxxxxxxxxtnAc
+xfchat_cli docs +fetch --doc Z1FjxxxxxxxxxxxxxxxxxxxtnAc
 
 # 知识库 URL 也支持
-lark-cli docs +fetch --doc "https://xxx.feishu.cn/wiki/Z1FjxxxxxxxxxxxxxxxxxxxtnAc"
+xfchat_cli docs +fetch --doc "https://xxx.feishu.cn/wiki/Z1FjxxxxxxxxxxxxxxxxxxxtnAc"
 
 # 分页获取（大文档）
-lark-cli docs +fetch --doc Z1FjxxxxxxxxxxxxxxxxxxxtnAc --offset 0 --limit 50
+xfchat_cli docs +fetch --doc Z1FjxxxxxxxxxxxxxxxxxxxtnAc --offset 0 --limit 50
 
 # 人类可读格式输出
-lark-cli docs +fetch --doc Z1FjxxxxxxxxxxxxxxxxxxxtnAc --format pretty
+xfchat_cli docs +fetch --doc Z1FjxxxxxxxxxxxxxxxxxxxtnAc --format pretty
 ```
 
 ## 参数
@@ -62,7 +62,7 @@ lark-cli docs +fetch --doc Z1FjxxxxxxxxxxxxxxxxxxxtnAc --format pretty
 1. 从 HTML 标签中提取 `token` 属性值
 2. 调用 lark-doc-media-download（docs +media-download）：
    ```bash
-   lark-cli docs +media-download --token "提取的token" --output ./downloaded_media
+   xfchat_cli docs +media-download --token "提取的token" --output ./downloaded_media
    ```
 
 ## Wiki URL 处理策略

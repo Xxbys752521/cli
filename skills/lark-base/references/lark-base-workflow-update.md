@@ -10,13 +10,13 @@
 
 ```bash
 # 从文件读取（推荐，工作流 JSON 通常较大）
-lark-cli base +workflow-update \
+xfchat_cli base +workflow-update \
   --base-token BascXxxxxx \
   --workflow-id wkfxxxxxx \
   --json @workflow.json
 
 # 内联 JSON（仅修改标题，steps 置空）
-lark-cli base +workflow-update \
+xfchat_cli base +workflow-update \
   --base-token BascXxxxxx \
   --workflow-id wkfxxxxxx \
   --json '{"title":"新标题"}'

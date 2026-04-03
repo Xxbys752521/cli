@@ -8,21 +8,21 @@
 
 ```bash
 # 删除一个问题
-lark-cli base +form-questions-delete \
+xfchat_cli base +form-questions-delete \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \
   --question-ids '["q_001"]'
 
 # 批量删除多个问题
-lark-cli base +form-questions-delete \
+xfchat_cli base +form-questions-delete \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \
   --question-ids '["q_001","q_002","q_003"]'
 
 # 预览（不实际执行）
-lark-cli base +form-questions-delete \
+xfchat_cli base +form-questions-delete \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \

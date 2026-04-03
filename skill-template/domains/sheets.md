@@ -1,6 +1,6 @@
 
 ## 快速决策
-- 按标题或关键词找云空间里的表格文件，先用 `lark-cli docs +search`。
+- 按标题或关键词找云空间里的表格文件，先用 `xfchat_cli docs +search`。
 - `docs +search` 会直接返回 `SHEET` 结果，不要把它误解成只能搜文档 / Wiki。
 - 已知 spreadsheet URL / token 后，再进入 `sheets +info`、`sheets +read`、`sheets +find` 等对象内部操作。
 
@@ -28,7 +28,7 @@
 
 1. **使用 `wiki.spaces.get_node` 查询节点信息**
    ```bash
-   lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+   xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
    ```
 
 2. **从返回结果中提取关键信息**
@@ -52,7 +52,7 @@
 
 ```bash
 # 查询 wiki 节点
-lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
 ```
 
 返回结果示例：
@@ -110,16 +110,16 @@ Drive Folder (云空间文件夹)
 
 ```bash
 # 1. 删除现有筛选（如有）
-lark-cli sheets spreadsheet.sheet.filters delete \
+xfchat_cli sheets spreadsheet.sheet.filters delete \
   --params '{"spreadsheet_token":"<spreadsheet_token>","sheet_id":"<sheet_id>"}'
 
 # 2. 创建第一个筛选，range 覆盖所有要筛选的列
-lark-cli sheets spreadsheet.sheet.filters create \
+xfchat_cli sheets spreadsheet.sheet.filters create \
   --params '{"spreadsheet_token":"<spreadsheet_token>","sheet_id":"<sheet_id>"}' \
   --data '{"col":"B","condition":{"expected":["xx"],"filter_type":"multiValue"},"range":"<sheet_id>!B1:E200"}'
 
 # 3. 添加第二个筛选条件
-lark-cli sheets spreadsheet.sheet.filters update \
+xfchat_cli sheets spreadsheet.sheet.filters update \
   --params '{"spreadsheet_token":"<spreadsheet_token>","sheet_id":"<sheet_id>"}' \
   --data '{"col":"E","condition":{"expected":["xx"],"filter_type":"multiValue"}}'
 ```

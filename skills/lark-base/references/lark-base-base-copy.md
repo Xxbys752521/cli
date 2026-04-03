@@ -7,11 +7,11 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +base-copy \
+xfchat_cli base +base-copy \
   --base-token app_xxx \
   --name "Copied Base"
 
-lark-cli base +base-copy \
+xfchat_cli base +base-copy \
   --base-token app_xxx \
   --name "Copied Base" \
   --folder-token fld_xxx \
@@ -49,10 +49,10 @@ POST /open-apis/base/v3/bases/:base_token/copy
 > [!IMPORTANT]
 > 如果 Base 是**以应用身份（bot）复制**出来的，agent 在复制成功后应**默认继续使用 bot 身份**，为当前可用的 user 身份添加该 Base 的 `full_access`（管理员）权限。
 > 推荐流程：
-> 1. 先用 `lark-cli contact +get-user` 获取当前用户信息，并从返回结果中读取该用户的 `open_id`
+> 1. 先用 `xfchat_cli contact +get-user` 获取当前用户信息，并从返回结果中读取该用户的 `open_id`
 > 2. 再切回 bot 身份，使用这个 `open_id` 给该用户授权该 Base 的 `full_access`（管理员）权限
 >
-> 如果 `lark-cli contact +get-user` 无法执行，或者本地没有可用的 user 身份、拿不到当前用户的 `open_id`，则应视为“本地没有可用的 user 身份”，明确说明因此未完成授权。
+> 如果 `xfchat_cli contact +get-user` 无法执行，或者本地没有可用的 user 身份、拿不到当前用户的 `open_id`，则应视为“本地没有可用的 user 身份”，明确说明因此未完成授权。
 >
 > 回复复制结果时，除 `base token` 和可访问链接外，还必须明确告知用户授权结果：
 > - 如果授权成功：直接说明当前 user 已获得该 Base 的管理员权限

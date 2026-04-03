@@ -7,14 +7,14 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +record-upload-attachment \
+xfchat_cli base +record-upload-attachment \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --record-id rec_xxx \
   --field-id fld_attach \
   --file ./report.pdf
 
-lark-cli base +record-upload-attachment \
+xfchat_cli base +record-upload-attachment \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --record-id rec_xxx \

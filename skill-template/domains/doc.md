@@ -23,7 +23,7 @@
 
 1. **使用 `wiki.spaces.get_node` 查询节点信息**
    ```bash
-   lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+   xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
    ```
 
 2. **从返回结果中提取关键信息**
@@ -47,7 +47,7 @@
 
 ```bash
 # 查询 wiki 节点
-lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
 ```
 
 返回结果示例：
@@ -106,7 +106,7 @@ Drive Folder (云空间文件夹)
 - 编辑画板需要使用专门的 [`../lark-whiteboard/SKILL.md`](../lark-whiteboard/SKILL.md)
 
 ## 快速决策
-- 用户说“找一个表格”“按名称搜电子表格”“找报表”“最近打开的表格”，先用 `lark-cli docs +search` 做资源发现。
+- 用户说“找一个表格”“按名称搜电子表格”“找报表”“最近打开的表格”，先用 `xfchat_cli docs +search` 做资源发现。
 - `docs +search` 不是只搜文档 / Wiki；结果里会直接返回 `SHEET` 等云空间对象。
 - 拿到 spreadsheet URL / token 后，再切到 `lark-sheets` 做对象内部读取、筛选、写入等操作。
 

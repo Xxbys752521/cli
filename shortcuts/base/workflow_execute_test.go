@@ -15,7 +15,7 @@ func TestBaseWorkflowExecuteGet(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/workflows/wkf_1",
+		URL:    "/open-apis/bitable/v1/apps/app_x/workflows/wkf_1",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"workflow_id": "wkf_1", "title": "My Workflow"},
@@ -70,7 +70,7 @@ func TestBaseWorkflowExecuteCreate(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "POST",
-		URL:    "/open-apis/base/v3/bases/app_x/workflows",
+		URL:    "/open-apis/bitable/v1/apps/app_x/workflows",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"workflow_id": "wkf_new", "title": "My Workflow"},
@@ -106,7 +106,7 @@ func TestBaseWorkflowExecuteDisable(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "PATCH",
-		URL:    "/open-apis/base/v3/bases/app_x/workflows/wkf_1/disable",
+		URL:    "/open-apis/bitable/v1/apps/app_x/workflows/wkf_1/disable",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{"workflow_id": "wkf_1", "status": "disabled"},

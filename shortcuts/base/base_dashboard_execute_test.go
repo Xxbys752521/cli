@@ -18,7 +18,7 @@ func TestBaseDashboardExecuteList(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -47,7 +47,7 @@ func TestBaseDashboardExecuteGet(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "GET",
-		URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001",
+		URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001",
 		Body: map[string]interface{}{
 			"code": 0,
 			"data": map[string]interface{}{
@@ -75,7 +75,7 @@ func TestBaseDashboardExecuteCreate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -98,7 +98,7 @@ func TestBaseDashboardExecuteCreate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -124,7 +124,7 @@ func TestBaseDashboardExecuteUpdate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "PATCH",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -147,7 +147,7 @@ func TestBaseDashboardExecuteUpdate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "PATCH",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -172,7 +172,7 @@ func TestBaseDashboardExecuteDelete(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "DELETE",
-		URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001",
+		URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001",
 		Body:   map[string]interface{}{"code": 0, "data": map[string]interface{}{}},
 	})
 	if err := runShortcut(t, BaseDashboardDelete, []string{"+dashboard-delete", "--base-token", "app_x", "--dashboard-id", "dsh_001", "--yes"}, factory, stdout); err != nil {
@@ -192,7 +192,7 @@ func TestBaseDashboardBlockExecuteList(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001/blocks",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001/blocks",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -222,7 +222,7 @@ func TestBaseDashboardBlockExecuteGet(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "GET",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001/blocks/blk_a",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001/blocks/blk_a",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -277,7 +277,7 @@ func TestBaseDashboardBlockExecuteCreate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001/blocks",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001/blocks",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -309,7 +309,7 @@ func TestBaseDashboardBlockExecuteCreate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001/blocks",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001/blocks",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -336,7 +336,7 @@ func TestBaseDashboardBlockExecuteCreate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "POST",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001/blocks",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001/blocks",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -373,7 +373,7 @@ func TestBaseDashboardBlockExecuteUpdate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "PATCH",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001/blocks/blk_a",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001/blocks/blk_a",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -404,7 +404,7 @@ func TestBaseDashboardBlockExecuteUpdate(t *testing.T) {
 		registerTokenStub(reg)
 		reg.Register(&httpmock.Stub{
 			Method: "PATCH",
-			URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001/blocks/blk_a",
+			URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001/blocks/blk_a",
 			Body: map[string]interface{}{
 				"code": 0,
 				"data": map[string]interface{}{
@@ -440,7 +440,7 @@ func TestBaseDashboardBlockExecuteDelete(t *testing.T) {
 	registerTokenStub(reg)
 	reg.Register(&httpmock.Stub{
 		Method: "DELETE",
-		URL:    "/open-apis/base/v3/bases/app_x/dashboards/dsh_001/blocks/blk_a",
+		URL:    "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_001/blocks/blk_a",
 		Body:   map[string]interface{}{"code": 0, "data": map[string]interface{}{}},
 	})
 	if err := runShortcut(t, BaseDashboardBlockDelete, []string{"+dashboard-block-delete", "--base-token", "app_x", "--dashboard-id", "dsh_001", "--block-id", "blk_a", "--yes"}, factory, stdout); err != nil {
@@ -460,7 +460,7 @@ func TestBaseDashboardDryRun_List(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "GET /open-apis/base/v3/bases/app_x/dashboards") || !strings.Contains(got, "page_size=50") {
+	if !strings.Contains(got, "GET /open-apis/bitable/v1/apps/app_x/dashboards") || !strings.Contains(got, "page_size=50") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -471,7 +471,7 @@ func TestBaseDashboardDryRun_Get(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "GET /open-apis/base/v3/bases/app_x/dashboards/dsh_1") || !strings.Contains(got, "dsh_1") {
+	if !strings.Contains(got, "GET /open-apis/bitable/v1/apps/app_x/dashboards/dsh_1") || !strings.Contains(got, "dsh_1") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -483,7 +483,7 @@ func TestBaseDashboardDryRun_Create(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "POST /open-apis/base/v3/bases/app_x/dashboards") || !strings.Contains(got, "\"name\":\"新报表\"") || !strings.Contains(got, "theme_style") {
+	if !strings.Contains(got, "POST /open-apis/bitable/v1/apps/app_x/dashboards") || !strings.Contains(got, "\"name\":\"新报表\"") || !strings.Contains(got, "theme_style") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -495,7 +495,7 @@ func TestBaseDashboardDryRun_Update(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "PATCH /open-apis/base/v3/bases/app_x/dashboards/dsh_1") || !strings.Contains(got, "\"name\":\"更新名\"") {
+	if !strings.Contains(got, "PATCH /open-apis/bitable/v1/apps/app_x/dashboards/dsh_1") || !strings.Contains(got, "\"name\":\"更新名\"") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -507,7 +507,7 @@ func TestBaseDashboardDryRun_Delete(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "DELETE /open-apis/base/v3/bases/app_x/dashboards/dsh_1") || !strings.Contains(got, "dsh_1") {
+	if !strings.Contains(got, "DELETE /open-apis/bitable/v1/apps/app_x/dashboards/dsh_1") || !strings.Contains(got, "dsh_1") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -519,7 +519,7 @@ func TestBaseDashboardBlockDryRun_List(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "GET /open-apis/base/v3/bases/app_x/dashboards/dsh_1/blocks") || !strings.Contains(got, "page_size=10") {
+	if !strings.Contains(got, "GET /open-apis/bitable/v1/apps/app_x/dashboards/dsh_1/blocks") || !strings.Contains(got, "page_size=10") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -531,7 +531,7 @@ func TestBaseDashboardBlockDryRun_Get(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "GET /open-apis/base/v3/bases/app_x/dashboards/dsh_1/blocks/blk_a") || !strings.Contains(got, "union_id") || !strings.Contains(got, "blk_a") {
+	if !strings.Contains(got, "GET /open-apis/bitable/v1/apps/app_x/dashboards/dsh_1/blocks/blk_a") || !strings.Contains(got, "union_id") || !strings.Contains(got, "blk_a") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -543,7 +543,7 @@ func TestBaseDashboardBlockDryRun_Create(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "POST /open-apis/base/v3/bases/app_x/dashboards/dsh_1/blocks") || !strings.Contains(got, "\"name\":\"订单趋势\"") || !strings.Contains(got, "table_name") || !strings.Contains(got, "open_id") {
+	if !strings.Contains(got, "POST /open-apis/bitable/v1/apps/app_x/dashboards/dsh_1/blocks") || !strings.Contains(got, "\"name\":\"订单趋势\"") || !strings.Contains(got, "table_name") || !strings.Contains(got, "open_id") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -555,7 +555,7 @@ func TestBaseDashboardBlockDryRun_Update(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "PATCH /open-apis/base/v3/bases/app_x/dashboards/dsh_1/blocks/blk_a") || !strings.Contains(got, "订单趋势v2") || !strings.Contains(got, "订单表2") {
+	if !strings.Contains(got, "PATCH /open-apis/bitable/v1/apps/app_x/dashboards/dsh_1/blocks/blk_a") || !strings.Contains(got, "订单趋势v2") || !strings.Contains(got, "订单表2") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -567,7 +567,7 @@ func TestBaseDashboardBlockDryRun_Delete(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 	got := stdout.String()
-	if !strings.Contains(got, "DELETE /open-apis/base/v3/bases/app_x/dashboards/dsh_1/blocks/blk_a") || !strings.Contains(got, "blk_a") {
+	if !strings.Contains(got, "DELETE /open-apis/bitable/v1/apps/app_x/dashboards/dsh_1/blocks/blk_a") || !strings.Contains(got, "blk_a") {
 		t.Fatalf("stdout=%s", got)
 	}
 }
@@ -593,7 +593,7 @@ func TestBaseDashboardBlockCreate_ValidateFails(t *testing.T) {
 func TestBaseDashboardBlockCreate_NoValidateFlagAllocs(t *testing.T) {
 	factory, stdout, reg := newExecuteFactory(t)
 	registerTokenStub(reg)
-	reg.Register(&httpmock.Stub{Method: "POST", URL: "/open-apis/base/v3/bases/app_x/dashboards/dsh_1/blocks",
+	reg.Register(&httpmock.Stub{Method: "POST", URL: "/open-apis/bitable/v1/apps/app_x/dashboards/dsh_1/blocks",
 		Body: map[string]interface{}{"code": 0, "data": map[string]interface{}{"block_id": "blk_ok", "name": "OK", "type": "column"}},
 	})
 	args := []string{"+dashboard-block-create", "--base-token", "app_x", "--dashboard-id", "dsh_1",

@@ -5,12 +5,12 @@
 ## 前置条件
 
 - 身份： `user`
-- 报告开始时状态： `lark-cli auth status` 显示当前没有已登录 user
+- 报告开始时状态： `xfchat_cli auth status` 显示当前没有已登录 user
 
 ## 测试记录
 
 1. 读取 bot 创建的 Base
-命令： `lark-cli base +base-get --as user --base-token Gfi7bVQTQaR1sLsR18YcfsfpnjJ`
+命令： `xfchat_cli base +base-get --as user --base-token Gfi7bVQTQaR1sLsR18YcfsfpnjJ`
 结果： 调用成功，返回了 `Codex Demo Base 2026-03-29` 的元信息
 
 ## 创建资源

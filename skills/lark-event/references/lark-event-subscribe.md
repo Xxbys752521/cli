@@ -6,7 +6,7 @@
 Subscribe to Lark events via WebSocket long connection, outputting NDJSON to stdout. Supports compact (agent-friendly) format, regex-based routing, and file output.
 
 **Identity / Risk:**
-- **Identity**: bot-only — uses App ID + App Secret to establish the WebSocket connection. No user login needed (`lark-cli config init` is sufficient).
+- **Identity**: bot-only — uses App ID + App Secret to establish the WebSocket connection. No user login needed (`xfchat_cli config init` is sufficient).
 - **Risk**: read — this is a read-only subscription command. It receives events but does not modify any resources.
 
 **Platform-side configuration** (must be done in the Lark Open Platform console):
@@ -18,36 +18,36 @@ Subscribe to Lark events via WebSocket long connection, outputting NDJSON to std
 
 ```bash
 # Subscribe to all registered events (catch-all mode, 24 common event types)
-lark-cli event +subscribe
+xfchat_cli event +subscribe
 
 # Subscribe to specific event types only
-lark-cli event +subscribe --event-types im.message.receive_v1
+xfchat_cli event +subscribe --event-types im.message.receive_v1
 
 # Subscribe to multiple event types
-lark-cli event +subscribe --event-types im.message.receive_v1,calendar.calendar.event.changed_v4
+xfchat_cli event +subscribe --event-types im.message.receive_v1,calendar.calendar.event.changed_v4
 
 # Client-side regex filter (applied after SDK receives events)
-lark-cli event +subscribe --filter "^im\."
+xfchat_cli event +subscribe --filter "^im\."
 
 # Agent-friendly format (parse content, strip noise fields)
-lark-cli event +subscribe --event-types im.message.receive_v1 --compact --quiet
+xfchat_cli event +subscribe --event-types im.message.receive_v1 --compact --quiet
 
 # Pretty-print JSON output
-lark-cli event +subscribe --json
+xfchat_cli event +subscribe --json
 
 # Write each event to a file
-lark-cli event +subscribe --output-dir ./events
+xfchat_cli event +subscribe --output-dir ./events
 
 # Route events to different directories by regex
-lark-cli event +subscribe \
+xfchat_cli event +subscribe \
   --route '^im\.message=dir:./im/' \
   --route '^contact\.=dir:./contacts/'
 
 # Route IM events to files, other events to stdout
-lark-cli event +subscribe --route '^im\.=dir:./im-events/'
+xfchat_cli event +subscribe --route '^im\.=dir:./im-events/'
 
 # Preview configuration without connecting
-lark-cli event +subscribe --dry-run
+xfchat_cli event +subscribe --dry-run
 ```
 
 ## Parameters
@@ -168,7 +168,7 @@ See the full list at [Lark Event List](https://open.feishu.cn/document/server-do
 ### Listen for messages and reply with Claude
 
 ```bash
-lark-cli event +subscribe \
+xfchat_cli event +subscribe \
   --event-types im.message.receive_v1 --compact --quiet \
   | while IFS= read -r line; do
       content=$(echo "$line" | jq -r '.content // empty')
@@ -180,7 +180,7 @@ lark-cli event +subscribe \
 
       # Reply as bot
       reply_data=$(jq -n --arg t "$answer" '{msg_type:"text",content:({text:$t}|tojson)}')
-      lark-cli api POST "/open-apis/im/v1/messages/$message_id/reply" \
+      xfchat_cli api POST "/open-apis/im/v1/messages/$message_id/reply" \
         --data "$reply_data" --as bot --format data
     done
 ```
@@ -188,13 +188,13 @@ lark-cli event +subscribe \
 ### Listen for messages and log to a Lark document
 
 ```bash
-lark-cli event +subscribe \
+xfchat_cli event +subscribe \
   --event-types im.message.receive_v1 --compact --quiet \
   | while IFS= read -r line; do
       content=$(echo "$line" | jq -r '.content // empty')
       [[ -z "$content" ]] && continue
 
-      lark-cli docs +update --doc "DOC_URL" --mode append --markdown "- $content"
+      xfchat_cli docs +update --doc "DOC_URL" --mode append --markdown "- $content"
     done
 ```
 
@@ -206,7 +206,7 @@ lark-cli event +subscribe \
 - `--force` bypasses the single-instance lock per app. Without it, only one `+subscribe` process is allowed per app to prevent the server from splitting events across connections
 - WebSocket auto-reconnects on disconnection (SDK built-in)
 - `Ctrl+C` gracefully shuts down and prints the total event count
-- Reply to messages with `lark-cli api ... --as bot` — no user login needed
+- Reply to messages with `xfchat_cli api ... --as bot` — no user login needed
 
 ## References
 

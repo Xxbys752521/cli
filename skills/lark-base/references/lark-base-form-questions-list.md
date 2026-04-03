@@ -8,20 +8,20 @@
 
 ```bash
 # 列出表单所有问题
-lark-cli base +form-questions-list \
+xfchat_cli base +form-questions-list \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id>
 
 # 以表格形式展示
-lark-cli base +form-questions-list \
+xfchat_cli base +form-questions-list \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \
   --format table
 
 # 使用应用身份（bot）
-lark-cli base +form-questions-list \
+xfchat_cli base +form-questions-list \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \

@@ -7,13 +7,13 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +record-list \
+xfchat_cli base +record-list \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --offset 0 \
   --limit 100
 
-lark-cli base +record-list \
+xfchat_cli base +record-list \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --view-id viw_xxx \

@@ -13,27 +13,27 @@
 
 ```bash
 # 创建表单（仅必填参数）
-lark-cli base +form-create \
+xfchat_cli base +form-create \
   --base-token <base_token> \
   --table-id <table_id> \
   --name "用户调研问卷"
 
 # 创建时附带描述（纯文本）
-lark-cli base +form-create \
+xfchat_cli base +form-create \
   --base-token <base_token> \
   --table-id <table_id> \
   --name "用户调研问卷" \
   --description "2024年度用户满意度调研"
 
 # 创建时附带描述（含链接）
-lark-cli base +form-create \
+xfchat_cli base +form-create \
   --base-token <base_token> \
   --table-id <table_id> \
   --name "用户调研问卷" \
   --description "2024年度调研，[详情请查看](https://example.com)"
 
 # 使用应用身份（bot）
-lark-cli base +form-create \
+xfchat_cli base +form-create \
   --base-token <base_token> \
   --table-id <table_id> \
   --name "用户调研问卷" \

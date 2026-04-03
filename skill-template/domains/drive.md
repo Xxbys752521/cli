@@ -23,7 +23,7 @@
 
 1. **使用 `wiki.spaces.get_node` 查询节点信息**
    ```bash
-   lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+   xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
    ```
 
 2. **从返回结果中提取关键信息**
@@ -47,7 +47,7 @@
 
 ```bash
 # 查询 wiki 节点
-lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
 ```
 
 返回结果示例：
@@ -102,7 +102,7 @@ Drive Folder (云空间文件夹)
 - 局部评论：传 `--selection-with-ellipsis` 或 `--block-id` 时启用；仅支持 `docx`，以及最终解析为 `docx` 的 wiki URL。
 - `drive +add-comment` 的 `--content` 需要传 `reply_elements` JSON 数组字符串，例如 `--content '[{"type":"text","text":"正文"}]'`。
 - 如果 wiki 解析后不是 `doc`/`docx`，不要用 `+add-comment`。
-- 如果需要更底层地直接调用评论 V2 协议，再走原生 API：先执行 `lark-cli schema drive.file.comments.create_v2`，再执行 `lark-cli drive file.comments create_v2 ...`。全文评论省略 `anchor`，局部评论传 `anchor.block_id`。
+- 如果需要更底层地直接调用评论 V2 协议，再走原生 API：先执行 `xfchat_cli schema drive.file.comments.create_v2`，再执行 `xfchat_cli drive file.comments create_v2 ...`。全文评论省略 `anchor`，局部评论传 `anchor.block_id`。
 
 ### 评论查询与统计口径（关键！）
 

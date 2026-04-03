@@ -5,7 +5,7 @@ const { execSync } = require("child_process");
 const os = require("os");
 
 const VERSION = require("../package.json").version;
-const REPO = "larksuite/cli";
+const REPO = "Xxbys752521/cli";
 const NAME = "xfchat_cli";
 
 const PLATFORM_MAP = {

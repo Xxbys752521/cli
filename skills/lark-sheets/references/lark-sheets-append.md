@@ -3,7 +3,7 @@
 
 > **前置条件：** 先阅读 [`../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) 了解认证、全局参数和安全规则。
 
-本 skill 对应 shortcut：`lark-cli sheets +append`。
+本 skill 对应 shortcut：`xfchat_cli sheets +append`。
 
 - `--values` 必须是二维数组 JSON
 - 内置尺寸校验：最多 5000 行、每行最多 100 列
@@ -17,17 +17,17 @@
 
 ```bash
 # 追加一行（6 列示例）
-lark-cli sheets +append --spreadsheet-token "shtxxxxxxxx" \
+xfchat_cli sheets +append --spreadsheet-token "shtxxxxxxxx" \
   --range "<sheetId>!A1" \
   --values '[["华东一仓","2026-03",125000,98000,168000,"41.7%"]]'
 
 # 配合 --sheet-id，可直接写相对范围
-lark-cli sheets +append --spreadsheet-token "shtxxxxxxxx" \
+xfchat_cli sheets +append --spreadsheet-token "shtxxxxxxxx" \
   --sheet-id "<sheetId>" --range "A1" \
   --values '[["A","B"]]'
 
 # 仅预览参数（不发请求）
-lark-cli sheets +append --spreadsheet-token "shtxxxxxxxx" --range "<sheetId>!A1" \
+xfchat_cli sheets +append --spreadsheet-token "shtxxxxxxxx" --range "<sheetId>!A1" \
   --values '[["A","B"]]' --dry-run
 ```
 

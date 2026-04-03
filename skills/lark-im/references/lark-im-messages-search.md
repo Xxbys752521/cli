@@ -6,51 +6,51 @@ Search Feishu messages across conversations. This shortcut automatically perform
 
 > **User identity only** (`--as user`). Bot identity is not supported.
 
-This skill maps to the shortcut: `lark-cli im +messages-search` (internally calls `POST /open-apis/im/v1/messages/search` + `GET /open-apis/im/v1/messages/mget`, then batch-fetches chat context).
+This skill maps to the shortcut: `xfchat_cli im +messages-search` (internally calls `POST /open-apis/im/v1/messages/search` + `GET /open-apis/im/v1/messages/mget`, then batch-fetches chat context).
 
 ## Commands
 
 ```bash
 # Search by keyword
-lark-cli im +messages-search --query "project progress"
+xfchat_cli im +messages-search --query "project progress"
 
 # Restrict search to a specific group chat
-lark-cli im +messages-search --query "weekly report" --chat-id oc_xxx
+xfchat_cli im +messages-search --query "weekly report" --chat-id oc_xxx
 
 # Filter by sender (comma-separated)
-lark-cli im +messages-search --query "requirement" --sender ou_xxx,ou_yyy
+xfchat_cli im +messages-search --query "requirement" --sender ou_xxx,ou_yyy
 
 # Filter by attachment type
-lark-cli im +messages-search --query "report" --include-attachment-type file
+xfchat_cli im +messages-search --query "report" --include-attachment-type file
 
 # Filter by chat type (group / p2p)
-lark-cli im +messages-search --query "progress" --chat-type group
+xfchat_cli im +messages-search --query "progress" --chat-type group
 
 # Filter by sender type (user / bot)
-lark-cli im +messages-search --query "reminder" --sender-type bot
+xfchat_cli im +messages-search --query "reminder" --sender-type bot
 
 # Exclude bot senders
-lark-cli im +messages-search --query "reminder" --exclude-sender-type bot
+xfchat_cli im +messages-search --query "reminder" --exclude-sender-type bot
 
 # Only messages that @me
-lark-cli im +messages-search --query "announcement" --is-at-me
+xfchat_cli im +messages-search --query "announcement" --is-at-me
 
 # Combined filters + time range
-lark-cli im +messages-search --query "meeting" --sender ou_xxx --chat-type group --start "2026-03-13T00:00:00+08:00" --end "2026-03-20T23:59:59+08:00"
+xfchat_cli im +messages-search --query "meeting" --sender ou_xxx --chat-type group --start "2026-03-13T00:00:00+08:00" --end "2026-03-20T23:59:59+08:00"
 
 # Specific time range (ISO 8601)
-lark-cli im +messages-search --query "release" --start "2026-03-01T00:00:00+08:00" --end "2026-03-10T00:00:00+08:00"
+xfchat_cli im +messages-search --query "release" --start "2026-03-01T00:00:00+08:00" --end "2026-03-10T00:00:00+08:00"
 
 # Output format options
-lark-cli im +messages-search --query "test" --format pretty
-lark-cli im +messages-search --query "test" --format table
-lark-cli im +messages-search --query "test" --format csv
+xfchat_cli im +messages-search --query "test" --format pretty
+xfchat_cli im +messages-search --query "test" --format table
+xfchat_cli im +messages-search --query "test" --format csv
 
 # Pagination
-lark-cli im +messages-search --query "test" --page-token <PAGE_TOKEN>
+xfchat_cli im +messages-search --query "test" --page-token <PAGE_TOKEN>
 
 # Preview the request without executing it
-lark-cli im +messages-search --query "test" --dry-run
+xfchat_cli im +messages-search --query "test" --dry-run
 ```
 
 ## Parameters
@@ -121,10 +121,10 @@ In JSON output, each message includes `chat_id` and `thread_id` (when present). 
 
 ```bash
 # View the full message stream for the conversation that contains the search result
-lark-cli im +chat-messages-list --chat-id <chat_id>
+xfchat_cli im +chat-messages-list --chat-id <chat_id>
 
 # View replies in the thread that contains the search result
-lark-cli im +threads-messages-list --thread <thread_id>
+xfchat_cli im +threads-messages-list --thread <thread_id>
 ```
 
 ## Resource Rendering
@@ -141,10 +141,10 @@ When the user refers to a chat by name and you need its `chat_id` for the `--cha
 
 ```bash
 # Step 1: Find the chat_id by name
-lark-cli im +chat-search --query "<chat name keyword>" --format json
+xfchat_cli im +chat-search --query "<chat name keyword>" --format json
 
 # Step 2: Use the chat_id to narrow down message search
-lark-cli im +messages-search --query "keyword" --chat-id <chat_id>
+xfchat_cli im +messages-search --query "keyword" --chat-id <chat_id>
 ```
 
 **Do not use `im chats search` or `im chats list` — always use the `+chat-search` shortcut.**
@@ -164,10 +164,10 @@ When the user asks you to summarize work, generate a weekly report, or compile a
 
 ```bash
 # Page 1
-lark-cli im +messages-search --query "" --chat-id oc_xxx --sender ou_me --start "2026-03-18T00:00:00+08:00" --end "2026-03-25T23:59:59+08:00" --page-size 50 --format json
+xfchat_cli im +messages-search --query "" --chat-id oc_xxx --sender ou_me --start "2026-03-18T00:00:00+08:00" --end "2026-03-25T23:59:59+08:00" --page-size 50 --format json
 
 # Page 2 (if has_more is true)
-lark-cli im +messages-search --query "" --chat-id oc_xxx --sender ou_me --start "2026-03-18T00:00:00+08:00" --end "2026-03-25T23:59:59+08:00" --page-size 50 --page-token <token_from_page_1> --format json
+xfchat_cli im +messages-search --query "" --chat-id oc_xxx --sender ou_me --start "2026-03-18T00:00:00+08:00" --end "2026-03-25T23:59:59+08:00" --page-size 50 --page-token <token_from_page_1> --format json
 
 # Continue until has_more is false, then summarize all collected messages.
 ```

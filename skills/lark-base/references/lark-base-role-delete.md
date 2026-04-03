@@ -9,7 +9,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +role-delete \
+xfchat_cli base +role-delete \
   --base-token VwGhb**************fMnod \
   --role-id rolxxxxxx4
 ```

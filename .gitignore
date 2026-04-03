@@ -1,8 +1,12 @@
 # Build output
 /lark-cli
+/xfchat_cli
 .cache/
 dist/
 bin/
+cmd/api/download.bin
+internal/registry/meta_data.json
+tmp/
 
 # Node
 node_modules/

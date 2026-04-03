@@ -17,28 +17,28 @@ func dryRunTableList(_ context.Context, runtime *common.RuntimeContext) *common.
 	}
 	limit := common.ParseIntBounded(runtime, "limit", 1, 100)
 	return common.NewDryRunAPI().
-		GET("/open-apis/base/v3/bases/:base_token/tables").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables").
 		Params(map[string]interface{}{"offset": offset, "limit": limit}).
 		Set("base_token", runtime.Str("base-token"))
 }
 
 func dryRunTableGet(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return common.NewDryRunAPI().
-		GET("/open-apis/base/v3/bases/:base_token/tables/:table_id").
+		GET("/open-apis/bitable/v1/apps/:base_token/tables/:table_id").
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", runtime.Str("table-id"))
 }
 
 func dryRunTableCreate(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return common.NewDryRunAPI().
-		POST("/open-apis/base/v3/bases/:base_token/tables").
+		POST("/open-apis/bitable/v1/apps/:base_token/tables").
 		Body(map[string]interface{}{"table": map[string]interface{}{"name": runtime.Str("name")}}).
 		Set("base_token", runtime.Str("base-token"))
 }
 
 func dryRunTableUpdate(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return common.NewDryRunAPI().
-		PATCH("/open-apis/base/v3/bases/:base_token/tables/:table_id").
+		PATCH("/open-apis/bitable/v1/apps/:base_token/tables/:table_id").
 		Body(map[string]interface{}{"name": runtime.Str("name")}).
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", runtime.Str("table-id"))
@@ -46,7 +46,7 @@ func dryRunTableUpdate(_ context.Context, runtime *common.RuntimeContext) *commo
 
 func dryRunTableDelete(_ context.Context, runtime *common.RuntimeContext) *common.DryRunAPI {
 	return common.NewDryRunAPI().
-		DELETE("/open-apis/base/v3/bases/:base_token/tables/:table_id").
+		DELETE("/open-apis/bitable/v1/apps/:base_token/tables/:table_id").
 		Set("base_token", runtime.Str("base-token")).
 		Set("table_id", runtime.Str("table-id"))
 }

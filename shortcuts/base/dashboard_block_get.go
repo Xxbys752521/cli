@@ -30,7 +30,7 @@ var BaseDashboardBlockGet = common.Shortcut{
 			params["user_id_type"] = uid
 		}
 		return common.NewDryRunAPI().
-			GET("/open-apis/base/v3/bases/:base_token/dashboards/:dashboard_id/blocks/:block_id").
+			GET("/open-apis/bitable/v1/apps/:base_token/dashboards/:dashboard_id/blocks/:block_id").
 			Params(params).
 			Set("base_token", runtime.Str("base-token")).
 			Set("dashboard_id", runtime.Str("dashboard-id")).

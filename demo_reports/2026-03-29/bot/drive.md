@@ -9,15 +9,15 @@
 ## 测试记录
 
 1. 安全校验
-命令： `lark-cli drive +upload --as bot --file /absolute/path/to/file`
+命令： `xfchat_cli drive +upload --as bot --file /absolute/path/to/file`
 结果： 被拒绝，原因是 `--file` 必须是当前目录下的相对路径
 
 2. 上传本地文件
-命令： `lark-cli drive +upload --as bot --file ./demo_reports/2026-03-29/artifacts/demo-upload.txt --name demo-upload.txt`
+命令： `xfchat_cli drive +upload --as bot --file ./demo_reports/2026-03-29/artifacts/demo-upload.txt --name demo-upload.txt`
 结果： `file_token=MtTnbNkFWoWZChxn8A3cb5vqnFb`
 
 3. 下载已上传文件
-命令： `lark-cli drive +download --as bot --file-token MtTnbNkFWoWZChxn8A3cb5vqnFb --output ./demo_reports/2026-03-29/artifacts/demo-upload.downloaded.txt --overwrite`
+命令： `xfchat_cli drive +download --as bot --file-token MtTnbNkFWoWZChxn8A3cb5vqnFb --output ./demo_reports/2026-03-29/artifacts/demo-upload.downloaded.txt --overwrite`
 结果： 已在本地保存 `43` 字节
 
 4. 一致性校验

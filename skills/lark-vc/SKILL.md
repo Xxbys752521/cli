@@ -4,8 +4,8 @@ version: 1.0.0
 description: "飞书视频会议：查询会议记录、获取会议纪要产物（总结、待办、章节、逐字稿）。1. 查询已经结束的会议数量或详情时使用本技能(如昨天 | 上周 | 今天已经开过的会议等场景)，查询未开始的会议日程使用 lark-calendar 技能。2. 支持通过关键词、时间范围、组织者、参与者、会议室等筛选条件搜索会议记录。3. 获取或整理会议纪要时使用本技能。"
 metadata:
   requires:
-    bins: ["lark-cli"]
-  cliHelp: "lark-cli vc --help"
+    bins: ["xfchat_cli"]
+  cliHelp: "xfchat_cli vc --help"
 ---
 
 # vc (v1)
@@ -34,18 +34,18 @@ metadata:
 
 ### 3. 纪要文档与逐字稿链接
 1. 纪要文档、逐字稿文档与关联的共享文档默认使用文档 Token 返回。
-2. 仅需要获取文档名称和 URL 等基本信息时，使用 `lark-cli drive metas batch_query` 查询
+2. 仅需要获取文档名称和 URL 等基本信息时，使用 `xfchat_cli drive metas batch_query` 查询
 ```bash
 # 学习命令使用方式
-lark-cli schema drive.metas.batch_query
+xfchat_cli schema drive.metas.batch_query
 
 # 批量获取文档基本信息: 一次最多查询 10 个文档
-lark-cli drive metas batch_query --data '{"request_docs": [{"doc_type": "docx", "doc_token": "<doc_token>"}], "with_url": true}'
+xfchat_cli drive metas batch_query --data '{"request_docs": [{"doc_type": "docx", "doc_token": "<doc_token>"}], "with_url": true}'
 ```
-3. 需要获取文档内容时，使用 `lark-cli docs +fetch`。
+3. 需要获取文档内容时，使用 `xfchat_cli docs +fetch`。
 ```bash
 # 获取文档内容
-lark-cli docs +fetch --doc <doc_token>
+xfchat_cli docs +fetch --doc <doc_token>
 ```
 
 ## 资源关系
@@ -73,7 +73,7 @@ Meeting (视频会议)
 
 ## Shortcuts（推荐优先使用）
 
-Shortcut 是对常用操作的高级封装（`lark-cli vc +<verb> [flags]`）。有 Shortcut 的操作优先使用。
+Shortcut 是对常用操作的高级封装（`xfchat_cli vc +<verb> [flags]`）。有 Shortcut 的操作优先使用。
 
 | Shortcut | 说明 |
 |----------|------|
@@ -83,8 +83,8 @@ Shortcut 是对常用操作的高级封装（`lark-cli vc +<verb> [flags]`）。
 ## API Resources
 
 ```bash
-lark-cli schema vc.<resource>.<method>   # 调用 API 前必须先查看参数结构
-lark-cli vc <resource> <method> [flags] # 调用 API
+xfchat_cli schema vc.<resource>.<method>   # 调用 API 前必须先查看参数结构
+xfchat_cli vc <resource> <method> [flags] # 调用 API
 ```
 
 > **重要**：使用原生 API 时，必须先运行 `schema` 查看 `--data` / `--params` 参数结构，不要猜测字段格式。
@@ -95,11 +95,11 @@ lark-cli vc <resource> <method> [flags] # 调用 API
 
 ```bash
 # 获取会议基础信息：不包含参会人列表
-lark-cli vc meeting get --params '{"meeting_id": "<meeting_id>"}'
+xfchat_cli vc meeting get --params '{"meeting_id": "<meeting_id>"}'
 
 
 # 获取会议基础信息：包含参会人列表
-lark-cli vc meeting get --params '{"meeting_id": "<meeting_id>", "with_participants": true}'
+xfchat_cli vc meeting get --params '{"meeting_id": "<meeting_id>", "with_participants": true}'
 ```
 
 ### minutes（跨域，详见 [lark-minutes](../lark-minutes/SKILL.md)）

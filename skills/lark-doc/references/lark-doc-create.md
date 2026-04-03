@@ -9,19 +9,19 @@
 
 ```bash
 # 创建简单文档
-lark-cli docs +create --title "项目计划" --markdown "## 目标\n\n- 目标 1\n- 目标 2"
+xfchat_cli docs +create --title "项目计划" --markdown "## 目标\n\n- 目标 1\n- 目标 2"
 
 # 创建到指定文件夹
-lark-cli docs +create --title "会议纪要" --folder-token fldcnXXXX --markdown "## 讨论议题\n\n1. 进度\n2. 计划"
+xfchat_cli docs +create --title "会议纪要" --folder-token fldcnXXXX --markdown "## 讨论议题\n\n1. 进度\n2. 计划"
 
 # 创建到知识库节点下
-lark-cli docs +create --title "技术文档" --wiki-node wikcnXXXX --markdown "## API 说明"
+xfchat_cli docs +create --title "技术文档" --wiki-node wikcnXXXX --markdown "## API 说明"
 
 # 创建到知识空间根目录
-lark-cli docs +create --title "概览" --wiki-space 7000000000000000000 --markdown "## 项目概览"
+xfchat_cli docs +create --title "概览" --wiki-space 7000000000000000000 --markdown "## 项目概览"
 
 # 创建到个人知识库
-lark-cli docs +create --title "学习笔记" --wiki-space my_library --markdown "## 笔记"
+xfchat_cli docs +create --title "学习笔记" --wiki-space my_library --markdown "## 笔记"
 ```
 
 ## 返回值
@@ -38,10 +38,10 @@ lark-cli docs +create --title "学习笔记" --wiki-space my_library --markdown 
 
 > [!IMPORTANT]
 > 如果文档是**以应用身份（bot）创建**的，agent 在创建成功后应**默认继续使用 bot 身份**，为当前可用的 user 身份添加该文档的 `full_access`（管理员）权限。推荐流程：
-> 1. 先用 `lark-cli contact +get-user` 获取当前用户信息，并从返回结果中读取该用户的 `open_id`
+> 1. 先用 `xfchat_cli contact +get-user` 获取当前用户信息，并从返回结果中读取该用户的 `open_id`
 > 2. 再切回 bot 身份，使用这个 `open_id` 给该用户授权该文档的 `full_access`（管理员）权限
 >
-> 如果 `lark-cli contact +get-user` 无法执行，或者本地没有可用的 user 身份、拿不到当前用户的 `open_id`，则应视为“本地没有可用的 user 身份”，明确说明因此未完成授权。
+> 如果 `xfchat_cli contact +get-user` 无法执行，或者本地没有可用的 user 身份、拿不到当前用户的 `open_id`，则应视为“本地没有可用的 user 身份”，明确说明因此未完成授权。
 >
 > 回复创建结果时，除 `doc_id` / `doc_url` 外，还必须明确告知用户授权结果：
 > - 如果授权成功：直接说明当前 user 已获得该文档的管理员权限
@@ -103,13 +103,13 @@ wiki_space 可以从知识空间设置页面 URL 中获取，格式如：`https:
 ### 示例 1：创建简单文档
 
 ```bash
-lark-cli docs +create --title "项目计划" --markdown "## 项目概述\n\n这是一个新项目。\n\n## 目标\n\n- 目标 1\n- 目标 2"
+xfchat_cli docs +create --title "项目计划" --markdown "## 项目概述\n\n这是一个新项目。\n\n## 目标\n\n- 目标 1\n- 目标 2"
 ```
 
 ### 示例 2：使用飞书扩展语法
 
 ```bash
-lark-cli docs +create --title "产品需求" --markdown '<callout emoji="💡" background-color="light-blue">\n重要需求说明\n</callout>'
+xfchat_cli docs +create --title "产品需求" --markdown '<callout emoji="💡" background-color="light-blue">\n重要需求说明\n</callout>'
 ```
 
 # 内容格式
@@ -410,7 +410,7 @@ print("Hello")
 
 ```bash
 # 创建带单个空白画板的文档
-lark-cli docs +create --title "空白画板示例" --markdown '<whiteboard type="blank"></whiteboard>'
+xfchat_cli docs +create --title "空白画板示例" --markdown '<whiteboard type="blank"></whiteboard>'
 ```
 
 ```html

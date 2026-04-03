@@ -4,7 +4,7 @@
 
 Send a message to a group chat or a direct message conversation. Only supports bot identity.
 
-This skill maps to the shortcut: `lark-cli im +messages-send` (internally calls `POST /open-apis/im/v1/messages`).
+This skill maps to the shortcut: `xfchat_cli im +messages-send` (internally calls `POST /open-apis/im/v1/messages`).
 
 ## Safety Constraints
 
@@ -22,38 +22,38 @@ When using `--as bot`, the message is sent in the app's name, so make sure the a
 
 ```bash
 # Send plain text (--text is recommended; it is wrapped into JSON automatically)
-lark-cli im +messages-send --chat-id oc_xxx --text "Hello"
+xfchat_cli im +messages-send --chat-id oc_xxx --text "Hello"
 
 # Equivalent manual JSON
-lark-cli im +messages-send --chat-id oc_xxx --content '{"text":"Hello"}'
+xfchat_cli im +messages-send --chat-id oc_xxx --content '{"text":"Hello"}'
 
 # Send to a direct message (pass open_id)
-lark-cli im +messages-send --user-id ou_xxx --text "Hello"
+xfchat_cli im +messages-send --user-id ou_xxx --text "Hello"
 
 # Send a rich-text message
-lark-cli im +messages-send --chat-id oc_xxx --msg-type post --content '{"zh_cn":{"title":"Title","content":[[{"tag":"text","text":"Body"}]]}}'
+xfchat_cli im +messages-send --chat-id oc_xxx --msg-type post --content '{"zh_cn":{"title":"Title","content":[[{"tag":"text","text":"Body"}]]}}'
 
 # Send a local image (uploaded automatically before sending)
-lark-cli im +messages-send --chat-id oc_xxx --image ./photo.png
+xfchat_cli im +messages-send --chat-id oc_xxx --image ./photo.png
 
 # Or send directly with an existing image_key
-lark-cli im +messages-send --chat-id oc_xxx --image img_xxx
+xfchat_cli im +messages-send --chat-id oc_xxx --image img_xxx
 
 # Send a local file (uploaded automatically before sending)
-lark-cli im +messages-send --chat-id oc_xxx --file ./report.pdf
+xfchat_cli im +messages-send --chat-id oc_xxx --file ./report.pdf
 
 # Send a video (--video-cover is required as the cover)
-lark-cli im +messages-send --chat-id oc_xxx --video ./demo.mp4 --video-cover ./cover.png
-lark-cli im +messages-send --chat-id oc_xxx --video ./demo.mp4 --video-cover img_xxx
+xfchat_cli im +messages-send --chat-id oc_xxx --video ./demo.mp4 --video-cover ./cover.png
+xfchat_cli im +messages-send --chat-id oc_xxx --video ./demo.mp4 --video-cover img_xxx
 
 # Send audio
-lark-cli im +messages-send --chat-id oc_xxx --audio ./voice.opus
+xfchat_cli im +messages-send --chat-id oc_xxx --audio ./voice.opus
 
 # Use an idempotency key (same key sends only once within 1 hour)
-lark-cli im +messages-send --chat-id oc_xxx --text "Hello" --idempotency-key my-unique-id
+xfchat_cli im +messages-send --chat-id oc_xxx --text "Hello" --idempotency-key my-unique-id
 
 # Preview the request without executing it
-lark-cli im +messages-send --chat-id oc_xxx --text "Test" --dry-run
+xfchat_cli im +messages-send --chat-id oc_xxx --text "Test" --dry-run
 ```
 
 ## Parameters

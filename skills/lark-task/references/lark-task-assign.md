@@ -8,13 +8,13 @@ Assign or remove members (assignees) from a task.
 
 ```bash
 # Add an assignee
-lark-cli task +assign --task-id "t_xxx" --add "ou_aaa"
+xfchat_cli task +assign --task-id "t_xxx" --add "ou_aaa"
 
 # Transfer an assignee (remove old, add new)
-lark-cli task +assign --task-id "t_xxx" --remove "ou_old" --add "ou_new"
+xfchat_cli task +assign --task-id "t_xxx" --remove "ou_old" --add "ou_new"
 
 # Add multiple assignees
-lark-cli task +assign --task-id "t_xxx" --add "ou_aaa,ou_bbb"
+xfchat_cli task +assign --task-id "t_xxx" --add "ou_aaa,ou_bbb"
 ```
 
 ## Parameters

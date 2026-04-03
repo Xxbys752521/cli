@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +table-get \
+xfchat_cli base +table-get \
   --base-token app_xxx \
   --table-id tbl_xxx
 ```

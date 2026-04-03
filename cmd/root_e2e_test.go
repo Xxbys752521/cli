@@ -23,7 +23,7 @@ import (
 // subcommands wired to a test factory, simulating the real CLI command tree.
 func buildTestRootCmd(t *testing.T, f *cmdutil.Factory) *cobra.Command {
 	t.Helper()
-	rootCmd := &cobra.Command{Use: "lark-cli"}
+	rootCmd := &cobra.Command{Use: "xfchat_cli"}
 	rootCmd.SilenceErrors = true
 	rootCmd.PersistentPreRun = func(cmd *cobra.Command, args []string) {
 		cmd.SilenceUsage = true
@@ -159,7 +159,7 @@ func TestE2E_Api_PermissionError_NotEnriched(t *testing.T) {
 			Type:    "permission",
 			Code:    99991672,
 			Message: "Permission denied [99991672]",
-			Hint:    "check app permissions or re-authorize: lark-cli auth login",
+			Hint:    "check app permissions or re-authorize: xfchat_cli auth login",
 			Detail: map[string]interface{}{
 				"permission_violations": []interface{}{
 					map[string]interface{}{"subject": "calendar:calendar:readonly"},

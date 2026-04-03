@@ -5,12 +5,12 @@
 ## 前置条件
 
 - 身份： `user`
-- 报告开始时状态： `lark-cli auth status` 显示当前没有已登录 user
+- 报告开始时状态： `xfchat_cli auth status` 显示当前没有已登录 user
 
 ## 测试记录
 
 1. 检查 Minutes 权限
-命令： `lark-cli minutes minutes get --params '{"minute_token":"dummy"}'`
+命令： `xfchat_cli minutes minutes get --params '{"minute_token":"dummy"}'`
 结果： CLI stopped earlier with `insufficient permissions`, required scope `minutes:minutes:readonly`
 
 ## 创建资源

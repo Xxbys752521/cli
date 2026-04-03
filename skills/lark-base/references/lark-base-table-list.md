@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +table-list \
+xfchat_cli base +table-list \
   --base-token app_xxx \
   --offset 0 \
   --limit 50

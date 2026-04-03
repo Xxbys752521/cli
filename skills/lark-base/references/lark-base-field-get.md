@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +field-get \
+xfchat_cli base +field-get \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --field-id fld_xxx

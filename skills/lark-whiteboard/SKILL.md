@@ -5,13 +5,13 @@ description: >
 compatibility: Requires Node.js 18+
 metadata:
   requires:
-    bins: ["lark-cli"]
+    bins: ["xfchat_cli"]
 ---
 
 # Whiteboard Cli Skill
 
 > [!NOTE]
-> **环境依赖**：绘制画板需要 `@larksuite/whiteboard-cli`（画板 Node.js CLI 工具），以及 `lark-cli`（LarkSuite CLI 工具）。
+> **环境依赖**：绘制画板需要 `@larksuite/whiteboard-cli`（画板 Node.js CLI 工具），以及 `xfchat_cli`（LarkSuite CLI 工具）。
 > 如果执行失败，手动安装后重试：`npm install -g @larksuite/whiteboard-cli@^0.1.0`
 
 > [!IMPORTANT]
@@ -137,8 +137,8 @@ npx -y @larksuite/whiteboard-cli@^0.1.0 -i skeleton.json -o ./images/step1.png -
 | 用户给了什么 | 怎么获取 Token |
 |------------|--------------|
 | 画板 Token（`XXX`） | 直接使用 |
-| 文档 URL 或 doc_id，文档中已有画板 | `lark-cli docs +fetch --doc <URL> --as user`，从返回的 `<whiteboard token=”XXX”/>` 中提取 token |
-| 文档 URL 或 doc_id，需要新建画板 | `lark-cli docs +update --doc <doc_id> --mode append --markdown '<whiteboard type=”blank”></whiteboard>' --as user`，从响应的 `data.board_tokens[0]` 获取 token |
+| 文档 URL 或 doc_id，文档中已有画板 | `xfchat_cli docs +fetch --doc <URL> --as user`，从返回的 `<whiteboard token=”XXX”/>` 中提取 token |
+| 文档 URL 或 doc_id，需要新建画板 | `xfchat_cli docs +update --doc <doc_id> --mode append --markdown '<whiteboard type=”blank”></whiteboard>' --as user`，从响应的 `data.board_tokens[0]` 获取 token |
 
 关于飞书文档的创建，读取等更多操作，请参考 lark-doc skill [`../lark-doc/SKILL.md`](../lark-doc/SKILL.md)。
 
@@ -150,7 +150,7 @@ npx -y @larksuite/whiteboard-cli@^0.1.0 -i skeleton.json -o ./images/step1.png -
 > **强制执行 Dry Run（状态探测）**
 > 必须先在命令中添加 `--overwrite --dry-run` 参数来探测画板当前状态。示例命令：
 > ```bash
-> npx -y @larksuite/whiteboard-cli@^0.1.0 --to openapi -i <输入文件> --format json | lark-cli docs +whiteboard-update --whiteboard-token <Token> --overwrite --dry-run --as user
+> npx -y @larksuite/whiteboard-cli@^0.1.0 --to openapi -i <输入文件> --format json | xfchat_cli docs +whiteboard-update --whiteboard-token <Token> --overwrite --dry-run --as user
 > ```
 >
 > **解析结果并拦截**
@@ -161,7 +161,7 @@ npx -y @larksuite/whiteboard-cli@^0.1.0 -i skeleton.json -o ./images/step1.png -
 > - 用户可能会要求你不覆盖更新画板内容，在这种情况下，移除 `--overwrite` 和 `--dry-run` 参数再上传。
 
 ```bash
-npx -y @larksuite/whiteboard-cli@^0.1.0 --to openapi -i <输入文件> --format json | lark-cli docs +whiteboard-update --whiteboard-token <画板Token> --yes --as user
+npx -y @larksuite/whiteboard-cli@^0.1.0 --to openapi -i <输入文件> --format json | xfchat_cli docs +whiteboard-update --whiteboard-token <画板Token> --yes --as user
 ```
 > 画板一经上传不可修改。如需应用身份上传，将 `--as user` 替换为 `--as bot`。
 > 如果画板非空，先加 `--overwrite --dry-run` 检查待删除节点数，向用户确认后去掉 `--dry-run` 执行。

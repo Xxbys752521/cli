@@ -8,7 +8,7 @@
 
 ```bash
 # 停用高级权限
-lark-cli base +advperm-disable \
+xfchat_cli base +advperm-disable \
   --base-token VwGhbYCXQaYGMzsWlEZcBbfMnod
 ```
 

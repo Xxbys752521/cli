@@ -16,7 +16,7 @@ var SheetFind = common.Shortcut{
 	Command:     "+find",
 	Description: "Find cells in a spreadsheet",
 	Risk:        "read",
-	Scopes:      []string{"sheets:spreadsheet:read"},
+	Scopes:      []string{"sheets:spreadsheet:readonly"},
 	AuthTypes:   []string{"user", "bot"},
 	Flags: []common.Flag{
 		{Name: "url", Desc: "spreadsheet URL"},

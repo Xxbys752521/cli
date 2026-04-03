@@ -8,28 +8,28 @@
 
 ```bash
 # 更新表单名称
-lark-cli base +form-update \
+xfchat_cli base +form-update \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \
   --name "新表单名称"
 
 # 更新描述（纯文本）
-lark-cli base +form-update \
+xfchat_cli base +form-update \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \
   --description "新的描述内容"
 
 # 更新描述（含链接）
-lark-cli base +form-update \
+xfchat_cli base +form-update \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \
   --description "新描述，[了解更多](https://example.com)"
 
 # 同时更新名称和描述
-lark-cli base +form-update \
+xfchat_cli base +form-update \
   --base-token <base_token> \
   --table-id <table_id> \
   --form-id <form_id> \

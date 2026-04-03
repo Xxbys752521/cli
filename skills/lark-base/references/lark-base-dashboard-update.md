@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +dashboard-update \
+xfchat_cli base +dashboard-update \
   --base-token VwGhb**************fMnod \
   --dashboard-id dshxxxxxxx \
   --name "新名称" \

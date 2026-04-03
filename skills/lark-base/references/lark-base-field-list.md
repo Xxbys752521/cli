@@ -7,7 +7,7 @@
 ## 推荐命令
 
 ```bash
-lark-cli base +field-list \
+xfchat_cli base +field-list \
   --base-token app_xxx \
   --table-id tbl_xxx \
   --offset 0 \

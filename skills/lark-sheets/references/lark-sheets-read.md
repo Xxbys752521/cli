@@ -3,7 +3,7 @@
 
 > **前置条件：** 先阅读 [`../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) 了解认证、全局参数和安全规则。
 
-本 skill 对应 shortcut：`lark-cli sheets +read`。
+本 skill 对应 shortcut：`xfchat_cli sheets +read`。
 
 内置能力：
 
@@ -16,24 +16,24 @@
 
 ```bash
 # 读取指定范围（推荐）
-lark-cli sheets +read --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
+xfchat_cli sheets +read --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
   --range "<sheetId>!A1:H20"
 
 # 配合 --sheet-id，可直接写相对范围或单个单元格
-lark-cli sheets +read --spreadsheet-token "shtxxxxxxxx" \
+xfchat_cli sheets +read --spreadsheet-token "shtxxxxxxxx" \
   --sheet-id "<sheetId>" --range "C2"
 
 # 仅指定工作表（不含 A1:D10），读取整个工作表（仍会做 200 行截断）
-lark-cli sheets +read --spreadsheet-token "shtxxxxxxxx" --range "<sheetId>"
+xfchat_cli sheets +read --spreadsheet-token "shtxxxxxxxx" --range "<sheetId>"
 
 # 不指定 range：读取 --sheet-id 对应工作表；再不指定则读取第一个工作表
-lark-cli sheets +read --spreadsheet-token "shtxxxxxxxx" --sheet-id "<sheetId>"
+xfchat_cli sheets +read --spreadsheet-token "shtxxxxxxxx" --sheet-id "<sheetId>"
 
 # 控制值渲染方式
-lark-cli sheets +read --url "https://..." --range "<sheetId>!A1:D10" --value-render-option Formula
+xfchat_cli sheets +read --url "https://..." --range "<sheetId>!A1:D10" --value-render-option Formula
 
 # 仅预览参数（不发请求）
-lark-cli sheets +read --url "https://..." --range "<sheetId>!A1:D10" --dry-run
+xfchat_cli sheets +read --url "https://..." --range "<sheetId>!A1:D10" --dry-run
 ```
 
 ## 参数

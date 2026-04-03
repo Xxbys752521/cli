@@ -3,7 +3,7 @@
 
 > **前置条件：** 先阅读 [`../lark-shared/SKILL.md`](../../lark-shared/SKILL.md) 了解认证、全局参数和安全规则。
 
-本 skill 对应 shortcut：`lark-cli sheets +write`。
+本 skill 对应 shortcut：`xfchat_cli sheets +write`。
 
 - `--values` 必须是二维数组 JSON
 - 内置尺寸校验：最多 5000 行、每行最多 100 列
@@ -17,22 +17,22 @@
 
 ```bash
 # 覆盖写入一个矩形区域
-lark-cli sheets +write --spreadsheet-token "shtxxxxxxxx" \
+xfchat_cli sheets +write --spreadsheet-token "shtxxxxxxxx" \
   --range "<sheetId>!A1:B2" \
   --values '[["name","age"],["alice",18]]'
 
 # 已有 --sheet-id 时，可直接写相对范围
-lark-cli sheets +write --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
+xfchat_cli sheets +write --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
   --sheet-id "<sheetId>" --range "C2" \
   --values '[["hello"]]'
 
 # 只给 sheetId：会从 A1 开始，按 values 尺寸自动展开
-lark-cli sheets +write --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
+xfchat_cli sheets +write --url "https://example.larksuite.com/sheets/shtxxxxxxxx" \
   --range "<sheetId>" \
   --values '[["hello","world"]]'
 
 # 仅预览参数（不发请求）
-lark-cli sheets +write --spreadsheet-token "shtxxxxxxxx" --range "<sheetId>!A1:B2" \
+xfchat_cli sheets +write --spreadsheet-token "shtxxxxxxxx" --range "<sheetId>!A1:B2" \
   --values '[["name","age"],["alice",18]]' --dry-run
 ```
 

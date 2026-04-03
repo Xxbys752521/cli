@@ -4,8 +4,8 @@ version: 1.0.0
 description: "飞书云空间：管理云空间中的文件和文件夹。上传和下载文件、创建文件夹、复制/移动/删除文件、查看文件元数据、管理文档评论、管理文档权限、订阅用户评论变更事件。当用户需要上传或下载文件、整理云空间目录、查看文件详情、管理评论、管理文档权限、订阅用户评论变更事件时使用。"
 metadata:
   requires:
-    bins: ["lark-cli"]
-  cliHelp: "lark-cli drive --help"
+    bins: ["xfchat_cli"]
+  cliHelp: "xfchat_cli drive --help"
 ---
 
 # drive (v1)
@@ -36,7 +36,7 @@ metadata:
 
 1. **使用 `wiki.spaces.get_node` 查询节点信息**
    ```bash
-   lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+   xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
    ```
 
 2. **从返回结果中提取关键信息**
@@ -60,7 +60,7 @@ metadata:
 
 ```bash
 # 查询 wiki 节点
-lark-cli wiki spaces get_node --params '{"token":"wiki_token"}'
+xfchat_cli wiki spaces get_node --params '{"token":"wiki_token"}'
 ```
 
 返回结果示例：
@@ -115,7 +115,7 @@ Drive Folder (云空间文件夹)
 - 局部评论：传 `--selection-with-ellipsis` 或 `--block-id` 时启用；仅支持 `docx`，以及最终解析为 `docx` 的 wiki URL。
 - `drive +add-comment` 的 `--content` 需要传 `reply_elements` JSON 数组字符串，例如 `--content '[{"type":"text","text":"正文"}]'`。
 - 如果 wiki 解析后不是 `doc`/`docx`，不要用 `+add-comment`。
-- 如果需要更底层地直接调用评论 V2 协议，再走原生 API：先执行 `lark-cli schema drive.file.comments.create_v2`，再执行 `lark-cli drive file.comments create_v2 ...`。全文评论省略 `anchor`，局部评论传 `anchor.block_id`。
+- 如果需要更底层地直接调用评论 V2 协议，再走原生 API：先执行 `xfchat_cli schema drive.file.comments.create_v2`，再执行 `xfchat_cli drive file.comments create_v2 ...`。全文评论省略 `anchor`，局部评论传 `anchor.block_id`。
 
 ### 评论查询与统计口径（关键！）
 
@@ -157,7 +157,7 @@ Drive Folder (云空间文件夹)
 
 ## Shortcuts（推荐优先使用）
 
-Shortcut 是对常用操作的高级封装（`lark-cli drive +<verb> [flags]`）。有 Shortcut 的操作优先使用。
+Shortcut 是对常用操作的高级封装（`xfchat_cli drive +<verb> [flags]`）。有 Shortcut 的操作优先使用。
 
 | Shortcut | 说明 |
 |----------|------|
@@ -168,8 +168,8 @@ Shortcut 是对常用操作的高级封装（`lark-cli drive +<verb> [flags]`）
 ## API Resources
 
 ```bash
-lark-cli schema drive.<resource>.<method>   # 调用 API 前必须先查看参数结构
-lark-cli drive <resource> <method> [flags] # 调用 API
+xfchat_cli schema drive.<resource>.<method>   # 调用 API 前必须先查看参数结构
+xfchat_cli drive <resource> <method> [flags] # 调用 API
 ```
 
 > **重要**：使用原生 API 时，必须先运行 `schema` 查看 `--data` / `--params` 参数结构，不要猜测字段格式。

@@ -1,18 +1,18 @@
 ---
 name: lark-base
 version: 1.2.0
-description: "当需要用 lark-cli 操作飞书多维表格（Base）时调用：适用于建表、字段管理、记录读写、视图配置、历史查询，以及角色/表单/仪表盘管理；也适用于把旧的 +table / +field / +record 写法改成当前命令写法。涉及字段设计、公式字段、查找引用、跨表计算、行级派生指标、数据分析需求时也必须使用本 skill。"
+description: "当需要用 xfchat_cli 操作飞书多维表格（Base）时调用：适用于建表、字段管理、记录读写、视图配置、历史查询，以及角色/表单/仪表盘管理；也适用于把旧的 +table / +field / +record 写法改成当前命令写法。涉及字段设计、公式字段、查找引用、跨表计算、行级派生指标、数据分析需求时也必须使用本 skill。"
 metadata:
   requires:
-    bins: ["lark-cli"]
-  cliHelp: "lark-cli base --help"
+    bins: ["xfchat_cli"]
+  cliHelp: "xfchat_cli base --help"
 ---
 
 # base
 
 > **前置条件：** 先阅读 [`../lark-shared/SKILL.md`](../lark-shared/SKILL.md)。
 > **执行前必做：** 执行任何 `base` 命令前，必须先阅读对应命令的 reference 文档，再调用命令。
-> **命名约定：** 仅使用 `lark-cli base +...` 形式的命令。
+> **命名约定：** 仅使用 `xfchat_cli base +...` 形式的命令。
 
 ## Agent 快速执行顺序
 
@@ -37,8 +37,8 @@ metadata:
 - 不要没读 guide 就直接创建 formula / lookup 字段
 - 不要凭自然语言猜表名、字段名、公式表达式里的字段引用
 - 不要把系统字段、formula 字段、lookup 字段当成 `+record-upsert` 的写入目标
-- 不要在 Base 场景改走 `lark-cli api GET /open-apis/bitable/v1/...`
-- 不要因为 wiki 解析结果里的 `obj_type=bitable` 就去找 `bitable.*`；在本 CLI 里应继续使用 `lark-cli base +...`
+- 不要在 Base 场景改走 `xfchat_cli api GET /open-apis/bitable/v1/...`
+- 不要因为 wiki 解析结果里的 `obj_type=bitable` 就去找 `bitable.*`；在本 CLI 里应继续使用 `xfchat_cli base +...`
 
 ## Base 基本心智模型
 
@@ -123,32 +123,32 @@ metadata:
 
 | 意图 | 推荐命令 | 备注 |
 |------|---------|------|
-| 列表 / 获取数据表 | `lark-cli base +table-list` / `+table-get` | 原子命令 |
-| 创建 / 更新 / 删除数据表 | `lark-cli base +table-create` / `+table-update` / `+table-delete` | 一命令一动作 |
-| 列表 / 获取字段 | `lark-cli base +field-list` / `+field-get` | 原子命令 |
-| 创建 / 更新字段 | `lark-cli base +field-create` / `+field-update` | 使用 `--json` |
-| 创建 / 更新公式字段 | `lark-cli base +field-create` / `+field-update` | `type=formula`；先读 formula guide，再创建 / 更新 |
-| 创建 / 更新 lookup 字段 | `lark-cli base +field-create` / `+field-update` | `type=lookup`；先读 lookup guide，再创建 / 更新，默认先判断 formula 是否更合适 |
-| 列表 / 获取记录 | `lark-cli base +record-list` / `+record-get` | 原子命令，如果需要`聚合计算`，`分组统计` 推荐走 `+data-query` |
-| 创建 / 更新记录 | `lark-cli base +record-upsert` | `--table-id [--record-id] --json` |
-| 聚合分析 / 比较排序 / 求最值 / 筛选统计 | `lark-cli base +data-query` | 不要用 `+record-list` 拉全量数据再手动计算，需使用 `+data-query` 走服务端计算 |
-| 配置 / 查询视图 | `lark-cli base +view-*` | `list/get/create/delete/get-*/set-*/rename` |
-| 查看记录历史 | `lark-cli base +record-history-list` | 按表和记录查询变更历史 |
-| 按视图筛选查询 | `lark-cli base +view-set-filter` + `lark-cli base +record-list` | 组合调用 |
-| 创建 / 获取 / 复制 Base | `lark-cli base +base-create` / `+base-get` / `+base-copy` | 原子命令 |
-| 列表 / 获取工作流 | `lark-cli base +workflow-list` / `+workflow-get` | 原子命令 |
-| 创建 / 更新工作流 | `lark-cli base +workflow-create` / `+workflow-update` | 使用 `--json`，必须阅读 schema |
-| 启用 / 停用工作流 | `lark-cli base +workflow-enable` / `+workflow-disable` | 一命令一动作 |
-| 启用 / 停用高级权限 | `lark-cli base +advperm-enable` / `+advperm-disable` | 启用后才能使用自定义角色；停用会使已有角色失效 |
-| 列表 / 获取角色 | `lark-cli base +role-list / +role-get` | 查看角色摘要或完整配置 |
-| 创建 / 更新 / 删除角色 | `lark-cli base +role-create / +role-update / +role-delete` | 管理自定义角色权限 |
-| 列表 / 获取表单 | `lark-cli base +form-list` / `+form-get` | 原子命令 |
-| 创建 / 更新 / 删除表单 | `lark-cli base +form-create` / `+form-update` / `+form-delete` | 一命令一动作 |
-| 列表 / 创建 / 更新 / 删除表单问题 | `lark-cli base +form-questions-list` / `+form-questions-create` / `+form-questions-update` / `+form-questions-delete` | 一命令一动作 |
-| 列表 / 获取仪表盘 | `lark-cli base +dashboard-list` / `+dashboard-get` | 原子命令 |
-| 创建 / 更新 / 删除仪表盘 | `lark-cli base +dashboard-create` / `+dashboard-update` / `+dashboard-delete` | 一命令一动作 |
-| 列表 / 获取仪表盘 Block | `lark-cli base +dashboard-block-list` / `+dashboard-block-get` | 原子命令 |
-| 创建 / 更新 / 删除仪表盘 Block | `lark-cli base +dashboard-block-create` / `+dashboard-block-update` / `+dashboard-block-delete` | 一命令一动作 |
+| 列表 / 获取数据表 | `xfchat_cli base +table-list` / `+table-get` | 原子命令 |
+| 创建 / 更新 / 删除数据表 | `xfchat_cli base +table-create` / `+table-update` / `+table-delete` | 一命令一动作 |
+| 列表 / 获取字段 | `xfchat_cli base +field-list` / `+field-get` | 原子命令 |
+| 创建 / 更新字段 | `xfchat_cli base +field-create` / `+field-update` | 使用 `--json` |
+| 创建 / 更新公式字段 | `xfchat_cli base +field-create` / `+field-update` | `type=formula`；先读 formula guide，再创建 / 更新 |
+| 创建 / 更新 lookup 字段 | `xfchat_cli base +field-create` / `+field-update` | `type=lookup`；先读 lookup guide，再创建 / 更新，默认先判断 formula 是否更合适 |
+| 列表 / 获取记录 | `xfchat_cli base +record-list` / `+record-get` | 原子命令，如果需要`聚合计算`，`分组统计` 推荐走 `+data-query` |
+| 创建 / 更新记录 | `xfchat_cli base +record-upsert` | `--table-id [--record-id] --json` |
+| 聚合分析 / 比较排序 / 求最值 / 筛选统计 | `xfchat_cli base +data-query` | 不要用 `+record-list` 拉全量数据再手动计算，需使用 `+data-query` 走服务端计算 |
+| 配置 / 查询视图 | `xfchat_cli base +view-*` | `list/get/create/delete/get-*/set-*/rename` |
+| 查看记录历史 | `xfchat_cli base +record-history-list` | 按表和记录查询变更历史 |
+| 按视图筛选查询 | `xfchat_cli base +view-set-filter` + `xfchat_cli base +record-list` | 组合调用 |
+| 创建 / 获取 / 复制 Base | `xfchat_cli base +base-create` / `+base-get` / `+base-copy` | 原子命令 |
+| 列表 / 获取工作流 | `xfchat_cli base +workflow-list` / `+workflow-get` | 原子命令 |
+| 创建 / 更新工作流 | `xfchat_cli base +workflow-create` / `+workflow-update` | 使用 `--json`，必须阅读 schema |
+| 启用 / 停用工作流 | `xfchat_cli base +workflow-enable` / `+workflow-disable` | 一命令一动作 |
+| 启用 / 停用高级权限 | `xfchat_cli base +advperm-enable` / `+advperm-disable` | 启用后才能使用自定义角色；停用会使已有角色失效 |
+| 列表 / 获取角色 | `xfchat_cli base +role-list / +role-get` | 查看角色摘要或完整配置 |
+| 创建 / 更新 / 删除角色 | `xfchat_cli base +role-create / +role-update / +role-delete` | 管理自定义角色权限 |
+| 列表 / 获取表单 | `xfchat_cli base +form-list` / `+form-get` | 原子命令 |
+| 创建 / 更新 / 删除表单 | `xfchat_cli base +form-create` / `+form-update` / `+form-delete` | 一命令一动作 |
+| 列表 / 创建 / 更新 / 删除表单问题 | `xfchat_cli base +form-questions-list` / `+form-questions-create` / `+form-questions-update` / `+form-questions-delete` | 一命令一动作 |
+| 列表 / 获取仪表盘 | `xfchat_cli base +dashboard-list` / `+dashboard-get` | 原子命令 |
+| 创建 / 更新 / 删除仪表盘 | `xfchat_cli base +dashboard-create` / `+dashboard-update` / `+dashboard-delete` | 一命令一动作 |
+| 列表 / 获取仪表盘 Block | `xfchat_cli base +dashboard-block-list` / `+dashboard-block-get` | 原子命令 |
+| 创建 / 更新 / 删除仪表盘 Block | `xfchat_cli base +dashboard-block-create` / `+dashboard-block-update` / `+dashboard-block-delete` | 一命令一动作 |
 
 
 ## 操作注意事项
@@ -184,7 +184,7 @@ metadata:
 
 1. **使用 `wiki.spaces.get_node` 查询节点信息**
    ```bash
-   lark-cli wiki spaces get_node --params '{"token":"&lt;wiki_token&gt;"}'
+   xfchat_cli wiki spaces get_node --params '{"token":"&lt;wiki_token&gt;"}'
    ```
 
 2. **从返回结果中提取关键信息**
@@ -199,7 +199,7 @@ metadata:
    | `docx` | 新版云文档 | `drive file.comments.*`、`docx.*` |
    | `doc` | 旧版云文档 | `drive file.comments.*` |
    | `sheet` | 电子表格 | `sheets.*` |
-   | `bitable` | 多维表格 | `lark-cli base +...`（优先）；如果 shortcut 不覆盖，再用 `lark-cli base <resource> <method>`；**不要**改走 `lark-cli api /open-apis/bitable/v1/...` |
+   | `bitable` | 多维表格 | `xfchat_cli base +...`（优先）；如果 shortcut 不覆盖，再用 `xfchat_cli base <resource> <method>`；**不要**改走 `xfchat_cli api /open-apis/bitable/v1/...` |
    | `slides` | 幻灯片 | `drive.*` |
    | `file` | 文件 | `drive.*` |
    | `mindnote` | 思维导图 | `drive.*` |
@@ -210,13 +210,13 @@ metadata:
 
 5. **如果已经报了 token 错，再回退检查 wiki**
    - 如果命令返回 `param baseToken is invalid`、`base_token invalid`、`not found`，并且用户最初给的是 `/wiki/...` 链接或 `wiki_token`，优先怀疑“把 wiki token 当成了 base token”。
-   - 这时不要改走 `bitable/v1` API；应立即重新执行 `lark-cli wiki spaces get_node`，确认 `obj_type=bitable` 后，改用 `node.obj_token` 重新执行 `lark-cli base +...`。
+   - 这时不要改走 `bitable/v1` API；应立即重新执行 `xfchat_cli wiki spaces get_node`，确认 `obj_type=bitable` 后，改用 `node.obj_token` 重新执行 `xfchat_cli base +...`。
 
 ### 查询示例
 
 ```bash
 # 查询 wiki 节点
-lark-cli wiki spaces get_node --params '{"token":"Pgrr***************UnRb"}'
+xfchat_cli wiki spaces get_node --params '{"token":"Pgrr***************UnRb"}'
 ```
 
 返回结果示例：
@@ -257,7 +257,7 @@ https://{domain}/base/{base-token}?table={table-id}&view={view-id}
 | 1254066 | 人员字段错误 | 用 `[{id:"ou_xxx"}]`，并确认 `user_id_type` |
 | 1254045 | 字段名不存在 | 检查字段名（含空格、大小写） |
 | 1254015 | 字段值类型不匹配 | 先 `+field-list`，再按类型构造 |
-| `param baseToken is invalid` / `base_token invalid` | 把 wiki token、workspace token 或其他 token 当成了 `base_token` | 如果输入来自 `/wiki/...`，先用 `lark-cli wiki spaces get_node` 取真实 `obj_token`；当 `obj_type=bitable` 时，用 `node.obj_token` 作为 `--base-token` 重试，不要改走 `bitable/v1` |
+| `param baseToken is invalid` / `base_token invalid` | 把 wiki token、workspace token 或其他 token 当成了 `base_token` | 如果输入来自 `/wiki/...`，先用 `xfchat_cli wiki spaces get_node` 取真实 `obj_token`；当 `obj_type=bitable` 时，用 `node.obj_token` 作为 `--base-token` 重试，不要改走 `bitable/v1` |
 | formula / lookup 创建失败 | 指南未读或结构不合法 | 先读 `formula-field-guide.md` / `lookup-field-guide.md`，再按 guide 重建请求 |
 | 系统字段 / 公式字段写入失败 | 只读字段被当成可写字段 | 改为写存储字段，计算结果交给 formula / lookup / 系统字段自动产出 |
 | 1254104 | 批量超 500 条 | 分批调用 |

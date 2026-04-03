@@ -9,13 +9,13 @@ Manage task reminders. Set new reminders or remove existing ones.
 
 ```bash
 # Set a reminder (e.g., 30 minutes before due)
-lark-cli task +reminder --task-id "t_xxx" --set "30"
+xfchat_cli task +reminder --task-id "t_xxx" --set "30"
 
 # Set a reminder (e.g., 1 hour before due)
-lark-cli task +reminder --task-id "t_xxx" --set "1h"
+xfchat_cli task +reminder --task-id "t_xxx" --set "1h"
 
 # Remove all reminders
-lark-cli task +reminder --task-id "t_xxx" --remove "true"
+xfchat_cli task +reminder --task-id "t_xxx" --remove "true"
 ```
 
 ## Parameters
